@@ -41,5 +41,14 @@ class MemberServiceTest {
 
     @Test
     void deleteMember() {
+        //given
+        Member member = new Member();
+        Long joinedMemberId = memberService.join(member);
+
+        //when
+        memberService.deleteMember(memberRepository.findById(joinedMemberId).get());
+
+        //then
+        Assertions.assertThat(memberRepository.findById(joinedMemberId).get().getOutDate()).isNotNull();
     }
 }

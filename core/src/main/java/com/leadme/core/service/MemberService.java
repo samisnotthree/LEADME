@@ -32,5 +32,6 @@ public class MemberService {
     @Transactional
     public void deleteMember(Member member) {
         member.setOutDate(LocalDateTime.now());
+
     }
 }
