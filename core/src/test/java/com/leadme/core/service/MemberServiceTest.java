@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -35,7 +36,7 @@ class MemberServiceTest {
         Member foundMember = memberRepository.findById(memberId).get();
 
         //then
-        Assertions.assertThat(foundMember.getName()).isEqualTo("testName");
+        assertThat(foundMember.getName()).isEqualTo("testName");
     }
 
 
@@ -49,6 +50,6 @@ class MemberServiceTest {
         memberService.deleteMember(memberRepository.findById(joinedMemberId).get());
 
         //then
-        Assertions.assertThat(memberRepository.findById(joinedMemberId).get().getOutDate()).isNotNull();
+        assertThat(memberRepository.findById(joinedMemberId).get().getOutDate()).isNotNull();
     }
 }
