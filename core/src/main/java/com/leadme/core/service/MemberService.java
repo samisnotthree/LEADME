@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,5 +27,10 @@ public class MemberService {
     public boolean validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
         return findMembers.isEmpty();
+    }
+
+    @Transactional
+    public void deleteMember(Member member) {
+        member.setOutDate(LocalDateTime.now());
     }
 }
