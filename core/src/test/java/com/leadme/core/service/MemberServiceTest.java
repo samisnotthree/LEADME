@@ -36,6 +36,7 @@ class MemberServiceTest {
     }
 
 
+    //TODO
     @Test
     void deleteMember() {
         //given
