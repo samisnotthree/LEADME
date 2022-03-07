@@ -4,8 +4,8 @@
 - Spring Boot
 - JPA
 - MariaDB
-- H2 Database(Test)
+- H2 Database(테스트)
 - JUnit5
-- Thymeleaf(provisional)
+- Thymeleaf(임시)
 
 ![LEADME](https://user-images.githubusercontent.com/85722378/156757860-684b0f25-97cf-4a18-8c7b-f679e17a9351.png)
