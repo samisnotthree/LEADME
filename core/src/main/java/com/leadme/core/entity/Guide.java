@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +22,10 @@ public class Guide {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "guide")
+    private List<GuideHashtag> guideHashtags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "guide")
+    private List<Prog> progs = new ArrayList<>();
 }
