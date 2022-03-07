@@ -37,8 +37,6 @@ class MemberServiceTest {
         assertThat(foundMember.getName()).isEqualTo("testName");
     }
 
-
-    //TODO
     @Test
     @DisplayName("사용자 삭제")
     void deleteMember() {
