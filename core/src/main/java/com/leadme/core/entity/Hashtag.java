@@ -16,6 +16,6 @@ public class Hashtag {
 
     private String name;
 
-    @OneToMany(mappedBy = "hashTag")
+    @OneToMany(mappedBy = "hashtag")
     private List<GuideHashtag> guideHashtag = new ArrayList<>();
 }

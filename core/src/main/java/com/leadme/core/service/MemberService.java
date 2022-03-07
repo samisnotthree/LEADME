@@ -30,8 +30,8 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMember(Member member) {
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).get();
         member.setOutDate(LocalDateTime.now());
-
     }
 }

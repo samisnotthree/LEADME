@@ -2,6 +2,7 @@ package com.leadme.core.service;
 
 import com.leadme.core.entity.Member;
 import com.leadme.core.repository.MemberRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ class MemberServiceTest {
     @Autowired MemberRepository memberRepository;
 
     @Test
+    @DisplayName("사용자 등록")
     void join() {
         // case
         Member member = new Member();
@@ -38,13 +40,14 @@ class MemberServiceTest {
 
     //TODO
     @Test
+    @DisplayName("사용자 삭제")
     void deleteMember() {
         //given
         Member member = new Member();
         Long joinedMemberId = memberService.join(member);
 
         //when
-        memberService.deleteMember(memberRepository.findById(joinedMemberId).get());
+        memberService.deleteMember(joinedMemberId);
 
         //then
         assertThat(memberRepository.findById(joinedMemberId).get().getOutDate()).isNotNull();
