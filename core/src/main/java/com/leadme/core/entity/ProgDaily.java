@@ -13,5 +13,5 @@ public class ProgDaily {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "prog_id")
-    private ProgMain progMain;
+    private Prog prog;
 }

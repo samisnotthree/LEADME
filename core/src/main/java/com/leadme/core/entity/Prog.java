@@ -3,7 +3,7 @@ package com.leadme.core.entity;
 import javax.persistence.*;
 
 @Entity
-public class ProgMain {
+public class Prog {
     @Id
     @GeneratedValue
     private Long progId;
