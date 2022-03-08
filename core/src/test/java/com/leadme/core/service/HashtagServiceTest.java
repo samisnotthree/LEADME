@@ -49,7 +49,6 @@ class HashtagServiceTest {
         // when
         Hashtag savedHashtag = hashtagRepository.save(hashtag);
         hashtagRepository.delete(savedHashtag);
-        System.out.println("@@@@");
         //Hashtag hashtag1 = hashtagRepository.findById(1L).get();
 
         // then
