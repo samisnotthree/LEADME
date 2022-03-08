@@ -11,11 +11,13 @@ public class Orders {
     @GeneratedValue
     private Long orderId;
     private Long price;
-    private Status status;
     private String payment;
     private LocalDateTime orderDate;
     private LocalDateTime payDate;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
