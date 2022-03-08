@@ -16,6 +16,7 @@ public class HashtagService {
 
     private final HashtagRepository hashtagRepository;
 
+    @Transactional
     private Long save(Hashtag hashtag) {
         if (!validateDuplicateHashtag(hashtag)) {
             throw new IllegalStateException("이미 존재하는 해시태그입니다.");
@@ -26,5 +27,10 @@ public class HashtagService {
     public boolean validateDuplicateHashtag(Hashtag hashtag) {
         List<Hashtag> findHashtags = hashtagRepository.findByName(hashtag.getName());
         return findHashtags.isEmpty();
+    }
+
+    @Transactional
+    public void delete(Hashtag hashtag) {
+        hashtagRepository.delete(hashtag);
     }
 }
