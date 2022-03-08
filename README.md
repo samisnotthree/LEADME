@@ -12,3 +12,4 @@
 
 
 무턱대고 양방향 연관관계를 다 맺었는데 추후 제거할 것들 제거하기!
+![image](https://user-images.githubusercontent.com/85722378/157228634-6f864364-e932-467b-a5a1-025e28c9d620.png)
