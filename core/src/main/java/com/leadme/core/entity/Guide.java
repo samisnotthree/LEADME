@@ -23,9 +23,4 @@ public class Guide {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "guide")
-    private List<GuideHashtag> guideHashtags = new ArrayList<>();
-
-    @OneToMany(mappedBy = "guide")
-    private List<Prog> progs = new ArrayList<>();
 }
