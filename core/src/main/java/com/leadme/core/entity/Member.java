@@ -24,9 +24,4 @@ public class Member {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-    private Guide guide;
-
-    @OneToMany(mappedBy = "member")
-    private List<Orders> orders = new ArrayList<>();
 }
