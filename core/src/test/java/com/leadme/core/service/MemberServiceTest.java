@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MemberServiceTest {
@@ -30,7 +29,7 @@ class MemberServiceTest {
         member.setInDate(LocalDateTime.now());
 
         // when
-        Long memberId = memberService.join(member);
+        Long memberId = memberService.joinMember(member);
         Member foundMember = memberRepository.findById(memberId).get();
 
         //then
@@ -42,7 +41,7 @@ class MemberServiceTest {
     void deleteMember() {
         //given
         Member member = new Member();
-        Long joinedMemberId = memberService.join(member);
+        Long joinedMemberId = memberService.joinMember(member);
 
         //when
         memberService.deleteMember(joinedMemberId);
