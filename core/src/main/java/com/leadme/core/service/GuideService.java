@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -29,5 +31,8 @@ public class GuideService {
         return !guideRepository.findByMember(member).isEmpty();
     }
 
-
+    public void deleteGuide(Long guideId) {
+        Guide foundGuide = guideRepository.findById(guideId).get();
+        foundGuide.setOutDate(LocalDateTime.now());
+    }
 }

@@ -1,6 +1,7 @@
 package com.leadme.core.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class Guide {
 
     private String desc;
     private LocalDateTime inDate;
+    @Setter
     private LocalDateTime outDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

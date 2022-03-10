@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Member {
 
     @Id
@@ -22,6 +22,7 @@ public class Member {
     private String phone;
     private String photo;
     private LocalDateTime inDate;
+    @Setter
     private LocalDateTime outDate;
 
 }
