@@ -23,4 +23,8 @@ public class Guide {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private void changeMember(Member member) {
+        this.member = member;
+        member.getGuide().add(this);
+    }
 }
