@@ -3,11 +3,13 @@ package com.leadme.core.service;
 import com.leadme.core.entity.Guide;
 import com.leadme.core.entity.Member;
 import com.leadme.core.repository.GuideRepository;
+import com.leadme.core.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,12 +17,24 @@ import java.time.LocalDateTime;
 public class GuideService {
 
     private final GuideRepository guideRepository;
+    private final MemberRepository memberRepository;
 
     /**
      *  가이드 등록
      */
     @Transactional
-    public Long joinGuide(Guide guide) {
+    public Long joinGuide(Long memberId, String desc) {
+        Member member = memberRepository.findById(memberId).get();
+
+        if (isJoinedGuide(member)) {
+            throw new IllegalStateException("이미 가이드로 등록되어 있습니다.");
+        }
+
+        Guide guide = new Guide();
+        guide.setInDate(LocalDateTime.now());
+        guide.setDesc(desc);
+        guide.setMember(member);
+
         return guideRepository.save(guide).getGuideId();
     }
 

@@ -24,6 +24,7 @@ public class MemberService {
         if (!validateDuplicateMember(member)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+        member.setInDate(LocalDateTime.now());
         return memberRepository.save(member).getMemberId();
     }
 

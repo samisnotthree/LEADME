@@ -21,8 +21,16 @@ public class Member {
     private String pass;
     private String phone;
     private String photo;
+    @Setter
     private LocalDateTime inDate;
     @Setter
     private LocalDateTime outDate;
 
+    @OneToOne(mappedBy = "member")
+    private Guide guide;
+
+    public void changeGuide(Guide guide) {
+        this.guide = guide;
+        guide.setMember(this);
+    }
 }
