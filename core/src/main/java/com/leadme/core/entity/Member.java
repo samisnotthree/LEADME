@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Member {
 
     @Id
@@ -21,9 +21,7 @@ public class Member {
     private String pass;
     private String phone;
     private String photo;
-    @Setter
     private LocalDateTime inDate;
-    @Setter
     private LocalDateTime outDate;
 
     @OneToOne(mappedBy = "member")
