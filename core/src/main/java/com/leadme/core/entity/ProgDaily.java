@@ -16,7 +16,4 @@ public class ProgDaily {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "prog_id")
     private Prog prog;
-
-    @OneToMany(mappedBy = "progDaily")
-    private List<Orders> orders = new ArrayList<>();
 }
