@@ -1,6 +1,6 @@
 package com.leadme.core.entity;
 
-import com.leadme.core.entity.orders.Status;
+import com.leadme.core.entity.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class Orders {
     private LocalDateTime payDate;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private OrderStatus status;
     
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
