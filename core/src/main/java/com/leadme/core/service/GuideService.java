@@ -45,6 +45,7 @@ public class GuideService {
         return !guideRepository.findByMember(member).isEmpty();
     }
 
+    @Transactional
     public void deleteGuide(Long guideId) {
         Guide foundGuide = guideRepository.findById(guideId).get();
         foundGuide.setOutDate(LocalDateTime.now());
