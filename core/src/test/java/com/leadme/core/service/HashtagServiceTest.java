@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +21,7 @@ class HashtagServiceTest {
 
     @Autowired
     HashtagRepository hashtagRepository;
+    @Autowired HashtagService hashtagService;
 
 
     @Test
@@ -30,12 +33,11 @@ class HashtagServiceTest {
         hashtag.setName("서울");
 
         // when
-        Hashtag savedHashtag = hashtagRepository.save(hashtag);
-        Hashtag hashtag1 = hashtagRepository.findById(1L).get();
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        Hashtag hashtag1 = hashtagRepository.findById(addedHashtagId).get();
 
         // then
-        assertThat(savedHashtag.getName()).isEqualTo("서울");
-        assertThat(hashtag1).isEqualTo(savedHashtag);
+        assertThat(hashtag1).isSameAs(hashtag);
     }
 
     @Test
@@ -47,14 +49,19 @@ class HashtagServiceTest {
         hashtag.setName("서울");
 
         // when
-        Hashtag savedHashtag = hashtagRepository.save(hashtag);
-        hashtagRepository.delete(savedHashtag);
-        //Hashtag hashtag1 = hashtagRepository.findById(1L).get();
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        Hashtag foundHashtag = hashtagRepository.findById(addedHashtagId).get();
+
+        hashtagService.deleteHashtag(foundHashtag);
+
+        Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
 
         // then
         // 좋은 테스트가 아님
-        org.junit.jupiter.api.Assertions.assertThrows(NoSuchElementException.class, () -> {
-            hashtagRepository.findById(1L).get();
-        });
+//        org.junit.jupiter.api.Assertions.assertThrows(NoSuchElementException.class, () -> {
+//            hashtagRepository.findById(foundHashtag).get();
+//        });
+
+        assertThat(foundHashtag2).isInstanceOf(Optional.class).isNotPresent();
     }
 }

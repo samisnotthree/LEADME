@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,5 +47,22 @@ class GuideServiceTest {
 
     @Test
     void deleteGuide() {
+        // given
+        Member member = new Member();
+        member.setName("testName");
+        member.setEmail("testEmail");
+
+        Member savedMember = memberRepository.save(member);
+
+        String desc = "testDesc";
+
+        // when
+        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc);
+        guideService.deleteGuide(joinedGuideId);
+
+        Guide foundGuide = guideRepository.findById(joinedGuideId).get();
+
+        //then
+        assertThat(foundGuide.getOutDate()).isNotNull();
     }
 }
