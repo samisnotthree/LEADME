@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,7 +22,6 @@ public class ProgDailyService {
         if (!validateProgDaily(progDaily)) {
             throw new IllegalStateException("해당 일시에 이미 등록되어 있습니다.");
         }
-        progDaily.setProgDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         return progDailyRepository.save(progDaily).getProgDailyId();
     }
 
