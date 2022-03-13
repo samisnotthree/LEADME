@@ -27,4 +27,5 @@ public class Prog {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "guide_id")
     private Guide guide;
+
 }

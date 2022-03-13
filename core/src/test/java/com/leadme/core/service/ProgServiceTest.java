@@ -44,5 +44,27 @@ class ProgServiceTest {
         assertThat(joinedGuide).isSameAs(foundProg.getGuide());
     }
 
+    @Test
+    @DisplayName("프로그램 삭제")
+    @Transactional
+    void deleteTest() {
+        //given
+        Member member = new Member();
+        member.setName("testMemberName");
+        Long joinedMember = memberService.joinMember(member);
 
+        Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
+
+        Prog prog = new Prog();
+        prog.setName("testProg");
+        prog.setGuide(joinedGuide);
+
+        //when
+        Long addedProg = progService.addProg(prog);
+        progService.deleteProg(addedProg);
+        Prog foundProg = progRepository.findById(addedProg).get();
+
+        //then
+        assertThat(foundProg.getOutDate()).isNotNull();
+    }
 }
