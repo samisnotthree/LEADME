@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,7 +22,7 @@ public class GuideService {
      *  가이드 등록
      */
     @Transactional
-    public Long joinGuide(Long memberId, String desc) {
+    public Guide joinGuide(Long memberId, String desc) {
         Member member = memberRepository.findById(memberId).get();
 
         if (isJoinedGuide(member)) {
@@ -35,7 +34,7 @@ public class GuideService {
         guide.setDesc(desc);
         guide.setMember(member);
 
-        return guideRepository.save(guide).getGuideId();
+        return guideRepository.save(guide);
     }
 
     /**

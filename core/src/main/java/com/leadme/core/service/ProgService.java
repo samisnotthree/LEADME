@@ -21,10 +21,9 @@ public class ProgService {
         return progRepository.save(prog).getProgId();
     }
 
+    @Transactional
     public void deleteProg(Long progId) {
         Optional<Prog> progOptional = progRepository.findById(progId);
-        progOptional.ifPresent(prog -> {
-            prog.setOutDate(LocalDateTime.now());
-        });
+        progOptional.ifPresent(prog -> prog.setOutDate(LocalDateTime.now()));
     }
 }

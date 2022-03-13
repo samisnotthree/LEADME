@@ -4,17 +4,13 @@ import com.leadme.core.entity.Guide;
 import com.leadme.core.entity.Member;
 import com.leadme.core.repository.GuideRepository;
 import com.leadme.core.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class GuideServiceTest {
@@ -37,7 +33,7 @@ class GuideServiceTest {
         String desc = "testDesc";
 
         // when
-        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc);
+        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
         Guide foundGuide = guideRepository.findById(joinedGuideId).get();
 
         // then
@@ -57,7 +53,7 @@ class GuideServiceTest {
         String desc = "testDesc";
 
         // when
-        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc);
+        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
         guideService.deleteGuide(joinedGuideId);
 
         Guide foundGuide = guideRepository.findById(joinedGuideId).get();

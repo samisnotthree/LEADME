@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Prog {
     @Id
     @GeneratedValue
@@ -21,7 +21,7 @@ public class Prog {
     private String prepMat;
     private String meetLocation;
     private LocalDateTime inDate;
-    @Setter
+
     private LocalDateTime outDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
