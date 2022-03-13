@@ -15,7 +15,6 @@ import java.awt.print.Book;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class OrderServiceTest {
