@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -83,10 +85,12 @@ class ProgDailyServiceTest {
 
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
-        ProgDaily foundProgDaily = progDailyRepository.findById(addedProgDailyId).get();
+        progDailyService.deleteProgDaily(addedProgDailyId);
+
+        Optional<ProgDaily> foundProgDaily = progDailyRepository.findById(addedProgDailyId);
 
         //then
-        assertThat(foundProgDaily).isSameAs(progDaily);
+        assertThat(foundProgDaily).isInstanceOf(Optional.class).isNotPresent();
     }
 
 }
