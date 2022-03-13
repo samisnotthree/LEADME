@@ -42,6 +42,7 @@ class GuideServiceTest {
     }
 
     @Test
+    @Transactional
     void deleteGuide() {
         // given
         Member member = new Member();

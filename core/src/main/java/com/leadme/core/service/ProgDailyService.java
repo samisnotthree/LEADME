@@ -30,7 +30,7 @@ public class ProgDailyService {
 
     //TODO 소요시간 고려하는 로직 추가하기
     public boolean validateProgDaily(ProgDaily progDaily) {
-        List<ProgDaily> foundProgDailies = progDailyRepository.findByProgAndDate(progDaily.getProg().getProgId(), progDaily.getProgDate());
+        List<ProgDaily> foundProgDailies = progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate());
         return foundProgDailies.isEmpty();
     }
 
