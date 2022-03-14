@@ -22,9 +22,10 @@ public class Guide {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public void changeGuide(String desc, LocalDateTime inDate, LocalDateTime outDate) {
+    public void changeGuide(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
         this.desc = desc;
         this.inDate = inDate;
         this.outDate = outDate;
+        this.member = member;
     }
 }
