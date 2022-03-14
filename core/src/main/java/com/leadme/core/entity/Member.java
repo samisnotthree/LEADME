@@ -2,6 +2,7 @@ package com.leadme.core.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Member {
 
     @Id
@@ -26,6 +27,18 @@ public class Member {
 
     @OneToOne(mappedBy = "member")
     private Guide guide;
+    
+    @Builder
+    public Member(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+        this.email = email;
+        this.name = name;
+        this.pass = pass;
+        this.phone = phone;
+        this.photo = photo;
+        this.inDate = inDate;
+        this.outDate = outDate;
+        this.guide = guide;
+    }
 
     public void changeGuide(Guide guide) {
         this.guide = guide;
