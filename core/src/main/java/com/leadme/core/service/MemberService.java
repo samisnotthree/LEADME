@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +25,7 @@ public class MemberService {
         if (!validateDuplicateMember(member)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-        member.setInDate(LocalDateTime.now());
+        member.nowInDate();
         return memberRepository.save(member).getMemberId();
     }
 
@@ -42,6 +43,6 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long memberId) {
         Optional<Member> foundMember = memberRepository.findById(memberId);
-        foundMember.ifPresent(member -> member.setOutDate(LocalDateTime.now()));
+        foundMember.ifPresent(member -> member.nowOutDate());
     }
 }

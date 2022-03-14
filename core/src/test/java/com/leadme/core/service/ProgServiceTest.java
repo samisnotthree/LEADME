@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -25,8 +27,8 @@ class ProgServiceTest {
     @Transactional
     void addTest() {
         //given
-        Member member = new Member();
-        member.setName("testMemberName");
+        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+
         Long joinedMember = memberService.joinMember(member);
 
         Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
@@ -49,8 +51,8 @@ class ProgServiceTest {
     @Transactional
     void deleteTest() {
         //given
-        Member member = new Member();
-        member.setName("testMemberName");
+        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+
         Long joinedMember = memberService.joinMember(member);
 
         Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");

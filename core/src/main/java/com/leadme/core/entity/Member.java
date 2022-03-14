@@ -1,8 +1,6 @@
 package com.leadme.core.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Builder;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -27,7 +26,7 @@ public class Member {
 
     @OneToOne(mappedBy = "member")
     private Guide guide;
-    
+
     @Builder
     public Member(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
         this.email = email;
@@ -40,8 +39,16 @@ public class Member {
         this.guide = guide;
     }
 
-    public void changeGuide(Guide guide) {
-        this.guide = guide;
-        guide.setMember(this);
+    public void nowInDate() {
+        this.inDate = LocalDateTime.now();
     }
+
+    public void nowOutDate() {
+        this.outDate = LocalDateTime.now();
+    }
+
+//    public void changeGuide(Guide guide) {
+//        this.guide = guide;
+//        guide.setMember(this);
+//    }
 }

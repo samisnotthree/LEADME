@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,8 +30,7 @@ public class GuideService {
             throw new IllegalStateException("이미 가이드로 등록되어 있습니다.");
         }
 
-        Guide guide = new Guide();
-        guide.changeGuide(desc, LocalDateTime.now(), null, member);
+        Guide guide = new Guide(desc, LocalDateTime.now(), null, member);
 
         return guideRepository.save(guide);
     }
@@ -45,6 +45,6 @@ public class GuideService {
     @Transactional
     public void deleteGuide(Long guideId) {
         Optional<Guide> foundGuide = guideRepository.findById(guideId);
-        foundGuide.ifPresent(guide -> guide.setOutDate(LocalDateTime.now()));
+        foundGuide.ifPresent(guide -> guide.nowOutDate());
     }
 }
