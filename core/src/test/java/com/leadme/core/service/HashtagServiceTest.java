@@ -56,12 +56,6 @@ class HashtagServiceTest {
 
         Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
 
-        // then
-        // 좋은 테스트가 아님
-//        org.junit.jupiter.api.Assertions.assertThrows(NoSuchElementException.class, () -> {
-//            hashtagRepository.findById(foundHashtag).get();
-//        });
-
         assertThat(foundHashtag2).isInstanceOf(Optional.class).isNotPresent();
     }
 }
