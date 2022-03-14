@@ -30,7 +30,7 @@ class HashtagServiceTest {
     void saveTest() {
         // given
         Hashtag hashtag = new Hashtag();
-        hashtag.setName("서울");
+        hashtag.changeHashtag("서울");
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
@@ -46,7 +46,7 @@ class HashtagServiceTest {
     void deleteTest() {
         // given
         Hashtag hashtag = new Hashtag();
-        hashtag.setName("서울");
+        hashtag.changeHashtag("서울");
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
