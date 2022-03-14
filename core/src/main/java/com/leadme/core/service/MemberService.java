@@ -41,7 +41,7 @@ public class MemberService {
      */
     @Transactional
     public void deleteMember(Long memberId) {
-        Member member = memberRepository.findById(memberId).get();
-        member.setOutDate(LocalDateTime.now());
+        Optional<Member> foundMember = memberRepository.findById(memberId);
+        foundMember.ifPresent(member -> member.setOutDate(LocalDateTime.now()));
     }
 }
