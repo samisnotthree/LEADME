@@ -30,9 +30,7 @@ public class GuideService {
         }
 
         Guide guide = new Guide();
-        guide.setInDate(LocalDateTime.now());
-        guide.setDesc(desc);
-        guide.setMember(member);
+        guide.changeGuide(desc, LocalDateTime.now(), null, member);
 
         return guideRepository.save(guide);
     }
