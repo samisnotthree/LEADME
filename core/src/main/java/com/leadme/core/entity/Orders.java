@@ -28,4 +28,14 @@ public class Orders {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "prog_daily_id")
     private ProgDaily progDaily;
+    
+    public Orders(Long price, String payment, LocalDateTime orderDate, LocalDateTime payDate, OrderStatus status, Member member, ProgDaily progDaily) {
+        this.price = price;
+        this.payment = payment;
+        this.orderDate = orderDate;
+        this.payDate = payDate;
+        this.status = status;
+        this.member = member;
+        this.progDaily = progDaily;
+    }
 }
