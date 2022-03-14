@@ -19,18 +19,21 @@ public class OrderService {
 
     @Transactional
     public Long addOrder(Orders order) {
+        if (!validateOrder(order)) {
+            throw new IllegalStateException("정원 초과입니다.");
+        }
 
-
-        order.setOrderDate(LocalDateTime.now());
         //TODO 결제 분리 시 결제 일시 로직 수정
-        order.setPayDate(LocalDateTime.now());
-        order.setStatus(OrderStatus.PAYED);
+        order.successPayed();
+
         return orderRepository.save(order).getOrderId();
     }
 
     public boolean validateOrder(Orders order) {
         List<Orders> foundOrders = orderRepository.findByProgDaily(order.getProgDaily());
-
+        if (foundOrders.isEmpty()) {
+            return true;
+        }
         return foundOrders.size() < foundOrders.get(0).getProgDaily().getProg().getMaxMember();
     }
 }

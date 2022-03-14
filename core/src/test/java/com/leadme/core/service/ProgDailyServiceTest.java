@@ -33,9 +33,7 @@ class ProgDailyServiceTest {
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily();
-        progDaily.setProgDate("2022-03-13 18:00");
-        progDaily.setProg(foundProg);
+        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
         
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -55,9 +53,7 @@ class ProgDailyServiceTest {
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily();
-        progDaily.setProgDate("2022-03-13 18:00");
-        progDaily.setProg(foundProg);
+        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
 
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -79,9 +75,7 @@ class ProgDailyServiceTest {
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily();
-        progDaily.setProgDate("2022-03-13 18:00");
-        progDaily.setProg(foundProg);
+        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
 
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);

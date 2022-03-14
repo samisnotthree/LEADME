@@ -1,14 +1,17 @@
 package com.leadme.core.entity;
 
 import com.leadme.core.entity.enums.OrderStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Orders {
     @Id
     @GeneratedValue
@@ -38,4 +41,11 @@ public class Orders {
         this.member = member;
         this.progDaily = progDaily;
     }
+
+    public void successPayed() {
+        this.orderDate = LocalDateTime.now();
+        this.payDate = LocalDateTime.now();
+        this.status = OrderStatus.PAYED;
+    }
+
 }

@@ -1,14 +1,14 @@
 package com.leadme.core.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProgDaily {
     @Id
     @GeneratedValue
@@ -22,4 +22,10 @@ public class ProgDaily {
 
     @OneToMany(mappedBy = "progDaily")
     private List<Orders> orders = new ArrayList<>();
+
+    @Builder
+    public ProgDaily(String progDate, Prog prog) {
+        this.progDate = progDate;
+        this.prog = prog;
+    }
 }
