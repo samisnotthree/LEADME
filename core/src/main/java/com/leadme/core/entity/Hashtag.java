@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Hashtag {
 
     @Id
@@ -17,4 +17,7 @@ public class Hashtag {
 
     private String name;
 
+    public void changeHashtag(String name) {
+        this.name = name;
+    }
 }
