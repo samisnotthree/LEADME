@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Guide {
 
     @Id
@@ -22,4 +22,9 @@ public class Guide {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public void changeGuide(String desc, LocalDateTime inDate, LocalDateTime outDate) {
+        this.desc = desc;
+        this.inDate = inDate;
+        this.outDate = outDate;
+    }
 }
