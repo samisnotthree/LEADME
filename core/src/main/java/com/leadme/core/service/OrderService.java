@@ -31,6 +31,6 @@ public class OrderService {
     public boolean validateOrder(Orders order) {
         List<Orders> foundProgDaily = orderRepository.findByProgDaily(order.getProgDaily());
 
-        return foundProgDaily.size() < order.getProgDaily().getProg().getMaxMember();
+        return foundProgDaily.size() < foundProgDaily.getProg().getMaxMember();
     }
 }
