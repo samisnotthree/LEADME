@@ -1,6 +1,7 @@
 package com.leadme.core.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Guide {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
     public Guide(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
         this.desc = desc;
         this.inDate = inDate;
