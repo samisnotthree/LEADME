@@ -18,7 +18,8 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long joinMember(MemberDto memberDto) {
+    @PostMapping("/joinMember")
+    public Long joinMember(@RequestBody MemberDto memberDto) {
         return memberService.joinMember(memberDto.toEntity());
     }
 
