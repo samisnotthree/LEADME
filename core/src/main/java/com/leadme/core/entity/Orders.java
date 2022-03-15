@@ -32,6 +32,7 @@ public class Orders {
     @JoinColumn(name = "prog_daily_id")
     private ProgDaily progDaily;
     
+    @Builder
     public Orders(Long price, String payment, LocalDateTime orderDate, LocalDateTime payDate, OrderStatus status, Member member, ProgDaily progDaily) {
         this.price = price;
         this.payment = payment;
