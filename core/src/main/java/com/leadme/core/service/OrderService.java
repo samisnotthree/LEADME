@@ -36,4 +36,19 @@ public class OrderService {
         }
         return foundOrders.size() < foundOrders.get(0).getProgDaily().getProg().getMaxMember();
     }
+    
+    @Transactional
+    public void cancelOrder(Orders order) {
+        if (!canCancelOrder(order)) {
+            throw new IllegalStateException("환불 가능 기간이 지났습니다.");
+        }
+        order.changeStatus(OrderStauts.REFUNDED);
+    }
+    
+    /**
+    * 프로그램 시작 한시간 전까지 취소 가능
+    */
+    public boolean canCancelOrder(Orders order) {
+        return order.getProgDaily().getProgDate().isAfter(LocalDateTime.now().plusHours(1));
+    }
 }
