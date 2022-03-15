@@ -39,16 +39,11 @@ public class Member {
         this.guide = guide;
     }
 
-    public void nowInDate() {
-        this.inDate = LocalDateTime.now();
+    public void changeInDate(LocalDateTime dateTime) {
+        this.inDate = dateTime;
     }
 
-    public void nowOutDate() {
-        this.outDate = LocalDateTime.now();
+    public void changeOutDate(LocalDateTime dateTime) {
+        this.outDate = dateTime;
     }
-
-//    public void changeGuide(Guide guide) {
-//        this.guide = guide;
-//        guide.setMember(this);
-//    }
 }
