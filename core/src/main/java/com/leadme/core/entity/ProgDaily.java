@@ -14,7 +14,7 @@ public class ProgDaily {
     @GeneratedValue
     private Long progDailyId;
 
-    private String progDate;
+    private LocalDateTime progDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "prog_id")
@@ -24,7 +24,7 @@ public class ProgDaily {
     private List<Orders> orders = new ArrayList<>();
 
     @Builder
-    public ProgDaily(String progDate, Prog prog) {
+    public ProgDaily(LocalDateTime progDate, Prog prog) {
         this.progDate = progDate;
         this.prog = prog;
     }
