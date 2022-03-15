@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProgDailyRepository extends JpaRepository<ProgDaily, Long> {
-    List<ProgDaily> findByProgAndProgDate(Prog prog, String progDate);
+    List<ProgDaily> findByProgAndProgDate(Prog prog, LocalDateTime progDate);
 }
