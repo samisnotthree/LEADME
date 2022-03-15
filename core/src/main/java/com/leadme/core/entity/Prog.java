@@ -1,5 +1,6 @@
 package com.leadme.core.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Prog {
     @Id
     @GeneratedValue
@@ -28,4 +30,17 @@ public class Prog {
     @JoinColumn(name = "guide_id")
     private Guide guide;
 
+    @Builder
+    public Prog(String name, String desc, Integer maxMember, String duration, Long price, String prepMat, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+        this.name = name;
+        this.desc = desc;
+        this.maxMember = maxMember;
+        this.duration = duration;
+        this.price = price;
+        this.prepMat = prepMat;
+        this.meetLocation = meetLocation;
+        this.inDate = inDate;
+        this.outDate = outDate;
+        this.guide = guide;
+    }
 }
