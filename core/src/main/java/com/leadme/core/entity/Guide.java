@@ -34,8 +34,8 @@ public class Guide {
         this.member = member;
     }
 
-    public void nowOutDate() {
-        this.outDate = LocalDateTime.now();
+    public void changeOutDate(LocalDateTime dateTime) {
+        this.outDate = dateTime;
     }
 
 //    public void changeGuide(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
