@@ -49,4 +49,7 @@ public class Orders {
         this.status = OrderStatus.PAYED;
     }
 
+    public void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
 }
