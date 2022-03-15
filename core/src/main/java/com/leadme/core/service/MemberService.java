@@ -25,7 +25,7 @@ public class MemberService {
         if (!validateDuplicateMember(member)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-        member.nowInDate();
+        member.changeInDate(LocalDateTime.now());
         return memberRepository.save(member).getMemberId();
     }
 
@@ -43,6 +43,6 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long memberId) {
         Optional<Member> foundMember = memberRepository.findById(memberId);
-        foundMember.ifPresent(member -> member.nowOutDate());
+        foundMember.ifPresent(member -> member.changeOutDate(LocalDateTime.now()));
     }
 }
