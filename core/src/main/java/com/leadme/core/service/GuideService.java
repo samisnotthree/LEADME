@@ -30,7 +30,12 @@ public class GuideService {
             throw new IllegalStateException("이미 가이드로 등록되어 있습니다.");
         }
 
-        Guide guide = new Guide(desc, LocalDateTime.now(), null, member);
+        Guide guide = Guide.builder()
+            .desc(desc)
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .member(member)
+            .build();
 
         return guideRepository.save(guide);
     }
