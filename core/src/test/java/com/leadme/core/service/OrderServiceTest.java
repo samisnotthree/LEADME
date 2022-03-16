@@ -27,9 +27,26 @@ class OrderServiceTest {
     @Transactional
     void addOrderTest() {
         //given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
-
-        Orders order = new Orders(1000L, "카드", LocalDateTime.now(), LocalDateTime.now(), OrderStatus.PAYED, member, null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
+        
+        Orders order = Order.builder()
+            .price(50000L)
+            .payment("카드")
+            .orderDate(LocalDateTime.now())
+            .payDate(LocalDateTime.now())
+            .status(OrderStatus.PAYED)
+            .member(member)
+            .progDaily(null)
+            .build();
 
         //when
         Long addedOrder = orderService.addOrder(order);
