@@ -26,7 +26,16 @@ class GuideServiceTest {
     @Transactional
     void joinGuide() {
         // given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
 
         Member savedMember = memberRepository.save(member);
 
@@ -45,7 +54,16 @@ class GuideServiceTest {
     @Transactional
     void deleteGuide() {
         // given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
 
         Member savedMember = memberRepository.save(member);
 
