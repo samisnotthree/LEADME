@@ -29,8 +29,9 @@ class HashtagServiceTest {
     @DisplayName("해시태그 추가")
     void saveTest() {
         // given
-        Hashtag hashtag = new Hashtag();
-        hashtag.changeHashtag("서울");
+        Hashtag hashtag = Hashtag.builder()
+            .name("서울")
+            .build();
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
@@ -45,8 +46,9 @@ class HashtagServiceTest {
     @DisplayName("해시태그 삭제(delete)")
     void deleteTest() {
         // given
-        Hashtag hashtag = new Hashtag();
-        hashtag.changeHashtag("서울");
+        Hashtag hashtag = Hashtag.builder()
+            .name("서울")
+            .build();
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
