@@ -99,7 +99,7 @@ class ProgDailyServiceTest {
     @Transactional
     void deleteProgDaily() {
         //given
-       Prog prog = Prog.builder()
+        Prog prog = Prog.builder()
             .name("testName")
             .desc("testDesc")
             .maxMember(5)

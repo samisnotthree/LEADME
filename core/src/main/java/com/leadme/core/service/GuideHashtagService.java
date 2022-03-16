@@ -38,8 +38,7 @@ public class GuideHashtagService {
     }
 
     public boolean isExistGuideHashtag(Guide guide, Hashtag hashtag) {
-        List<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findByGuideAndHashtag(guide, hashtag);
-        return !foundGuideHashtag.isEmpty();
+        return !guideHashtagRepository.findByGuideAndHashtag(guide, hashtag).isEmpty();
     }
 
     @Transactional
