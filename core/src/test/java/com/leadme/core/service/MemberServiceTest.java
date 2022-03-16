@@ -24,10 +24,20 @@ class MemberServiceTest {
     @Transactional
     void join() {
         // case
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
-
-        // when
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
+        
         Long memberId = memberService.joinMember(member);
+        
+        // when
         Member foundMember = memberRepository.findById(memberId).get();
 
         //then
@@ -39,7 +49,17 @@ class MemberServiceTest {
     @Transactional
     void deleteMember() {
         //given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
+        
         Long joinedMemberId = memberService.joinMember(member);
 
         //when
