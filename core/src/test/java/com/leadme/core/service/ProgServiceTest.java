@@ -27,15 +27,33 @@ class ProgServiceTest {
     @Transactional
     void addTest() {
         //given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
 
         Long joinedMember = memberService.joinMember(member);
 
         Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
 
-        Prog prog = new Prog();
-        prog.setName("testProg");
-        prog.setGuide(joinedGuide);
+        Prog prog = Prog.builder()
+            .name("testName")
+            .desc("testDesc")
+            .maxMember(5)
+            .duration("두세시간")
+            .price(50000L)
+            .prepMat("준비물")
+            .meetLocation("정문앞")
+            .inDate(LocalDateTime.now())
+            .outDate(LocalDateTime.now())
+            .guide(joinedGuide)
+            .build();
 
         //when
         Long addedProg = progService.addProg(prog);
@@ -51,15 +69,33 @@ class ProgServiceTest {
     @Transactional
     void deleteTest() {
         //given
-        Member member = new Member("test@test.com", "testName", "testPass", "testPhone", "testPhoto", LocalDateTime.now(),null,null);
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .photo("testPhoto")
+            .inDate(LocalDateTime.now())
+            .outDate(null)
+            .guide(null)
+            .build();
 
         Long joinedMember = memberService.joinMember(member);
 
         Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
 
-        Prog prog = new Prog();
-        prog.setName("testProg");
-        prog.setGuide(joinedGuide);
+        Prog prog = Prog.builder()
+            .name("testName")
+            .desc("testDesc")
+            .maxMember(5)
+            .duration("두세시간")
+            .price(50000L)
+            .prepMat("준비물")
+            .meetLocation("정문앞")
+            .inDate(LocalDateTime.now())
+            .outDate(LocalDateTime.now())
+            .guide(joinedGuide)
+            .build();
 
         //when
         Long addedProg = progService.addProg(prog);
