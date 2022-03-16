@@ -7,5 +7,5 @@
 - H2 Database(테스트)
 - JUnit5
 - Thymeleaf(임시)
-
-![LEADME](https://user-images.githubusercontent.com/85722378/156757860-684b0f25-97cf-4a18-8c7b-f679e17a9351.png)
+- 
+![image](https://user-images.githubusercontent.com/85722378/158574618-2f265df1-6a42-4482-86ca-5166c95990f7.png)
