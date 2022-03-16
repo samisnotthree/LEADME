@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,8 +79,9 @@ class ProgDailyServiceTest {
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
+        LocalDateTime now = LocalDateTime.now();
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(LocalDateTime.now())
+            .progDate(now)
             .prog(foundProg)
             .build();
 

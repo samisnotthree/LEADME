@@ -38,7 +38,7 @@ class OrderServiceTest {
             .guide(null)
             .build();
         
-        Orders order = Order.builder()
+        Orders order = Orders.builder()
             .price(50000L)
             .payment("카드")
             .orderDate(LocalDateTime.now())

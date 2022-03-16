@@ -1,10 +1,7 @@
 package com.leadme.core.entity;
 
 import com.leadme.core.entity.enums.OrderStatus;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
