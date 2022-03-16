@@ -42,7 +42,7 @@ public class OrderService {
         if (!canCancelOrder(order)) {
             throw new IllegalStateException("환불 가능 기간이 지났습니다.");
         }
-        order.changeStatus(OrderStauts.REFUNDED);
+        order.changeStatus(OrderStatus.REFUNDED);
     }
     
     /**
