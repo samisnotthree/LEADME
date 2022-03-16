@@ -23,7 +23,7 @@ class MemberServiceTest {
     @DisplayName("사용자 등록")
     @Transactional
     void join() {
-        // case
+        // given
         Member member = Member.builder()
             .email("test@test.com")
             .name("testName")

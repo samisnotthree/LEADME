@@ -79,9 +79,8 @@ class ProgDailyServiceTest {
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        LocalDateTime now = LocalDateTime.now();
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(now)
+            .progDate(LocalDateTime.of(2022, 3, 16, 18, 0))
             .prog(foundProg)
             .build();
 
