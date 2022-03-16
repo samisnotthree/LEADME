@@ -60,7 +60,6 @@ class ProgServiceTest {
         Prog foundProg = progRepository.findById(addedProg).get();
 
         //then
-        assertThat("testProg").isEqualTo(foundProg.getName());
         assertThat(joinedGuide).isSameAs(foundProg.getGuide());
     }
 
