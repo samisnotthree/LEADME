@@ -28,12 +28,26 @@ class ProgDailyServiceTest {
     @Transactional
     void addProgDaily() {
         //given
-        Prog prog = new Prog();
-        prog.setName("testProgName");
+        Prog prog = Prog.builder()
+            .name("testName")
+            .desc("testDesc")
+            .maxMember(5)
+            .duration("두세시간")
+            .price(50000L)
+            .prepMat("준비물")
+            .meetLocation("정문앞")
+            .inDate(LocalDateTime.now())
+            .outDate(LocalDateTime.now())
+            .guide(null)
+            .build();
+        
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
+        ProgDaily progDaily = ProgDaily.builder()
+            .progDate(LocalDateTime.now())
+            .prog(foundProg)
+            .build();
         
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -48,12 +62,26 @@ class ProgDailyServiceTest {
     @Transactional
     void addProgDailyDuplicate() {
         //given
-        Prog prog = new Prog();
-        prog.setName("testProgName");
+        Prog prog = Prog.builder()
+            .name("testName")
+            .desc("testDesc")
+            .maxMember(5)
+            .duration("두세시간")
+            .price(50000L)
+            .prepMat("준비물")
+            .meetLocation("정문앞")
+            .inDate(LocalDateTime.now())
+            .outDate(LocalDateTime.now())
+            .guide(null)
+            .build();
+        
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
+        ProgDaily progDaily = ProgDaily.builder()
+            .progDate(LocalDateTime.now())
+            .prog(foundProg)
+            .build();
 
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -70,12 +98,26 @@ class ProgDailyServiceTest {
     @Transactional
     void deleteProgDaily() {
         //given
-        Prog prog = new Prog();
-        prog.setName("testProgName");
+       Prog prog = Prog.builder()
+            .name("testName")
+            .desc("testDesc")
+            .maxMember(5)
+            .duration("두세시간")
+            .price(50000L)
+            .prepMat("준비물")
+            .meetLocation("정문앞")
+            .inDate(LocalDateTime.now())
+            .outDate(LocalDateTime.now())
+            .guide(null)
+            .build();
+        
         Long addedProgId = progService.addProg(prog);
         Prog foundProg = progRepository.findById(addedProgId).get();
 
-        ProgDaily progDaily = new ProgDaily("2022-03-13 18:00", foundProg);
+        ProgDaily progDaily = ProgDaily.builder()
+            .progDate(LocalDateTime.now())
+            .prog(foundProg)
+            .build();
 
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
