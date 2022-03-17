@@ -1,5 +1,6 @@
 package com.leadme.core.dto;
 
+@Getter
 public class GuideDto {
     private Long guideId;
     private String desc;
