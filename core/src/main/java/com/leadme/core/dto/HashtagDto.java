@@ -1,5 +1,9 @@
 package com.leadme.core.dto;
 
+import com.leadme.core.entity.Hashtag;
+import lombok.Builder;
+import lombok.Getter;
+
 @Getter
 public class HashtagDto {
     private Long hashtagId;

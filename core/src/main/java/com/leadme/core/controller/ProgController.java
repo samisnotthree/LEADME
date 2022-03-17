@@ -1,18 +1,23 @@
 package com.leadme.core.controller;
 
-import com.leadme.core.dto.MemberDto;
 import com.leadme.core.dto.ProgDto;
+import com.leadme.core.repository.ProgRepository;
 import com.leadme.core.service.ProgService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
 public class ProgController {
     private final ProgService progService;
+    private final ProgRepository progRepository;
 
     /**
      *  프로그램 등록
@@ -26,8 +31,28 @@ public class ProgController {
     /**
      *  프로그램 조회
      */
+    @PostMapping("/findProgs")
+    public Result findProgs(String desc) {
+        return new Result(progRepository.findByDescContaining(desc)
+                .stream()
+                .map(ProgDto::new)
+                .collect(Collectors.toList()));
+    }
 
     /**
      *  프로그램 상세 조회
      */
+//    @PostMapping("/findProgDaily")
+//    public Result findOneProg(Long progId) {
+//        Optional<Prog> foundProg = progRepository.findById(progId);
+//        foundProg.ifPresent(prog -> {
+//            return new Result()
+//        });
+//    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
 }

@@ -1,7 +1,11 @@
 package com.leadme.core.dto;
 
+import com.leadme.core.entity.Prog;
+import com.leadme.core.entity.ProgDaily;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
 public class ProgDailyDto {

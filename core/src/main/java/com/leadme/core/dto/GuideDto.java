@@ -1,5 +1,12 @@
 package com.leadme.core.dto;
 
+import com.leadme.core.entity.Guide;
+import com.leadme.core.entity.Member;
+import lombok.Builder;
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+
 @Getter
 public class GuideDto {
     private Long guideId;

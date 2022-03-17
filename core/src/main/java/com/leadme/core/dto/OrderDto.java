@@ -1,5 +1,16 @@
 package com.leadme.core.dto;
 
+import com.leadme.core.entity.Member;
+import com.leadme.core.entity.Orders;
+import com.leadme.core.entity.ProgDaily;
+import com.leadme.core.entity.enums.OrderStatus;
+import lombok.Builder;
+import lombok.Getter;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.time.LocalDateTime;
+
 @Getter
 public class OrderDto {
     private Long orderId;

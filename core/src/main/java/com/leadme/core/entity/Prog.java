@@ -18,7 +18,6 @@ public class Prog {
     private Integer maxMember;
     private String duration;
     private Long price;
-    private String prepMat;
     private String meetLocation;
     private LocalDateTime inDate;
 
@@ -29,13 +28,12 @@ public class Prog {
     private Guide guide;
 
     @Builder
-    public Prog(String name, String desc, Integer maxMember, String duration, Long price, String prepMat, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+    public Prog(String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
         this.name = name;
         this.desc = desc;
         this.maxMember = maxMember;
         this.duration = duration;
         this.price = price;
-        this.prepMat = prepMat;
         this.meetLocation = meetLocation;
         this.inDate = inDate;
         this.outDate = outDate;
