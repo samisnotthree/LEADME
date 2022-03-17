@@ -17,19 +17,19 @@ public class ProgDto {
     private Integer maxProg;
     private String duration;
     private Long price;
-    private String prepMat;
     private String meetLocation;
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
 
     @Builder
-    public ProgDto(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
-        this.email = email;
+    public ProgDto(String name, String desc, Integer maxProg, String duration, Long price, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
         this.name = name;
-        this.pass = pass;
-        this.phone = phone;
-        this.photo = photo;
+        this.desc = desc;
+        this.maxProg = maxProg;
+        this.duration = duration;
+        this.price = price;
+        this.meetLocation = meetLocation;
         this.inDate = inDate;
         this.outDate = outDate;
         this.guide = guide;
@@ -37,11 +37,12 @@ public class ProgDto {
 
     public Prog toEntity() {
         return Prog.builder()
-                .email(email)
                 .name(name)
-                .pass(pass)
-                .phone(phone)
-                .photo(photo)
+                .desc(desc)
+                .maxProg(maxProg)
+                .duration(duration)
+                .price(price)
+                .meetLocation(meetLocation)
                 .inDate(inDate)
                 .outDate(outDate)
                 .guide(guide)
@@ -51,11 +52,12 @@ public class ProgDto {
     //entity -> dto
     public ProgDto(Prog prog) {
         this.progId = prog.getProgId();
-        this.email = prog.getEmail();
         this.name = prog.getName();
-        this.pass = prog.getPass();
-        this.phone = prog.getPhone();
-        this.photo = prog.getPhoto();
+        this.desc = prog.getDesc();
+        this.maxProg = prog.getMaxProg();
+        this.duration = prog.getDuration();
+        this.price = prog.getPrice();
+        this.meetLocation = prog.getMeetLocation();
         this.inDate = prog.getInDate();
         this.outDate = prog.getOutDate();
         this.guide = prog.getGuide();
