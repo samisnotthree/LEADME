@@ -15,7 +15,11 @@ public class ProgDailyController {
     private final ProgDailyRepository progDailyRepository;
     private final ProgRepository progRepository;
 
-
+    @Transactional
+    @PostMapping("/addProgDaily")
+    public Long addProgDaily(@RequestBody ProgDaily progDaily) {
+        return progDailyService.addProgDaily(progDaily.toEntity());
+    }
 
     @Data
     @AllArgsConstructor
