@@ -22,12 +22,12 @@ public class GuideController {
     private final GuideRepository guideRepository;
 
     @Transactional
-    @PostMapping("/joinGuide")
+    @PostMapping("/guide")
     public Long joinGuide(@RequestBody Long memberId, @RequestBody String desc) {
         return guideService.joinGuide(memberId, desc).getGuideId();
     }
 
-    @GetMapping("findGuide")
+    @GetMapping("guide")
     public Result findGuide(Guide guide) {
         return new Result(guideRepository.findById()
                 .stream()
