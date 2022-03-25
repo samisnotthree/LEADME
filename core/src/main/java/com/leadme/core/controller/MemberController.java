@@ -21,12 +21,12 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     @Transactional
-    @PostMapping("/joinMember")
+    @PostMapping("/member")
     public Long joinMember(@RequestBody MemberDto memberDto) {
         return memberService.joinMember(memberDto.toEntity());
     }
 
-    @GetMapping("/findMember")
+    @GetMapping("/member")
     public Result findAll() {
         return new Result(memberRepository.findAll()
                 .stream()
