@@ -17,8 +17,14 @@ public class ProgDailyController {
 
     @Transactional
     @PostMapping("/progDaily")
-    public Long addProgDaily(@RequestBody ProgDaily progDaily) {
-        return progDailyService.addProgDaily(progDaily.toEntity());
+    public Long addProgDaily(@RequestBody ProgDailyDto progDailyDto) {
+        return progDailyService.addProgDaily(progDailyDto.toEntity());
+    }
+    
+    @Transactional
+    @DeleteMapping("progDaily")
+    public void deleteProgDaily(@RequestBody ProgDaily progDily) {
+        progDailyService.deleteProgDaily(progDailyDto.toEntity());
     }
 
     @Data
