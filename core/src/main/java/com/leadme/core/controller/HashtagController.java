@@ -41,7 +41,7 @@ public class HashtagController {
     }
   
     @Transactional
-    @DeleteMapping("hashtag")
+    @DeleteMapping("/hashtag")
     public void deleteHashtag(@RequestBody HashtagDto hashtagDto) {
         hashtagService.deleteHashtag(hashtagDto.toEntity());
     }
