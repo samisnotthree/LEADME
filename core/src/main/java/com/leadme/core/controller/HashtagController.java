@@ -21,12 +21,12 @@ public class HashtagController {
     private final HashtagRepository hashtagRepository;
   
     @Transactional
-    @PostMapping("/addHashtag")
+    @PostMapping("/hashtag")
     public Long addHashtag(@RequestBody HashtagDto hashtagDto) {
         return hashtagService.addHashtag(hashtagDto.toEntity());
     }
     
-    @GetMapping("/findHashtag")
+    @GetMapping("/hashtag")
     public Result findAll() {
         return new Result(hashtagRepository.findAll()
                 .stream()
@@ -41,7 +41,7 @@ public class HashtagController {
     }
   
     @Transactional
-    @PostMapping("deleteHashtag")
+    @DeleteMapping("hashtag")
     public void deleteHashtag(@RequestBody HashtagDto hashtagDto) {
         hashtagService.deleteHashtag(hashtagDto.toEntity());
     }
