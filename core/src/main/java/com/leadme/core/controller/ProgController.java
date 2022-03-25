@@ -23,7 +23,7 @@ public class ProgController {
      *  프로그램 등록
      */
     @Transactional
-    @PostMapping("/addProg")
+    @PostMapping("/prog")
     public Long addProg(@RequestBody ProgDto progDto) {
         return progService.addProg(progDto.toEntity());
     }
@@ -31,7 +31,7 @@ public class ProgController {
     /**
      *  프로그램 조회
      */
-    @PostMapping("/findProgs")
+    @PostMapping("/prog")
     public Result findProgs(String desc) {
         return new Result(progRepository.findByDescContaining(desc)
                 .stream()
