@@ -1,11 +1,17 @@
 package com.leadme.core.controller;
 
+import com.leadme.core.dto.ProgDailyDto;
+import com.leadme.core.entity.ProgDaily;
 import com.leadme.core.repository.ProgDailyRepository;
 import com.leadme.core.repository.ProgRepository;
 import com.leadme.core.service.ProgDailyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,8 +29,8 @@ public class ProgDailyController {
     
     @Transactional
     @DeleteMapping("progDaily")
-    public void deleteProgDaily(@RequestBody ProgDaily progDily) {
-        progDailyService.deleteProgDaily(progDailyDto.toEntity());
+    public void deleteProgDaily(@RequestBody ProgDailyDto progDailyDto) {
+        progDailyService.deleteProgDaily(progDailyDto.getProgDailyId());
     }
 
     @Data

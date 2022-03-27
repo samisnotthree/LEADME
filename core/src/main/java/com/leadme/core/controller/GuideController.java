@@ -29,7 +29,7 @@ public class GuideController {
 
     @GetMapping("guide")
     public Result findGuide(Guide guide) {
-        return new Result(guideRepository.findById()
+        return new Result(guideRepository.findById(guide.getGuideId())
                 .stream()
                 .map(GuideDto::new)
                 .collect(Collectors.toList()));
