@@ -28,7 +28,7 @@ public class ProgDailyController {
     }
     
     @Transactional
-    @DeleteMapping("progDaily")
+    @DeleteMapping("/progDaily")
     public void deleteProgDaily(@RequestBody ProgDailyDto progDailyDto) {
         progDailyService.deleteProgDaily(progDailyDto.getProgDailyId());
     }
