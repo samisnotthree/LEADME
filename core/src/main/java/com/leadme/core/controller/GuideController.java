@@ -27,8 +27,8 @@ public class GuideController {
         return guideService.joinGuide(memberId, desc).getGuideId();
     }
 
-    @GetMapping("guide")
-    public Result findGuide(Guide guide) {
+    @GetMapping("/guide")
+    public Result findGuide(@RequestBody Guide guide) {
         return new Result(guideRepository.findById(guide.getGuideId())
                 .stream()
                 .map(GuideDto::new)
