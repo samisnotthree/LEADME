@@ -32,7 +32,7 @@ public class ProgController {
      *  프로그램 조회
      */
     @PostMapping("/prog")
-    public Result findProgs(String desc) {
+    public Result findProgs(@RequestBody String desc) {
         return new Result(progRepository.findByDescContaining(desc)
                 .stream()
                 .map(ProgDto::new)
