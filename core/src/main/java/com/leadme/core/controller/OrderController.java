@@ -11,4 +11,10 @@ public class OrderController {
     public Long addOrder(@RequestBody OrderDto orderDto) {
         return orderService.addOrder(orderDto.toEntity());
     }
+    
+    @Transactional
+    @DeleteMapping("/order")
+    public void cancelOrder(@RequestBody OrderDto orderDto) {
+        orderService.cancelOrder(orderDto.toEntity());
+    }
 }
