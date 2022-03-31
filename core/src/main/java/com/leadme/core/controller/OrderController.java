@@ -1,17 +1,43 @@
 package com.leadme.core.controller;
 
+import com.leadme.core.dto.OrderDto;
+import com.leadme.core.repository.OrderRepository;
+import com.leadme.core.service.OrderService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
-  
+
     @Transactional
     @PostMapping("/order")
     public Long addOrder(@RequestBody OrderDto orderDto) {
         return orderService.addOrder(orderDto.toEntity());
     }
-    
+
+    @GetMapping("/order")
+    public Result findAll() {
+        return new Result(
+                orderRepository.findAll()
+                        .stream()
+                        .map(OrderDto::new)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T orders;
+    }
     @Transactional
     @DeleteMapping("/order")
     public void cancelOrder(@RequestBody OrderDto orderDto) {
