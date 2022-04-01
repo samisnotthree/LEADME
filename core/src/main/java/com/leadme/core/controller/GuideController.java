@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
@@ -28,8 +25,8 @@ public class GuideController {
     }
 
     @GetMapping("/guide")
-    public Result findGuide(@RequestBody Guide guide) {
-        return new Result(guideRepository.findById(guide.getGuideId())
+    public Result findGuide(@RequestBody GuideDto guideDto) {
+        return new Result(guideRepository.findById(guideDto.getGuideId())
                 .stream()
                 .map(GuideDto::new)
                 .collect(Collectors.toList()));
@@ -39,5 +36,11 @@ public class GuideController {
     @AllArgsConstructor
     static class Result<T> {
         private T members;
+    }
+
+    @Transactional
+    @DeleteMapping("/guide")
+    public void deleteGuide(@RequestBody GuideDto guideDto) {
+        guideService.deleteGuide(guideDto.getGuideId());
     }
 }
