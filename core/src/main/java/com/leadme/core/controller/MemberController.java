@@ -39,4 +39,10 @@ public class MemberController {
     static class Result<T> {
         private T members;
     }
+    
+    @Transactional
+    @DeleteMapping("/member")
+    public void deleteMember(@RequestBody MemberDto memberDto) {
+        memberService.deleteMember(memberDto.getMemberId());
+    }
 }
