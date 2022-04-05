@@ -9,10 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,16 +25,25 @@ public class ProgDailyController {
     public Long addProgDaily(@RequestBody ProgDailyDto progDailyDto) {
         return progDailyService.addProgDaily(progDailyDto.toEntity());
     }
-    
-    @Transactional
-    @DeleteMapping("/progDaily")
-    public void deleteProgDaily(@RequestBody ProgDailyDto progDailyDto) {
-        progDailyService.deleteProgDaily(progDailyDto.getProgDailyId());
+
+    @GetMapping("/progDaily")
+    public Result findProgDaily(@RequestBody ProgDailyDto progDailyDto) {
+        return new Result(progDailyRepository.findByProgAndProgDate(progDailyDto.getProg(), progDailyDto.getProgDate())
+                .stream()
+                .map(ProgDailyDto::new)
+                .collect(Collectors.toList())
+        );
     }
 
     @Data
     @AllArgsConstructor
     static class Result<T> {
         private T data;
+    }
+
+    @Transactional
+    @DeleteMapping("/progDaily")
+    public void deleteProgDaily(@RequestBody ProgDailyDto progDailyDto) {
+        progDailyService.deleteProgDaily(progDailyDto.getProgDailyId());
     }
 }
