@@ -8,6 +8,5 @@
 - H2 Database(테스트)
 - JUnit5
 - Thymeleaf
-- (+ Redis, AWS)
 
 ![image](https://user-images.githubusercontent.com/85722378/158574618-2f265df1-6a42-4482-86ca-5166c95990f7.png)
