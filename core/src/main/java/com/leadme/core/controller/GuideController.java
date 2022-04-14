@@ -24,9 +24,9 @@ public class GuideController {
         return guideService.joinGuide(memberId, desc).getGuideId();
     }
 
-    @GetMapping("/guide")
-    public Result findGuide(@RequestBody GuideDto guideDto) {
-        return new Result(guideRepository.findById(guideDto.getGuideId())
+    @GetMapping("/guide/{id}")
+    public Result findGuide(@PathVariable("id") String guideId) {
+        return new Result(guideRepository.findById(guideId)
                 .stream()
                 .map(GuideDto::new)
                 .collect(Collectors.toList()));
