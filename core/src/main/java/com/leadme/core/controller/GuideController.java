@@ -39,8 +39,8 @@ public class GuideController {
     }
 
     @Transactional
-    @DeleteMapping("/guide")
-    public void deleteGuide(@RequestBody GuideDto guideDto) {
-        guideService.deleteGuide(guideDto.getGuideId());
+    @DeleteMapping("/guide/{id}")
+    public void deleteGuide(@PathVariable("id") String guideId) {
+        guideService.deleteGuide(guideId);
     }
 }
