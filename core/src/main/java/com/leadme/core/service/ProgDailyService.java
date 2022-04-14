@@ -36,8 +36,9 @@ public class ProgDailyService {
         if (!validateDeleteProgDaily(progDailyId)) {
             throw new IllegalStateException("구매자가 있어 삭제할 수 없습니다.");
         }
-        Optional<ProgDaily> foundProgDaily = progDailyRepository.findById(progDailyId);
-        foundProgDaily.ifPresent(progDaily -> progDailyRepository.delete(progDaily));
+        progDailyRepository.deleteById(progDailyId);
+        //Optional<ProgDaily> foundProgDaily = progDailyRepository.findById(progDailyId);
+        //foundProgDaily.ifPresent(progDaily -> progDailyRepository.delete(progDaily));
     }
 
     public boolean validateDeleteProgDaily(Long progDailyId) {
