@@ -38,7 +38,7 @@ public class HashtagService {
      *  해시태그 삭제(delete)
      */
     @Transactional
-    public void deleteHashtag(Hashtag hashtag) {
-        hashtagRepository.delete(hashtag);
+    public void deleteHashtag(Long hashtagId) {
+        hashtagRepository.deleteById(hashtagId);
     }
 }
