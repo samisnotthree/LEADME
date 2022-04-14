@@ -22,7 +22,7 @@ class GuideServiceTest {
     @Autowired GuideService guideService;
 
     @Test
-    @DisplayName("가이드 등록 테스트")
+    @DisplayName("가이드 등록")
     @Transactional
     void joinGuide() {
         // given
@@ -51,6 +51,7 @@ class GuideServiceTest {
     }
 
     @Test
+    @DisplayName("가이드 삭제")
     @Transactional
     void deleteGuide() {
         // given

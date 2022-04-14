@@ -52,9 +52,8 @@ class HashtagServiceTest {
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
-        Hashtag foundHashtag = hashtagRepository.findById(addedHashtagId).get();
 
-        hashtagService.deleteHashtag(foundHashtag);
+        hashtagService.deleteHashtag(addedHashtagId);
 
         Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
 

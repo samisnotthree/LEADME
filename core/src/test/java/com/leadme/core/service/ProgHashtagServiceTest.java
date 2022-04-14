@@ -83,7 +83,7 @@ class ProgHashtagServiceTest {
 
         //when
         ProgHashtag progHashtag = progHashtagService.addProgHashtag(addedProgId, addedHashtagId);
-        progHashtagService.deleteProgHashtag(progHashtag);
+        progHashtagService.deleteProgHashtag(progHashtag.getProgHashtagId());
         Optional<ProgHashtag> foundProgHashtag = progHashtagRepository.findById(progHashtag.getProgHashtagId());
 
         //then

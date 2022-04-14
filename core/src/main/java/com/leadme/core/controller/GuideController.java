@@ -25,7 +25,7 @@ public class GuideController {
     }
 
     @GetMapping("/guide/{id}")
-    public Result findGuide(@PathVariable("id") String guideId) {
+    public Result findGuide(@PathVariable("id") Long guideId) {
         return new Result(guideRepository.findById(guideId)
                 .stream()
                 .map(GuideDto::new)
@@ -40,7 +40,7 @@ public class GuideController {
 
     @Transactional
     @DeleteMapping("/guide/{id}")
-    public void deleteGuide(@PathVariable("id") String guideId) {
+    public void deleteGuide(@PathVariable("id") Long guideId) {
         guideService.deleteGuide(guideId);
     }
 }

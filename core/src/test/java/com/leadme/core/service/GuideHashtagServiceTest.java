@@ -89,7 +89,7 @@ class GuideHashtagServiceTest {
 
         //when
         GuideHashtag guideHashtag = guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
-        guideHashtagService.deleteGuideHashtag(guideHashtag);
+        guideHashtagService.deleteGuideHashtag(guideHashtag.getGuideHashtagId());
         Optional<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findById(guideHashtag.getGuideHashtagId());
 
         //then
