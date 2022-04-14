@@ -42,7 +42,7 @@ public class GuideHashtagService {
     }
 
     @Transactional
-    public void deleteGuideHashtag(String guideHashtagId) {
+    public void deleteGuideHashtag(Long guideHashtagId) {
         guideHashtagRepository.deleteById(guideHashtagId);
     }
 }
