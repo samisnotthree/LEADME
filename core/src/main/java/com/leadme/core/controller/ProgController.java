@@ -32,8 +32,8 @@ public class ProgController {
     /**
      *  프로그램 조회
      */
-    @GetMapping("/prog")
-    public Result findProgs(@RequestBody String desc) {
+    @GetMapping("/prog/{desc}")
+    public Result findProgs(@PathVariable("desc") String desc) {
         return new Result(progRepository.findByDescContaining(desc)
                 .stream()
                 .map(ProgDto::new)
