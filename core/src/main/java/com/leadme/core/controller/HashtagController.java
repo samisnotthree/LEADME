@@ -38,8 +38,8 @@ public class HashtagController {
     }
   
     @Transactional
-    @DeleteMapping("/hashtag")
-    public void deleteHashtag(@RequestBody HashtagDto hashtagDto) {
-        hashtagService.deleteHashtag(hashtagDto.toEntity());
+    @DeleteMapping("/hashtag/{id}")
+    public void deleteHashtag(@PathVariable("id") Long hashtagId) {
+        hashtagService.deleteHashtag(hashtagId);
     }
 }
