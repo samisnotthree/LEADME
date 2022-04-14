@@ -38,8 +38,8 @@ public class MemberController {
     }
     
     @Transactional
-    @DeleteMapping("/member")
-    public void deleteMember(@RequestBody MemberDto memberDto) {
-        memberService.deleteMember(memberDto.getMemberId());
+    @DeleteMapping("/member/{id}")
+    public void deleteMember(@PathVariable("id") Long memberId) {
+        memberService.deleteMember(memberId);
     }
 }
