@@ -38,7 +38,7 @@ public class ProgHashtagService {
     }
 
     @Transactional
-    public void deleteProgHashtag(ProgHashtag progHashtag) {
-        progHashtagRepository.delete(progHashtag);
+    public void deleteProgHashtag(Long progHashtagId) {
+        progHashtagRepository.deleteById(progHashtagId);
     }
 }
