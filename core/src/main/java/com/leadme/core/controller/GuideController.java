@@ -19,12 +19,12 @@ public class GuideController {
     private final GuideRepository guideRepository;
 
     @Transactional
-    @PostMapping("/guide")
+    @PostMapping("/guides")
     public Long joinGuide(@RequestBody Long memberId, @RequestBody String desc) {
         return guideService.joinGuide(memberId, desc).getGuideId();
     }
 
-    @GetMapping("/guide/{id}")
+    @GetMapping("/guides/{id}")
     public Result findGuide(@PathVariable("id") Long guideId) {
         return new Result(guideRepository.findById(guideId)
                 .stream()
@@ -39,7 +39,7 @@ public class GuideController {
     }
 
     @Transactional
-    @DeleteMapping("/guide/{id}")
+    @DeleteMapping("/guides/{id}")
     public void deleteGuide(@PathVariable("id") Long guideId) {
         guideService.deleteGuide(guideId);
     }
