@@ -21,13 +21,13 @@ public class ProgDailyController {
     private final ProgRepository progRepository;
 
     @Transactional
-    @PostMapping("/progDaily")
+    @PostMapping("/prog-dailies")
     public Long addProgDaily(@RequestBody ProgDailyDto progDailyDto) {
         return progDailyService.addProgDaily(progDailyDto.toEntity());
     }
 
     //TODO PathVariable
-    @GetMapping("/progDaily")
+    @GetMapping("/prog-dailies")
     public Result findProgDaily(@RequestBody ProgDailyDto progDailyDto) {
         return new Result(progDailyRepository.findByProgAndProgDate(progDailyDto.getProg(), progDailyDto.getProgDate())
                 .stream()
@@ -43,7 +43,7 @@ public class ProgDailyController {
     }
 
     @Transactional
-    @DeleteMapping("/progDaily/{id}")
+    @DeleteMapping("/prog-dailies/{id}")
     public void deleteProgDaily(@PathVariable("id") Long progDailyId) {
         progDailyService.deleteProgDaily(progDailyId);
     }
