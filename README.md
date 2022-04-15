@@ -3,6 +3,7 @@
 
 - Spring Boot
 - Spring Data JPA
+- QueryDSL
 - Hibernate
 - MariaDB
 - H2 Database(테스트)
