@@ -18,12 +18,12 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     @Transactional
-    @PostMapping("/member")
+    @PostMapping("/members")
     public Long joinMember(@RequestBody MemberDto memberDto) {
         return memberService.joinMember(memberDto.toEntity());
     }
 
-    @GetMapping("/member")
+    @GetMapping("/members")
     public Result findAll() {
         return new Result(memberRepository.findAll()
                 .stream()
@@ -38,7 +38,7 @@ public class MemberController {
     }
     
     @Transactional
-    @DeleteMapping("/member/{id}")
+    @DeleteMapping("/members/{id}")
     public void deleteMember(@PathVariable("id") Long memberId) {
         memberService.deleteMember(memberId);
     }
