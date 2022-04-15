@@ -18,12 +18,12 @@ public class OrderController {
     private final OrderRepository orderRepository;
 
     @Transactional
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public Long addOrder(@RequestBody OrderDto orderDto) {
         return orderService.addOrder(orderDto.toEntity());
     }
 
-    @GetMapping("/order")
+    @GetMapping("/orders")
     public Result findAll() {
         return new Result(
                 orderRepository.findAll()
@@ -39,7 +39,7 @@ public class OrderController {
         private T orders;
     }
     @Transactional
-    @DeleteMapping("/order")
+    @DeleteMapping("/orders")
     public void cancelOrder(@RequestBody OrderDto orderDto) {
         orderService.cancelOrder(orderDto.toEntity());
     }
