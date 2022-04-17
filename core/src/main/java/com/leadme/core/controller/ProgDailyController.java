@@ -26,10 +26,10 @@ public class ProgDailyController {
         return progDailyService.addProgDaily(progDailyDto.toEntity());
     }
 
-    //TODO PathVariable
     @GetMapping("/prog-dailies")
-    public Result findProgDaily(@RequestBody ProgDailyDto progDailyDto) {
-        return new Result(progDailyRepository.findByProgAndProgDate(progDailyDto.getProg(), progDailyDto.getProgDate())
+    public Result findProgDaily(@PathVariable("id") Long progDailyDtoId) {
+        ProgDaily progDaily = progDailyRepository.findById(progDailyDtoId).get();
+        return new Result(progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate())
                 .stream()
                 .map(ProgDailyDto::new)
                 .collect(Collectors.toList())
