@@ -27,8 +27,8 @@ public class ProgDailyController {
     }
 
     @GetMapping("/prog-dailies")
-    public Result findProgDaily(@PathVariable("id") Long progDailyDtoId) {
-        ProgDaily progDaily = progDailyRepository.findById(progDailyDtoId).get();
+    public Result findProgDaily(@PathVariable("id") Long progDailyId) {
+        ProgDaily progDaily = progDailyRepository.findById(progDailyId).get();
         return new Result(progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate())
                 .stream()
                 .map(ProgDailyDto::new)

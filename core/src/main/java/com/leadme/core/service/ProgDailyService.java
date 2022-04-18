@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -29,6 +31,12 @@ public class ProgDailyService {
     public boolean validateProgDaily(ProgDaily progDaily) {
         List<ProgDaily> foundProgDailies = progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate());
         return foundProgDailies.isEmpty();
+    }
+
+    //TODO
+    public List<ProgDaily> findProgDaily(Long progId, String progDate) {
+
+        return new ArrayList<>();
     }
 
     @Transactional
