@@ -27,14 +27,23 @@ public class ProgDailyController {
     }
 
     @GetMapping("/prog-dailies")
-    public Result findProgDaily(@PathVariable("id") Long progDailyId) {
-        ProgDaily progDaily = progDailyRepository.findById(progDailyId).get();
-        return new Result(progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate())
+    public Result findProgDailies(@PathVariable("progId") Long progId, @PathVariable("progDate") String progDate) {
+        return new Result(progDailyRepository.findByProgIdAndProgDate(progId, progDate)
                 .stream()
                 .map(ProgDailyDto::new)
                 .collect(Collectors.toList())
         );
     }
+    
+//     @GetMapping("/prog-dailies")
+//     public Result findProgDaily(@PathVariable("id") Long progDailyId) {
+//         ProgDaily progDaily = progDailyRepository.findById(progDailyId).get();
+//         return new Result(progDailyRepository.findByProgAndProgDate(progDaily.getProg(), progDaily.getProgDate())
+//                 .stream()
+//                 .map(ProgDailyDto::new)
+//                 .collect(Collectors.toList())
+//         );
+//     }
 
     @Data
     @AllArgsConstructor
