@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,4 +129,37 @@ class ProgDailyServiceTest {
         assertThat(foundProgDaily).isInstanceOf(Optional.class).isNotPresent();
     }
 
+    @Test
+    @DisplayName("해당날짜 일정 시간 목록")
+    @Transactional
+    void findSchedules() {
+        //given
+        Prog prog = Prog.builder()
+                .name("testName")
+                .desc("testDesc")
+                .maxMember(5)
+                .duration("두세시간")
+                .price(50000L)
+                .meetLocation("정문앞")
+                .inDate(LocalDateTime.now())
+                .outDate(LocalDateTime.now())
+                .guide(null)
+                .build();
+
+        Long addedProgId = progService.addProg(prog);
+        Prog foundProg = progRepository.findById(addedProgId).get();
+        LocalDateTime now = LocalDateTime.now();
+
+        ProgDaily progDaily = ProgDaily.builder()
+                .progDate(now)
+                .prog(foundProg)
+                .build();
+
+        //when
+        Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
+        List<ProgDaily> schedules = progDailyRepository.findSchedules(addedProgDailyId, now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+
+        //then
+        assertThat(schedules).isNotNull();
+    }
 }

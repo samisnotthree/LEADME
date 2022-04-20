@@ -33,12 +33,6 @@ public class ProgDailyService {
         return foundProgDailies.isEmpty();
     }
 
-    //TODO
-    public List<ProgDaily> findProgDaily(Long progId, String progDate) {
-
-        return new ArrayList<>();
-    }
-
     @Transactional
     public void deleteProgDaily(Long progDailyId) {
         if (!validateDeleteProgDaily(progDailyId)) {

@@ -1,9 +1,7 @@
 package com.leadme.core.controller;
 
 import com.leadme.core.dto.ProgDailyDto;
-import com.leadme.core.entity.ProgDaily;
 import com.leadme.core.repository.ProgDailyRepository;
-import com.leadme.core.repository.ProgRepository;
 import com.leadme.core.service.ProgDailyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 public class ProgDailyController {
     private final ProgDailyService progDailyService;
     private final ProgDailyRepository progDailyRepository;
-    private final ProgRepository progRepository;
 
     @Transactional
     @PostMapping("/prog-dailies")
@@ -28,7 +25,7 @@ public class ProgDailyController {
 
     @GetMapping("/prog-dailies")
     public Result findProgDailies(@PathVariable("progId") Long progId, @PathVariable("progDate") String progDate) {
-        return new Result(progDailyRepository.findByProgIdAndProgDate(progId, progDate)
+        return new Result(progDailyRepository.findSchedules(progId, progDate)
                 .stream()
                 .map(ProgDailyDto::new)
                 .collect(Collectors.toList())
