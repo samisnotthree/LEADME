@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,5 +56,38 @@ class HashtagServiceTest {
         Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
 
         assertThat(foundHashtag2).isInstanceOf(Optional.class).isNotPresent();
+    }
+
+    //TODO findPopularHashtags 로 바꾸기
+    @Test
+    @DisplayName("해시태그 조회")
+    void findHashtagsTest() {
+        // given
+        Hashtag hashtag = Hashtag.builder()
+                .name("서울")
+                .build();
+        Hashtag hashtag2 = Hashtag.builder()
+                .name("야간")
+                .build();
+
+        // when
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        Long addedHashtagId2 = hashtagService.addHashtag(hashtag2);
+
+        List<Hashtag> hashtags = hashtagRepository.findAll();
+
+        Set<String> nameSet = new HashSet<>();
+        nameSet.add("서울");
+        nameSet.add("야간");
+
+        Set<String> foundNameSet = new HashSet<>();
+
+        Iterator<Hashtag> iterator = hashtags.iterator();
+        while(iterator.hasNext()) {
+            foundNameSet.add(iterator.next().getName());
+        }
+
+        //then
+        assertThat(nameSet).isEqualTo(foundNameSet);
     }
 }
