@@ -6,7 +6,6 @@
 - QueryDSL
 - Hibernate
 - MariaDB
-- H2 Database(테스트)
 - JUnit5
 - Thymeleaf
 
