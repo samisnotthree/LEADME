@@ -60,6 +60,7 @@ class HashtagServiceTest {
 
     //TODO findPopularHashtags 로 바꾸기
     @Test
+    @Transactional
     @DisplayName("해시태그 조회")
     void findHashtagsTest() {
         // given
