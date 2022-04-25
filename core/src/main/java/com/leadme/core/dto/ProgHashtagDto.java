@@ -1,6 +1,5 @@
 package com.leadme.core.dto;
 
-import com.leadme.core.entity.Guide;
 import com.leadme.core.entity.Hashtag;
 import com.leadme.core.entity.Prog;
 import com.leadme.core.entity.ProgHashtag;
@@ -8,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
