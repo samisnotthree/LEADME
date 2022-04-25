@@ -1,7 +1,9 @@
 package com.leadme.core.controller;
 
 import com.leadme.core.dto.ProgDto;
+import com.leadme.core.dto.ProgHashtagDto;
 import com.leadme.core.repository.ProgRepository;
+import com.leadme.core.service.ProgHashtagService;
 import com.leadme.core.service.ProgService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class ProgController {
     private final ProgService progService;
     private final ProgRepository progRepository;
+    private final ProgHashtagService progHashtagService;
 
     /**
      *  프로그램 등록
@@ -52,5 +55,14 @@ public class ProgController {
     @AllArgsConstructor
     static class Result<T> {
         private T data;
+    }
+
+    /**
+     *  프로그램 해시태그 등록
+     */
+    @Transactional
+    @PostMapping("/progs")
+    public Long addProgHashtag(@RequestBody ProgHashtagDto progHashtagDto) {
+        return progHashtagService.addProgHashtag(progHashtagDto.getProg().getProgId(), progHashtagDto.getHashtag().getHashtagId()).getProgHashtagId();
     }
 }
