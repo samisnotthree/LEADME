@@ -61,7 +61,7 @@ public class ProgController {
      *  프로그램 해시태그 등록
      */
     @Transactional
-    @PostMapping("/progs")
+    @PostMapping("/progHashtags")
     public Long addProgHashtag(@RequestBody ProgHashtagDto progHashtagDto) {
         return progHashtagService.addProgHashtag(progHashtagDto.getProg().getProgId(), progHashtagDto.getHashtag().getHashtagId()).getProgHashtagId();
     }
