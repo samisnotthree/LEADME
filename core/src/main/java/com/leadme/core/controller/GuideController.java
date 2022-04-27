@@ -20,7 +20,7 @@ public class GuideController {
 
     @Transactional
     @PostMapping("/guides")
-    public Long joinGuide(@RequestBody Long memberId, @RequestBody String desc) {
+    public Long joinGuide(@RequestParam Long memberId, @RequestParam String desc) {
         return guideService.joinGuide(memberId, desc).getGuideId();
     }
 
