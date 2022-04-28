@@ -14,6 +14,7 @@ public class GuideDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Member member;
+    //private Long memberId;
   
     @Builder
     public GuideDto(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
