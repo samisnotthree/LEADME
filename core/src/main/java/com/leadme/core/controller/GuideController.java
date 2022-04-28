@@ -21,7 +21,7 @@ public class GuideController {
     @Transactional
     @PostMapping("/guides")
     public Long joinGuide(@RequestBody GuideDto guideDto) {
-        return guideService.joinGuide(guideDto.getMember().getMemberId(), guideDto.getDesc()).getGuideId();
+        return guideService.joinGuide(guideDto.getMemberId(), guideDto.getDesc()).getGuideId();
     }
 
     @GetMapping("/guides/{id}")
