@@ -14,17 +14,18 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/guides")
 public class GuideController {
     private final GuideService guideService;
     private final GuideRepository guideRepository;
 
     @Transactional
-    @PostMapping("/guides")
+    @PostMapping
     public Long joinGuide(@RequestBody GuideDto guideDto) {
         return guideService.joinGuide(guideDto.getMemberId(), guideDto.getDesc()).getGuideId();
     }
 
-    @GetMapping("/guides/{id}")
+    @GetMapping("/{id}")
     public Result findGuide(@PathVariable("id") Long guideId) {
         return new Result(guideRepository.findById(guideId)
                 .stream()
@@ -39,7 +40,7 @@ public class GuideController {
     }
 
     @Transactional
-    @DeleteMapping("/guides/{id}")
+    @DeleteMapping("/{id}")
     public void deleteGuide(@PathVariable("id") Long guideId) {
         guideService.deleteGuide(guideId);
     }
