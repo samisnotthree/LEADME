@@ -13,17 +13,18 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/hashtags")
 public class HashtagController {
     private final HashtagService hashtagService;
     private final HashtagRepository hashtagRepository;
   
     @Transactional
-    @PostMapping("/hashtags")
+    @PostMapping
     public Long addHashtag(@RequestBody HashtagDto hashtagDto) {
         return hashtagService.addHashtag(hashtagDto.toEntity());
     }
     
-    @GetMapping("/hashtags")
+    @GetMapping
     public Result findAll() {
         return new Result(hashtagRepository.findAll()
                 .stream()
@@ -38,7 +39,7 @@ public class HashtagController {
     }
   
     @Transactional
-    @DeleteMapping("/hashtags/{id}")
+    @DeleteMapping("/{id}")
     public void deleteHashtag(@PathVariable("id") Long hashtagId) {
         hashtagService.deleteHashtag(hashtagId);
     }
