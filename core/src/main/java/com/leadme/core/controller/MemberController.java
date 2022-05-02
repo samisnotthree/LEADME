@@ -13,18 +13,17 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
     @Transactional
-    @PostMapping
+    @PostMapping("/members")
     public Long joinMember(@RequestBody MemberDto memberDto) {
         return memberService.joinMember(memberDto.toEntity());
     }
 
-    @GetMapping
+    @GetMapping("/members")
     public Result findAll() {
         return new Result(memberRepository.findAll()
                 .stream()
@@ -39,7 +38,7 @@ public class MemberController {
     }
     
     @Transactional
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/members/{id}")
     public void deleteMember(@PathVariable("id") Long memberId) {
         memberService.deleteMember(memberId);
     }
