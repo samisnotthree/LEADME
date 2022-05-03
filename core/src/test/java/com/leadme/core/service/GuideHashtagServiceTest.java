@@ -32,7 +32,7 @@ class GuideHashtagServiceTest {
     @Test
     @DisplayName("가이드_해시태그 등록")
     @Transactional
-    void add_guide_hashtag() {
+    void add_guideHashtag() {
         //given
         Member member = Member.builder()
                 .email("test@test.com")
@@ -65,7 +65,7 @@ class GuideHashtagServiceTest {
     @Test
     @DisplayName("가이드_해시태그 삭제")
     @Transactional
-    void delete_guide_hashtag() {
+    void delete_guideHashtag() {
         //given
         Member member = Member.builder()
                 .email("test@test.com")
@@ -86,13 +86,13 @@ class GuideHashtagServiceTest {
                 .name("서울")
                 .build();
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        GuideHashtag guideHashtag = guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
 
         //when
-        GuideHashtag guideHashtag = guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
         guideHashtagService.deleteGuideHashtag(guideHashtag.getGuideHashtagId());
-        Optional<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findById(guideHashtag.getGuideHashtagId());
 
         //then
+        Optional<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findById(guideHashtag.getGuideHashtagId());
         Assertions.assertThat(foundGuideHashtag).isInstanceOf(Optional.class).isNotPresent();
     }
 }

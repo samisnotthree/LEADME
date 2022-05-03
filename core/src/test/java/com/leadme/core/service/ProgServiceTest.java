@@ -25,7 +25,7 @@ class ProgServiceTest {
     @Test
     @DisplayName("프로그램 추가")
     @Transactional
-    void addTest() {
+    void add_prog() {
         //given
         Member member = Member.builder()
             .email("test@test.com")
@@ -56,16 +56,16 @@ class ProgServiceTest {
 
         //when
         Long addedProg = progService.addProg(prog);
-        Prog foundProg = progRepository.findById(addedProg).get();
 
         //then
+        Prog foundProg = progRepository.findById(addedProg).get();
         assertThat(joinedGuide).isSameAs(foundProg.getGuide());
     }
 
     @Test
     @DisplayName("프로그램 삭제")
     @Transactional
-    void deleteTest() {
+    void delete_prog() {
         //given
         Member member = Member.builder()
             .email("test@test.com")
@@ -93,13 +93,13 @@ class ProgServiceTest {
             .outDate(LocalDateTime.now())
             .guide(joinedGuide)
             .build();
+        Long addedProg = progService.addProg(prog);
 
         //when
-        Long addedProg = progService.addProg(prog);
         progService.deleteProg(addedProg);
-        Prog foundProg = progRepository.findById(addedProg).get();
 
         //then
+        Prog foundProg = progRepository.findById(addedProg).get();
         assertThat(foundProg.getOutDate()).isNotNull();
     }
 }

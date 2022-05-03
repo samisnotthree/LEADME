@@ -24,7 +24,7 @@ class GuideServiceTest {
     @Test
     @DisplayName("가이드 등록")
     @Transactional
-    void joinGuide() {
+    void join_guide() {
         // given
         Member member = Member.builder()
             .email("test@test.com")
@@ -43,9 +43,9 @@ class GuideServiceTest {
 
         // when
         Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
-        Guide foundGuide = guideRepository.findById(joinedGuideId).get();
 
         // then
+        Guide foundGuide = guideRepository.findById(joinedGuideId).get();
         assertThat(foundGuide.getMember()).isSameAs(savedMember);
         assertThat(foundGuide.getDesc()).isEqualTo(desc);
     }
@@ -53,7 +53,7 @@ class GuideServiceTest {
     @Test
     @DisplayName("가이드 삭제")
     @Transactional
-    void deleteGuide() {
+    void delete_guide() {
         // given
         Member member = Member.builder()
             .email("test@test.com")
@@ -67,16 +67,14 @@ class GuideServiceTest {
             .build();
 
         Member savedMember = memberRepository.save(member);
-
         String desc = "testDesc";
+        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
 
         // when
-        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
         guideService.deleteGuide(joinedGuideId);
 
-        Guide foundGuide = guideRepository.findById(joinedGuideId).get();
-
         //then
+        Guide foundGuide = guideRepository.findById(joinedGuideId).get();
         assertThat(foundGuide.getOutDate()).isNotNull();
     }
 }

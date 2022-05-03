@@ -25,7 +25,7 @@ class HashtagServiceTest {
     @Test
     @Transactional
     @DisplayName("해시태그 추가")
-    void saveTest() {
+    void add_hashtag() {
         // given
         Hashtag hashtag = Hashtag.builder()
             .name("서울")
@@ -33,28 +33,27 @@ class HashtagServiceTest {
 
         // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
-        Hashtag hashtag1 = hashtagRepository.findById(addedHashtagId).get();
 
         // then
+        Hashtag hashtag1 = hashtagRepository.findById(addedHashtagId).get();
         assertThat(hashtag1).isSameAs(hashtag);
     }
 
     @Test
     @Transactional
     @DisplayName("해시태그 삭제(delete)")
-    void deleteTest() {
+    void delete_hashtag() {
         // given
         Hashtag hashtag = Hashtag.builder()
             .name("서울")
             .build();
-
-        // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
 
+        // when
         hashtagService.deleteHashtag(addedHashtagId);
 
+        // then
         Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
-
         assertThat(foundHashtag2).isInstanceOf(Optional.class).isNotPresent();
     }
 
@@ -62,7 +61,7 @@ class HashtagServiceTest {
     @Test
     @Transactional
     @DisplayName("해시태그 조회")
-    void findHashtagsTest() {
+    void find_hashtags() {
         // given
         Hashtag hashtag = Hashtag.builder()
                 .name("서울")
@@ -70,13 +69,13 @@ class HashtagServiceTest {
         Hashtag hashtag2 = Hashtag.builder()
                 .name("야간")
                 .build();
-
-        // when
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
         Long addedHashtagId2 = hashtagService.addHashtag(hashtag2);
 
+        // when
         List<Hashtag> hashtags = hashtagRepository.findAll();
 
+        //then
         Set<String> nameSet = new HashSet<>();
         nameSet.add("서울");
         nameSet.add("야간");
@@ -88,7 +87,6 @@ class HashtagServiceTest {
             foundNameSet.add(iterator.next().getName());
         }
 
-        //then
         assertThat(nameSet).isEqualTo(foundNameSet);
     }
 }

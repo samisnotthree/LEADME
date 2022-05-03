@@ -22,7 +22,7 @@ class MemberServiceTest {
     @Test
     @DisplayName("사용자 등록")
     @Transactional
-    void join() {
+    void join_member() {
         // given
         Member member = Member.builder()
             .email("test@test.com")
@@ -34,20 +34,19 @@ class MemberServiceTest {
             .outDate(null)
             .guide(null)
             .build();
-        
-        Long memberId = memberService.joinMember(member);
-        
+
         // when
-        Member foundMember = memberRepository.findById(memberId).get();
+        Long memberId = memberService.joinMember(member);
 
         //then
+        Member foundMember = memberRepository.findById(memberId).get();
         assertThat(foundMember).isSameAs(member);
     }
 
     @Test
     @DisplayName("사용자 삭제")
     @Transactional
-    void deleteMember() {
+    void delete_member() {
         //given
         Member member = Member.builder()
             .email("test@test.com")

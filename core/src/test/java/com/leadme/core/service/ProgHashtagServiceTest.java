@@ -28,7 +28,7 @@ class ProgHashtagServiceTest {
     @Test
     @DisplayName("프로그램_해시태그 등록")
     @Transactional
-    void addProgHashtagTest() {
+    void add_progHashtag() {
         //given
         Prog prog = Prog.builder()
                 .name("testName")
@@ -60,7 +60,7 @@ class ProgHashtagServiceTest {
     @Test
     @DisplayName("프로그램_해시태그 삭제")
     @Transactional
-    void deleteProgHashtagTest() {
+    void delete_progHashtag() {
         //given
         Prog prog = Prog.builder()
                 .name("testName")
@@ -80,13 +80,13 @@ class ProgHashtagServiceTest {
                 .name("서울")
                 .build();
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        ProgHashtag progHashtag = progHashtagService.addProgHashtag(addedProgId, addedHashtagId);
 
         //when
-        ProgHashtag progHashtag = progHashtagService.addProgHashtag(addedProgId, addedHashtagId);
         progHashtagService.deleteProgHashtag(progHashtag.getProgHashtagId());
-        Optional<ProgHashtag> foundProgHashtag = progHashtagRepository.findById(progHashtag.getProgHashtagId());
 
         //then
+        Optional<ProgHashtag> foundProgHashtag = progHashtagRepository.findById(progHashtag.getProgHashtagId());
         Assertions.assertThat(foundProgHashtag).isInstanceOf(Optional.class).isNotPresent();
     }
 }

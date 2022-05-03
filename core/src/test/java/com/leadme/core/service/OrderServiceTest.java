@@ -25,7 +25,7 @@ class OrderServiceTest {
     @Test
     @DisplayName("주문 등록")
     @Transactional
-    void addOrderTest() {
+    void add_order() {
         //given
         Member member = Member.builder()
             .email("test@test.com")
@@ -51,9 +51,8 @@ class OrderServiceTest {
         //when
         Long addedOrder = orderService.addOrder(order);
 
-        Orders foundOrder = orderRepository.findById(addedOrder).get();
-
         //then
+        Orders foundOrder = orderRepository.findById(addedOrder).get();
         Assertions.assertThat(foundOrder).isSameAs(order);
     }
 }

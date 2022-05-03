@@ -29,7 +29,7 @@ class ProgDailyServiceTest {
     @Test
     @DisplayName("일정 등록")
     @Transactional
-    void addProgDaily() {
+    void add_progDaily() {
         //given
         Prog prog = Prog.builder()
             .name("testName")
@@ -53,16 +53,16 @@ class ProgDailyServiceTest {
         
         //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
-        ProgDaily foundProgDaily = progDailyRepository.findById(addedProgDailyId).get();
 
         //then
+        ProgDaily foundProgDaily = progDailyRepository.findById(addedProgDailyId).get();
         assertThat(foundProgDaily).isSameAs(progDaily);
     }
 
     @Test
     @DisplayName("일정 일시 중복 체크")
     @Transactional
-    void addProgDailyDuplicate() {
+    void add_progDaily_duplicate_exception() {
         //given
         Prog prog = Prog.builder()
             .name("testName")
@@ -83,21 +83,21 @@ class ProgDailyServiceTest {
             .progDate(LocalDateTime.of(2022, 3, 16, 18, 0))
             .prog(foundProg)
             .build();
-
-        //when
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
 
-        //then
+        //when
         Throwable exception = Assertions.assertThrows(IllegalStateException.class, () -> {
             progDailyService.addProgDaily(progDaily);
         });
+
+        //then
         Assertions.assertEquals("해당 일시에 이미 등록되어 있습니다.", exception.getMessage());
     }
 
     @Test
     @DisplayName("일정 삭제")
     @Transactional
-    void deleteProgDaily() {
+    void delete_progDaily() {
         //given
         Prog prog = Prog.builder()
             .name("testName")
@@ -118,21 +118,20 @@ class ProgDailyServiceTest {
             .progDate(LocalDateTime.now())
             .prog(foundProg)
             .build();
+        Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
 
         //when
-        Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
         progDailyService.deleteProgDaily(addedProgDailyId);
 
-        Optional<ProgDaily> foundProgDaily = progDailyRepository.findById(addedProgDailyId);
-
         //then
+        Optional<ProgDaily> foundProgDaily = progDailyRepository.findById(addedProgDailyId);
         assertThat(foundProgDaily).isInstanceOf(Optional.class).isNotPresent();
     }
 
     @Test
     @DisplayName("해당날짜 일정 시간 목록")
     @Transactional
-    void findSchedules() {
+    void find_schedules() {
         //given
         Prog prog = Prog.builder()
                 .name("testName")
@@ -154,9 +153,9 @@ class ProgDailyServiceTest {
                 .progDate(now)
                 .prog(foundProg)
                 .build();
+        Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
 
         //when
-        Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
         List<ProgDaily> schedules = progDailyRepository.findSchedules(addedProgDailyId, now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         //then
