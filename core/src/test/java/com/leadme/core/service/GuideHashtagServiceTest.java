@@ -32,7 +32,7 @@ class GuideHashtagServiceTest {
     @Test
     @DisplayName("가이드_해시태그 등록")
     @Transactional
-    void addGuideHashtagTest() {
+    void add_guide_hashtag() {
         //given
         Member member = Member.builder()
                 .email("test@test.com")
@@ -65,7 +65,7 @@ class GuideHashtagServiceTest {
     @Test
     @DisplayName("가이드_해시태그 삭제")
     @Transactional
-    void deleteGuideHashtagTest() {
+    void delete_guide_hashtag() {
         //given
         Member member = Member.builder()
                 .email("test@test.com")
