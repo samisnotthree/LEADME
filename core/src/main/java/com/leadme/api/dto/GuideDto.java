@@ -2,6 +2,7 @@ package com.leadme.api.dto;
 
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -32,7 +33,8 @@ public class GuideDto {
           .member(member)
           .build();
     }
-    
+
+    @QueryProjection
     public GuideDto(Guide guide) {
         this.guideId = guide.getGuideId();
         this.desc = guide.getDesc();
