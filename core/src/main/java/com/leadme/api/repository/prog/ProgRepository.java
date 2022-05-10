@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProgRepository extends JpaRepository<Prog, Long> {
+public interface ProgRepository extends JpaRepository<Prog, Long>, ProgRepositoryCustom {
     List<Prog> findByDescContaining(String desc);
 }
