@@ -1,4 +1,4 @@
-package com.leadme.api.repository;
+package com.leadme.api.repository.progDaily;
 
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;

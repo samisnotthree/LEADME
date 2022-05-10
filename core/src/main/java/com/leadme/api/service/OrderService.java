@@ -2,7 +2,7 @@ package com.leadme.api.service;
 
 import com.leadme.api.entity.Orders;
 import com.leadme.api.entity.enums.OrderStatus;
-import com.leadme.api.repository.OrderRepository;
+import com.leadme.api.repository.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

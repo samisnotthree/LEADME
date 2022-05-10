@@ -1,7 +1,7 @@
 package com.leadme.api.service;
 
 import com.leadme.api.entity.Prog;
-import com.leadme.api.repository.ProgRepository;
+import com.leadme.api.repository.prog.ProgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -3,7 +3,7 @@ package com.leadme.api.service;
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgHashtag;
 import com.leadme.api.entity.Hashtag;
-import com.leadme.api.repository.ProgHashtagRepository;
+import com.leadme.api.repository.progHashtag.ProgHashtagRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

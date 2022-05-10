@@ -1,4 +1,4 @@
-package com.leadme.api.repository;
+package com.leadme.api.repository.member;
 
 import com.leadme.api.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

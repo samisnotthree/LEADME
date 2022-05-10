@@ -1,7 +1,7 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.ProgDailyDto;
-import com.leadme.api.repository.ProgDailyRepository;
+import com.leadme.api.repository.progDaily.ProgDailyRepository;
 import com.leadme.api.service.ProgDailyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

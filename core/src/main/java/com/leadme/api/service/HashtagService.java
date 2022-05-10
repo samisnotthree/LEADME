@@ -1,7 +1,7 @@
 package com.leadme.api.service;
 
 import com.leadme.api.entity.Hashtag;
-import com.leadme.api.repository.HashtagRepository;
+import com.leadme.api.repository.hashtag.HashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

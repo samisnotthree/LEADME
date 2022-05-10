@@ -2,7 +2,7 @@ package com.leadme.api.controller;
 
 import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.ProgHashtagDto;
-import com.leadme.api.repository.ProgRepository;
+import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.service.ProgHashtagService;
 import com.leadme.api.service.ProgService;
 import lombok.AllArgsConstructor;

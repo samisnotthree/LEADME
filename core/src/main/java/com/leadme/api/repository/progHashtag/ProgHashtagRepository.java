@@ -1,4 +1,4 @@
-package com.leadme.api.repository;
+package com.leadme.api.repository.progHashtag;
 
 import com.leadme.api.entity.Hashtag;
 import com.leadme.api.entity.Prog;

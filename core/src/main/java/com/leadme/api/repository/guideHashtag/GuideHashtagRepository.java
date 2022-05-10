@@ -1,4 +1,4 @@
-package com.leadme.api.repository;
+package com.leadme.api.repository.guideHashtag;
 
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.GuideHashtag;

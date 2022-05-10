@@ -3,7 +3,7 @@ package com.leadme.api.service;
 import com.leadme.api.entity.Member;
 import com.leadme.api.entity.Orders;
 import com.leadme.api.entity.enums.OrderStatus;
-import com.leadme.api.repository.OrderRepository;
+import com.leadme.api.repository.order.OrderRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

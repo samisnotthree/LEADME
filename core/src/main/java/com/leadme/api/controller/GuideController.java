@@ -1,7 +1,7 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.GuideDto;
-import com.leadme.api.repository.GuideRepository;
+import com.leadme.api.repository.guide.GuideRepository;
 import com.leadme.api.service.GuideService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

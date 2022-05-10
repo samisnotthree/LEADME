@@ -1,7 +1,7 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.OrderDto;
-import com.leadme.api.repository.OrderRepository;
+import com.leadme.api.repository.order.OrderRepository;
 import com.leadme.api.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

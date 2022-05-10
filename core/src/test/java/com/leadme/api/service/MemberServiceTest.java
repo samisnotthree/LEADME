@@ -1,7 +1,7 @@
 package com.leadme.api.service;
 
 import com.leadme.api.entity.Member;
-import com.leadme.api.repository.MemberRepository;
+import com.leadme.api.repository.member.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

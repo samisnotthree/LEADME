@@ -1,7 +1,7 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.MemberDto;
-import com.leadme.api.repository.MemberRepository;
+import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.HashtagDto;
-import com.leadme.api.repository.HashtagRepository;
+import com.leadme.api.repository.hashtag.HashtagRepository;
 import com.leadme.api.service.HashtagService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

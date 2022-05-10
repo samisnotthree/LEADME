@@ -1,4 +1,4 @@
-package com.leadme.api.repository;
+package com.leadme.api.repository.hashtag;
 
 import com.leadme.api.entity.Hashtag;
 import org.springframework.data.jpa.repository.JpaRepository;

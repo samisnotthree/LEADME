@@ -1,7 +1,7 @@
 package com.leadme.api.service;
 
 import com.leadme.api.entity.Hashtag;
-import com.leadme.api.repository.HashtagRepository;
+import com.leadme.api.repository.hashtag.HashtagRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

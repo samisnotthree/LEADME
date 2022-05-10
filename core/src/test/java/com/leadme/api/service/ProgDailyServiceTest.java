@@ -2,8 +2,8 @@ package com.leadme.api.service;
 
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;
-import com.leadme.api.repository.ProgDailyRepository;
-import com.leadme.api.repository.ProgRepository;
+import com.leadme.api.repository.progDaily.ProgDailyRepository;
+import com.leadme.api.repository.prog.ProgRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
