@@ -3,6 +3,7 @@ package com.leadme.api.dto;
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,19 @@ public class MemberDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
+
+    @QueryProjection
+    public MemberDto(Long memberId, String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+        this.memberId = memberId;
+        this.email = email;
+        this.name = name;
+        this.pass = pass;
+        this.phone = phone;
+        this.photo = photo;
+        this.inDate = inDate;
+        this.outDate = outDate;
+        this.guide = guide;
+    }
 
     @Builder
     public MemberDto(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
