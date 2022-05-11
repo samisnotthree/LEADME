@@ -9,15 +9,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
 import static com.leadme.api.entity.QGuide.guide;
 import static com.leadme.api.entity.QMember.member;
-import static org.springframework.util.StringUtils.*;
+import static org.springframework.util.StringUtils.hasText;
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom {
 
@@ -42,8 +40,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         guide))
                 .from(member)
                 .leftJoin(member.guide, guide)
-                .where(nameStartsWith(condition.getName())
-                        .or(emailStartsWith(condition.getEmail())))
+                .where(emailStartsWith(condition.getEmail())
+                        .or(nameStartsWith(condition.getName())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -51,9 +49,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         JPAQuery<Long> count = queryFactory
                 .select(member.count())
                 .from(member)
-                .where(nameStartsWith(condition.getName())
-                        .or(emailStartsWith(condition.getEmail())));
-
+                .where(emailStartsWith(condition.getEmail())
+                        .or(nameStartsWith(condition.getName())));
+        
         return PageableExecutionUtils.getPage(members, pageable, count::fetchOne);
     }
 
