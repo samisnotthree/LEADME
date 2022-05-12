@@ -22,9 +22,13 @@ public class ProgDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
+    private Long guideId;
+    private String guideDesc;
+    private Long memberId;
+    private String memberName;
 
     @QueryProjection
-    public ProgDto(Long progId, String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+    public ProgDto(Long progId, String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, Long guideId, String guideDesc, Long memberId, String memberName) {
         this.progId = progId;
         this.name = name;
         this.desc = desc;
@@ -33,8 +37,10 @@ public class ProgDto {
         this.price = price;
         this.meetLocation = meetLocation;
         this.inDate = inDate;
-        this.outDate = outDate;
-        this.guide = guide;
+        this.guideId = guideId;
+        this.guideDesc = guideDesc;
+        this.memberId = memberId;
+        this.memberName = memberName;
     }
 
     @Builder

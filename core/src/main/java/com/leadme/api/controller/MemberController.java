@@ -34,6 +34,14 @@ public class MemberController {
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("/member/{id}")
+    public Result findMember(@PathVariable("id") Long memberId) {
+        return new Result(memberRepository.findById(memberId)
+                .stream()
+                .map(MemberDto::new)
+                .collect(Collectors.toList()));
+    }
+
     @GetMapping("/members/{content}")
     public Page<MemberDto> searchMembers(@PathVariable("content") String content, Pageable pageable) {
         MemberSearchCondition condition = new MemberSearchCondition();

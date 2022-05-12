@@ -44,7 +44,7 @@ class MemberRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("전체 조회")
+    @DisplayName("사용자 전체 조회")
     @Transactional
     void search_members() {
         //given
@@ -61,7 +61,7 @@ class MemberRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("이름으로 조회")
+    @DisplayName("사용자 이름으로 조회")
     @Transactional
     void search_members_name() {
         //given
@@ -80,7 +80,7 @@ class MemberRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("이메일로 조회")
+    @DisplayName("사용자 이메일로 조회")
     @Transactional
     void search_members_email() {
         //given
