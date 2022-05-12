@@ -44,6 +44,23 @@ class MemberRepositoryImplTest {
     }
 
     @Test
+    @DisplayName("전체 조회")
+    @Transactional
+    void search_members() {
+        //given
+        MemberSearchCondition condition = new MemberSearchCondition();
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+
+        //when
+        Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
+
+        //then
+        List<MemberDto> foundMembers = members.getContent();
+        assertThat(foundMembers.size()).isEqualTo(2);
+    }
+
+    @Test
     @DisplayName("이름으로 조회")
     @Transactional
     void search_members_name() {

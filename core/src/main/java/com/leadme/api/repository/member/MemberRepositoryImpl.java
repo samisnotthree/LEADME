@@ -3,6 +3,7 @@ package com.leadme.api.repository.member;
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.MemberSearchCondition;
 import com.leadme.api.dto.QMemberDto;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,6 +28,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 
     @Override
     public Page<MemberDto> searchMembers(MemberSearchCondition condition, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(condition.getName())) {
+            builder.or(member.name.startsWith(condition.getName()));
+        }
+
+        if (hasText(condition.getEmail())) {
+            builder.or(member.email.startsWith(condition.getEmail()));
+        }
+
         List<MemberDto> members = queryFactory
                 .select(new QMemberDto(
                         member.memberId,
@@ -40,8 +50,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         guide))
                 .from(member)
                 .leftJoin(member.guide, guide)
-                .where(emailStartsWith(condition.getEmail())
-                        .or(nameStartsWith(condition.getName())))
+                .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -49,9 +58,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         JPAQuery<Long> count = queryFactory
                 .select(member.count())
                 .from(member)
-                .where(emailStartsWith(condition.getEmail())
-                        .or(nameStartsWith(condition.getName())));
-        
+                .where(builder);
+
         return PageableExecutionUtils.getPage(members, pageable, count::fetchOne);
     }
 
