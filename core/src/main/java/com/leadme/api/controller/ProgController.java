@@ -3,6 +3,7 @@ package com.leadme.api.controller;
 import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.ProgHashtagDto;
 import com.leadme.api.dto.ProgSearchCondition;
+import com.leadme.api.repository.prog.ProgQueryRepository;
 import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.service.ProgHashtagService;
 import com.leadme.api.service.ProgService;
@@ -22,6 +23,7 @@ public class ProgController {
     private final ProgService progService;
     private final ProgRepository progRepository;
     private final ProgHashtagService progHashtagService;
+    private final ProgQueryRepository progQueryRepository;
 
     /**
      *  프로그램 등록
@@ -51,7 +53,7 @@ public class ProgController {
         ProgSearchCondition condition = new ProgSearchCondition();
         condition.setName(content);
         condition.setDesc(content);
-        return new Result(progRepository.searchProgs(condition, pageable));
+        return new Result(progQueryRepository.searchProgs(condition, pageable));
     }
 
     @Data

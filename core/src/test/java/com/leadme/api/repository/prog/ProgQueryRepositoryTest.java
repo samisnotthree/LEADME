@@ -18,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class ProgRepositoryImplTest {
-    @Autowired ProgRepositoryImpl progRepositoryImpl;
+class ProgQueryRepositoryTest {
+    @Autowired ProgQueryRepository progQueryRepository;
     @Autowired
     ProgService progService;
 
@@ -45,10 +45,10 @@ class ProgRepositoryImplTest {
         //given
         ProgSearchCondition condition = new ProgSearchCondition();
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
 
         //when
-        Page<ProgDto> progs = progRepositoryImpl.searchProgs(condition, pageable);
+        Page<ProgDto> progs = progQueryRepository.searchProgs(condition, pageable);
 
         //then
         assertThat(progs.getTotalElements()).isEqualTo(2);
@@ -62,10 +62,10 @@ class ProgRepositoryImplTest {
         ProgSearchCondition condition = new ProgSearchCondition();
         condition.setName("ame1");
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
 
         //when
-        Page<ProgDto> progs = progRepositoryImpl.searchProgs(condition, pageable);
+        Page<ProgDto> progs = progQueryRepository.searchProgs(condition, pageable);
 
         //then
         assertThat(progs.getContent().get(0).getName()).isEqualTo("name11");
@@ -79,10 +79,10 @@ class ProgRepositoryImplTest {
         ProgSearchCondition condition = new ProgSearchCondition();
         condition.setDesc("esc1");
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
 
         //when
-        Page<ProgDto> progs = progRepositoryImpl.searchProgs(condition, pageable);
+        Page<ProgDto> progs = progQueryRepository.searchProgs(condition, pageable);
 
         //then
         assertThat(progs.getContent().get(0).getDesc()).isEqualTo("desc11");

@@ -50,7 +50,7 @@ class MemberRepositoryImplTest {
         //given
         MemberSearchCondition condition = new MemberSearchCondition();
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
         Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
@@ -68,7 +68,7 @@ class MemberRepositoryImplTest {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setName("name2");
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
         Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
@@ -87,7 +87,7 @@ class MemberRepositoryImplTest {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setEmail("email2");
 
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "bno");
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
         Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);

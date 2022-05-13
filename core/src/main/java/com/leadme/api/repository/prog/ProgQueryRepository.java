@@ -4,12 +4,12 @@ import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.ProgSearchCondition;
 import com.leadme.api.dto.QProgDto;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -19,15 +19,14 @@ import static com.leadme.api.entity.QMember.member;
 import static com.leadme.api.entity.QProg.prog;
 import static org.springframework.util.StringUtils.hasText;
 
-public class ProgRepositoryImpl implements ProgRepositoryCustom{
-
+@Repository
+public class ProgQueryRepository {
     private final JPAQueryFactory queryFactory;
 
-    public ProgRepositoryImpl(EntityManager em) {
+    public ProgQueryRepository(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    @Override
     public Page<ProgDto> searchProgs(ProgSearchCondition condition, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(condition.getName())) {
@@ -65,13 +64,5 @@ public class ProgRepositoryImpl implements ProgRepositoryCustom{
                 .where(builder);
 
         return PageableExecutionUtils.getPage(progs, pageable, count::fetchOne);
-    }
-
-    BooleanExpression nameLike(String name) {
-        return hasText(name) ? prog.name.like("%" + name + "%") : null;
-    }
-
-    BooleanExpression descLike(String desc) {
-        return hasText(desc) ? prog.desc.like("%" + desc + "%") : null;
     }
 }
