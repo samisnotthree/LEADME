@@ -23,9 +23,17 @@ public class HashtagController {
         return hashtagService.addHashtag(hashtagDto.toEntity());
     }
     
-    @GetMapping
+    @GetMapping("hashtags")
     public Result findAll() {
         return new Result(hashtagRepository.findAll()
+                .stream()
+                .map(HashtagDto::new)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("hashtags/{name}")
+    public Result findByName(@PathVariable("name") String name) {
+        return new Result(hashtagRepository.findByNameContains(name)
                 .stream()
                 .map(HashtagDto::new)
                 .collect(Collectors.toList()));

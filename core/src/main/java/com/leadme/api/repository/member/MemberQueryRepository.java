@@ -48,7 +48,8 @@ public class MemberQueryRepository {
                         member.phone,
                         member.inDate,
                         member.outDate,
-                        guide))
+                        guide.guideId,
+                        guide.desc))
                 .from(member)
                 .leftJoin(member.guide, guide)
                 .where(builder)

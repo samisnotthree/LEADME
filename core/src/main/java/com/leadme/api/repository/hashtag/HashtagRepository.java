@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface HashtagRepository  extends JpaRepository<Hashtag, Long> {
     List<Hashtag> findByName(String name);
+    List<Hashtag> findByNameContains(String name);
 
 //    @Query(value =
 //             " select h"
