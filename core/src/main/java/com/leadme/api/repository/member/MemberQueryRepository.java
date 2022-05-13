@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -18,15 +19,15 @@ import static com.leadme.api.entity.QGuide.guide;
 import static com.leadme.api.entity.QMember.member;
 import static org.springframework.util.StringUtils.hasText;
 
-public class MemberRepositoryImpl implements MemberRepositoryCustom {
+@Repository
+public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public MemberRepositoryImpl(EntityManager em) {
+    public MemberQueryRepository(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    @Override
     public Page<MemberDto> searchMembers(MemberSearchCondition condition, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(condition.getName())) {
@@ -70,4 +71,5 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     private BooleanExpression emailStartsWith(String email) {
         return hasText(email) ? member.email.startsWith(email) : null;
     }
+
 }

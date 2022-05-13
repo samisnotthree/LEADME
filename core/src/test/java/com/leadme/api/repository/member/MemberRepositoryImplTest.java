@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class MemberRepositoryImplTest {
 
-    @Autowired MemberRepositoryImpl memberRepositoryImpl;
+    @Autowired MemberQueryRepository memberQueryRepository;
     @Autowired
     MemberService memberService;
 
@@ -53,7 +53,7 @@ class MemberRepositoryImplTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
+        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
         List<MemberDto> foundMembers = members.getContent();
@@ -71,7 +71,7 @@ class MemberRepositoryImplTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
+        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
         List<MemberDto> foundMembers = members.getContent();
@@ -90,7 +90,7 @@ class MemberRepositoryImplTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberRepositoryImpl.searchMembers(condition, pageable);
+        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
         List<MemberDto> foundMembers = members.getContent();

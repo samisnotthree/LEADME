@@ -2,6 +2,7 @@ package com.leadme.api.controller;
 
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.MemberSearchCondition;
+import com.leadme.api.repository.member.MemberQueryRepository;
 import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final MemberQueryRepository memberQueryRepository;
 
     @Transactional
     @PostMapping("/members")
@@ -47,7 +49,7 @@ public class MemberController {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setName(content);
         condition.setEmail(content);
-        return memberRepository.searchMembers(condition, pageable);
+        return memberQueryRepository.searchMembers(condition, pageable);
     }
 
     @Data

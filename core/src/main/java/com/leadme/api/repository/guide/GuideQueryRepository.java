@@ -1,4 +1,4 @@
 package com.leadme.api.repository.guide;
 
-public interface GuideRepositoryCustom {
+public class GuideQueryRepository {
 }

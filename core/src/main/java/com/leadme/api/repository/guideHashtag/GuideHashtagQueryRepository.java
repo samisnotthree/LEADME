@@ -1,4 +1,4 @@
 package com.leadme.api.repository.guideHashtag;
 
-public class GuideHashtagRepositoryCustom {
+public class GuideHashtagQueryRepository {
 }
