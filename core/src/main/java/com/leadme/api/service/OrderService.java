@@ -4,15 +4,18 @@ import com.leadme.api.entity.Orders;
 import com.leadme.api.entity.enums.OrderStatus;
 import com.leadme.api.repository.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -49,6 +52,6 @@ public class OrderService {
     * 프로그램 시작 한시간 전까지 취소 가능
     */
     public boolean canCancelOrder(Orders order) {
-        return order.getProgDaily().getProgDate().isAfter(LocalDateTime.now().plusHours(1));
+        return Long.parseLong(order.getProgDaily().getProgDate()) > Long.parseLong(LocalDateTime.now().plusHours(1).format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")));
     }
 }

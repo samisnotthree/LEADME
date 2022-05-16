@@ -4,6 +4,7 @@ import com.leadme.api.dto.ProgDailyDto;
 import com.leadme.api.dto.ProgDailySearchCondition;
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;
+import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.service.ProgDailyService;
 import com.leadme.api.service.ProgService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,8 @@ class ProgDailyQueryRepositoryTest {
     ProgDailyService progDailyService;
     @Autowired
     ProgService progService;
+    @Autowired
+    ProgRepository progRepository;
 
     @BeforeEach
     void init_data() {
@@ -51,15 +54,16 @@ class ProgDailyQueryRepositoryTest {
     @Transactional
     void search_schedules() {
         //given
+        Prog prog = progRepository.findAll().get(0);
+
         ProgDailySearchCondition condition = new ProgDailySearchCondition();
-        condition.setProgId(1L);
+        condition.setProgId(prog.getProgId());
         condition.setProgDate("20220515");
 
         //when
         List<ProgDailyDto> schedules = progDailyQueryRepository.findSchedules(condition);
 
         //then
-        assertThat(schedules.size()).isEqualTo(2);
         assertThat(schedules).extracting("progDate").containsExactly("202205151500", "202205151630");
     }
 }

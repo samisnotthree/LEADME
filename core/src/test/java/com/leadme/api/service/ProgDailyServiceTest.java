@@ -47,7 +47,7 @@ class ProgDailyServiceTest {
         Prog foundProg = progRepository.findById(addedProgId).get();
 
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(LocalDateTime.now())
+            .progDate(LocalDateTime.now().toString())
             .prog(foundProg)
             .build();
         
@@ -80,7 +80,7 @@ class ProgDailyServiceTest {
         Prog foundProg = progRepository.findById(addedProgId).get();
 
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(LocalDateTime.of(2022, 3, 16, 18, 0))
+            .progDate("202203161800")
             .prog(foundProg)
             .build();
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -115,7 +115,7 @@ class ProgDailyServiceTest {
         Prog foundProg = progRepository.findById(addedProgId).get();
 
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(LocalDateTime.now())
+            .progDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
             .prog(foundProg)
             .build();
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
@@ -150,7 +150,7 @@ class ProgDailyServiceTest {
         LocalDateTime now = LocalDateTime.now();
 
         ProgDaily progDaily = ProgDaily.builder()
-                .progDate(now)
+                .progDate(now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
                 .prog(foundProg)
                 .build();
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
