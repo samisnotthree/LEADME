@@ -47,7 +47,7 @@ class ProgDailyServiceTest {
         Prog foundProg = progRepository.findById(addedProgId).get();
 
         ProgDaily progDaily = ProgDaily.builder()
-            .progDate(LocalDateTime.now().toString())
+            .progDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
             .prog(foundProg)
             .build();
         
