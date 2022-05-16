@@ -3,7 +3,6 @@ package com.leadme.api.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class ProgDaily {
     @GeneratedValue
     private Long progDailyId;
 
-    private LocalDateTime progDate;
+    private String progDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "prog_id")
@@ -25,7 +24,7 @@ public class ProgDaily {
     private List<Orders> orders = new ArrayList<>();
 
     @Builder
-    public ProgDaily(LocalDateTime progDate, Prog prog) {
+    public ProgDaily(String progDate, Prog prog) {
         this.progDate = progDate;
         this.prog = prog;
     }
