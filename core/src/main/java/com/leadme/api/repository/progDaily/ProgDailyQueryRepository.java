@@ -31,7 +31,7 @@ public class ProgDailyQueryRepository {
                 ))
                 .from(progDaily)
                 .where(progDaily.prog.progId.eq(condition.getProgId()),
-                        Expressions.stringTemplate("DATE_FORMAT", progDaily.progDate, ConstantImpl.create("%Y%m%d")).eq(condition.getProgDate()))
+                        progDaily.progDate.substring(0, 8).eq(condition.getProgDate()))
                 .fetch();
     }
 
