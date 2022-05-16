@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,13 +34,13 @@ class ProgDailyQueryRepositoryTest {
         progService.addProg(prog);
 
         ProgDaily progDaily = ProgDaily.builder()
-                .progDate(LocalDateTime.now())
+                .progDate("202205151500")
                 .prog(prog)
                 .build();
         progDailyService.addProgDaily(progDaily);
 
         ProgDaily progDaily2 = ProgDaily.builder()
-                .progDate(LocalDateTime.now())
+                .progDate("202205151630")
                 .prog(prog)
                 .build();
         progDailyService.addProgDaily(progDaily2);
@@ -61,5 +60,6 @@ class ProgDailyQueryRepositoryTest {
 
         //then
         assertThat(schedules.size()).isEqualTo(2);
+        assertThat(schedules).extracting("progDate").containsExactly("202205151500", "202205151630");
     }
 }
