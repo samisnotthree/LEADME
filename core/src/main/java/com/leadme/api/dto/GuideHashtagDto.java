@@ -17,6 +17,7 @@ public class GuideHashtagDto {
     private Hashtag hashtag;
     private Long guideId;
     private Long hashtagId;
+    private Long count;
 
     @Builder
     public GuideHashtagDto(Guide guide, Hashtag hashtag) {
@@ -39,7 +40,8 @@ public class GuideHashtagDto {
     }
 
     @QueryProjection
-    public GuideHashtagDto(Long hashtagId) {
+    public GuideHashtagDto(Long hashtagId, Long count) {
         this.hashtagId = hashtagId;
+        this.count = count;
     }
 }
