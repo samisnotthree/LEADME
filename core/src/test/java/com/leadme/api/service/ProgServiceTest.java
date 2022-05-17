@@ -27,21 +27,6 @@ class ProgServiceTest {
     @Transactional
     void add_prog() {
         //given
-        Member member = Member.builder()
-            .email("test@test.com")
-            .name("testName")
-            .pass("testPass")
-            .phone("testPhone")
-            .photo("testPhoto")
-            .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
-            .build();
-
-        Long joinedMember = memberService.joinMember(member);
-
-        Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
-
         Prog prog = Prog.builder()
             .name("testName")
             .desc("testDesc")
@@ -51,7 +36,6 @@ class ProgServiceTest {
             .meetLocation("정문앞")
             .inDate(LocalDateTime.now())
             .outDate(LocalDateTime.now())
-            .guide(joinedGuide)
             .build();
 
         //when
@@ -59,7 +43,7 @@ class ProgServiceTest {
 
         //then
         Prog foundProg = progRepository.findById(addedProg).get();
-        assertThat(joinedGuide).isSameAs(foundProg.getGuide());
+        assertThat(prog).isSameAs(foundProg);
     }
 
     @Test
@@ -67,21 +51,6 @@ class ProgServiceTest {
     @Transactional
     void delete_prog() {
         //given
-        Member member = Member.builder()
-            .email("test@test.com")
-            .name("testName")
-            .pass("testPass")
-            .phone("testPhone")
-            .photo("testPhoto")
-            .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
-            .build();
-
-        Long joinedMember = memberService.joinMember(member);
-
-        Guide joinedGuide = guideService.joinGuide(joinedMember, "testGuideDesc");
-
         Prog prog = Prog.builder()
             .name("testName")
             .desc("testDesc")
@@ -91,7 +60,6 @@ class ProgServiceTest {
             .meetLocation("정문앞")
             .inDate(LocalDateTime.now())
             .outDate(LocalDateTime.now())
-            .guide(joinedGuide)
             .build();
         Long addedProg = progService.addProg(prog);
 

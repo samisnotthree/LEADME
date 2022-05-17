@@ -44,7 +44,6 @@ public class MemberQueryRepository {
                         member.email,
                         member.name,
                         member.pass,
-                        member.photo,
                         member.phone,
                         member.inDate,
                         member.outDate,

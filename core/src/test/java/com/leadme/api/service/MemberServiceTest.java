@@ -28,10 +28,7 @@ class MemberServiceTest {
             .name("testName")
             .pass("testPass")
             .phone("testPhone")
-            .photo("testPhoto")
             .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
             .build();
 
         // when
@@ -40,6 +37,30 @@ class MemberServiceTest {
         //then
         Member foundMember = memberRepository.findById(memberId).get();
         assertThat(foundMember).isSameAs(member);
+    }
+
+    @Test
+    @DisplayName("사용자 중복 등록")
+    @Transactional
+    void join_member_duplicate() {
+        // given
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName2")
+            .pass("testPass2")
+            .phone("testPhone2")
+            .inDate(LocalDateTime.now())
+            .build();
+        memberService.joinMember(member);
+
+        // when
+        Throwable exception = catchThrowable(() -> {
+            memberService.joinMember(member);
+        });
+
+        //then
+        assertThat(exception).hasMessage("이미 존재하는 회원입니다.");
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -52,10 +73,7 @@ class MemberServiceTest {
             .name("testName")
             .pass("testPass")
             .phone("testPhone")
-            .photo("testPhoto")
             .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
             .build();
         
         Long joinedMemberId = memberService.joinMember(member);

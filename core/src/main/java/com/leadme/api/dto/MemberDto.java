@@ -17,7 +17,6 @@ public class MemberDto {
     private String name;
     private String pass;
     private String phone;
-    private String photo;
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
@@ -25,13 +24,12 @@ public class MemberDto {
     private String desc;
 
     @QueryProjection
-    public MemberDto(Long memberId, String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Long guideId, String desc) {
+    public MemberDto(Long memberId, String email, String name, String pass, String phone, LocalDateTime inDate, LocalDateTime outDate, Long guideId, String desc) {
         this.memberId = memberId;
         this.email = email;
         this.name = name;
         this.pass = pass;
         this.phone = phone;
-        this.photo = photo;
         this.inDate = inDate;
         this.outDate = outDate;
         this.guideId = guideId;
@@ -39,12 +37,11 @@ public class MemberDto {
     }
 
     @Builder
-    public MemberDto(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+    public MemberDto(String email, String name, String pass, String phone, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
         this.email = email;
         this.name = name;
         this.pass = pass;
         this.phone = phone;
-        this.photo = photo;
         this.inDate = inDate;
         this.outDate = outDate;
         this.guide = guide;
@@ -56,7 +53,6 @@ public class MemberDto {
                 .name(name)
                 .pass(pass)
                 .phone(phone)
-                .photo(photo)
                 .inDate(inDate)
                 .outDate(outDate)
                 .guide(guide)
@@ -70,7 +66,6 @@ public class MemberDto {
         this.name = member.getName();
         this.pass = member.getPass();
         this.phone = member.getPhone();
-        this.photo = member.getPhoto();
         this.inDate = member.getInDate();
         this.outDate = member.getOutDate();
         this.guide = member.getGuide();

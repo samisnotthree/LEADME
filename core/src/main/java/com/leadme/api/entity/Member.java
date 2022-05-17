@@ -18,7 +18,6 @@ public class Member {
     private String name;
     private String pass;
     private String phone;
-    private String photo;
     private LocalDateTime inDate;
     private LocalDateTime outDate;
 
@@ -26,12 +25,11 @@ public class Member {
     private Guide guide;
 
     @Builder
-    public Member(String email, String name, String pass, String phone, String photo, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
+    public Member(String email, String name, String pass, String phone, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {
         this.email = email;
         this.name = name;
         this.pass = pass;
         this.phone = phone;
-        this.photo = photo;
         this.inDate = inDate;
         this.outDate = outDate;
         this.guide = guide;

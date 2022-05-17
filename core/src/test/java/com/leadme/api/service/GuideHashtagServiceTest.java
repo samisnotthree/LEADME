@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -37,10 +38,7 @@ class GuideHashtagServiceTest {
                 .name("testName")
                 .pass("testPass")
                 .phone("testPhone")
-                .photo("testPhoto")
                 .inDate(LocalDateTime.now())
-                .outDate(null)
-                .guide(null)
                 .build();
 
         Member savedMember = memberRepository.save(member);
@@ -56,8 +54,41 @@ class GuideHashtagServiceTest {
         GuideHashtag guideHashtag = guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
 
         //then
-        Assertions.assertThat(guideHashtag.getGuide()).isSameAs(joinedGuide);
-        Assertions.assertThat(guideHashtag.getHashtag().getHashtagId()).isEqualTo(addedHashtagId);
+        assertThat(guideHashtag.getGuide()).isSameAs(joinedGuide);
+        assertThat(guideHashtag.getHashtag().getHashtagId()).isSameAs(addedHashtagId);
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 중복 등록")
+    @Transactional
+    void add_guideHashtag_duplicate() {
+        //given
+        Member member = Member.builder()
+                .email("test@test.com")
+                .name("testName")
+                .pass("testPass")
+                .phone("testPhone")
+                .inDate(LocalDateTime.now())
+                .build();
+
+        Member savedMember = memberRepository.save(member);
+        String desc = "testDesc";
+        Guide joinedGuide = guideService.joinGuide(savedMember.getMemberId(), desc);
+
+        Hashtag hashtag = Hashtag.builder()
+                .name("서울")
+                .build();
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+        guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), addedHashtagId);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("이미 등록되어 있는 해시태그입니다.");
     }
 
     @Test
@@ -70,10 +101,7 @@ class GuideHashtagServiceTest {
                 .name("testName")
                 .pass("testPass")
                 .phone("testPhone")
-                .photo("testPhoto")
                 .inDate(LocalDateTime.now())
-                .outDate(null)
-                .guide(null)
                 .build();
 
         Member savedMember = memberRepository.save(member);
@@ -91,6 +119,6 @@ class GuideHashtagServiceTest {
 
         //then
         Optional<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findById(guideHashtag.getGuideHashtagId());
-        Assertions.assertThat(foundGuideHashtag).isInstanceOf(Optional.class).isNotPresent();
+        assertThat(foundGuideHashtag).isInstanceOf(Optional.class).isNotPresent();
     }
 }

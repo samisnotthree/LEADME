@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest
 class OrderServiceTest {
@@ -28,25 +29,12 @@ class OrderServiceTest {
     @Transactional
     void add_order() {
         //given
-        Member member = Member.builder()
-            .email("test@test.com")
-            .name("testName")
-            .pass("testPass")
-            .phone("testPhone")
-            .photo("testPhoto")
-            .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
-            .build();
-        
         Orders order = Orders.builder()
             .price(50000L)
             .payment("카드")
             .orderDate(LocalDateTime.now())
             .payDate(LocalDateTime.now())
             .status(OrderStatus.PAYED)
-            .member(member)
-            .progDaily(null)
             .build();
 
         //when
@@ -62,17 +50,6 @@ class OrderServiceTest {
     @Transactional
     void cancel_order() {
         //given
-        Member member = Member.builder()
-            .email("test@test.com")
-            .name("testName")
-            .pass("testPass")
-            .phone("testPhone")
-            .photo("testPhoto")
-            .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
-            .build();
-
         ProgDaily progDaily = ProgDaily.builder()
                 .progDate(LocalDateTime.now().plusHours(2).format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
                 .build();
@@ -101,17 +78,6 @@ class OrderServiceTest {
     @Transactional
     void cancel_order_one_hour() {
         //given
-        Member member = Member.builder()
-            .email("test@test.com")
-            .name("testName")
-            .pass("testPass")
-            .phone("testPhone")
-            .photo("testPhoto")
-            .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
-            .build();
-
         ProgDaily progDaily = ProgDaily.builder()
                 .progDate(LocalDateTime.now().plusHours(1).format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")))
                 .build();
@@ -129,11 +95,12 @@ class OrderServiceTest {
         Orders foundOrder = orderRepository.findById(addedOrder).get();
 
         //when
-        Throwable exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+        Throwable exception = catchThrowable(() -> {
             orderService.cancelOrder(foundOrder);
         });
 
         //then
-        assertThat(exception.getMessage()).isEqualTo("환불 가능 기간이 지났습니다.");
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("환불 가능 기간이 지났습니다.");
     }
 }

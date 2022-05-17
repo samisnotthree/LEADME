@@ -33,8 +33,30 @@ class HashtagServiceTest {
         Long addedHashtagId = hashtagService.addHashtag(hashtag);
 
         // then
-        Hashtag hashtag1 = hashtagRepository.findById(addedHashtagId).get();
-        assertThat(hashtag1).isSameAs(hashtag);
+        assertThat(addedHashtagId).isSameAs(hashtag.getHashtagId());
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("해시태그 중복 추가")
+    void add_hashtag_duplicate() {
+        // given
+        Hashtag hashtag = Hashtag.builder()
+            .name("서울")
+            .build();
+        Hashtag hashtag2 = Hashtag.builder()
+            .name("서울")
+            .build();
+        hashtagService.addHashtag(hashtag);
+
+        // when
+        Throwable exception = catchThrowable(() -> {
+            hashtagService.addHashtag(hashtag);
+        });
+
+        // then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("이미 존재하는 해시태그입니다.");
     }
 
     @Test
@@ -51,8 +73,8 @@ class HashtagServiceTest {
         hashtagService.deleteHashtag(addedHashtagId);
 
         // then
-        Optional<Hashtag> foundHashtag2 = hashtagRepository.findById(addedHashtagId);
-        assertThat(foundHashtag2).isInstanceOf(Optional.class).isNotPresent();
+        Optional<Hashtag> foundHashtagAfterDelete = hashtagRepository.findById(addedHashtagId);
+        assertThat(foundHashtagAfterDelete).isInstanceOf(Optional.class).isNotPresent();
     }
 
     //TODO findPopularHashtags 로 바꾸기
@@ -67,24 +89,13 @@ class HashtagServiceTest {
         Hashtag hashtag2 = Hashtag.builder()
                 .name("야간")
                 .build();
-        Long addedHashtagId = hashtagService.addHashtag(hashtag);
-        Long addedHashtagId2 = hashtagService.addHashtag(hashtag2);
+        hashtagService.addHashtag(hashtag);
+        hashtagService.addHashtag(hashtag2);
 
         // when
         List<Hashtag> hashtags = hashtagRepository.findAll();
 
         //then
-        Set<String> nameSet = new HashSet<>();
-        nameSet.add("서울");
-        nameSet.add("야간");
-
-        Set<String> foundNameSet = new HashSet<>();
-
-        Iterator<Hashtag> iterator = hashtags.iterator();
-        while(iterator.hasNext()) {
-            foundNameSet.add(iterator.next().getName());
-        }
-
-        assertThat(nameSet).isEqualTo(foundNameSet);
+        assertThat(hashtags).extracting("name").containsExactly("서울", "야간");
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest
 class GuideServiceTest {
@@ -31,10 +32,7 @@ class GuideServiceTest {
             .name("testName")
             .pass("testPass")
             .phone("testPhone")
-            .photo("testPhoto")
             .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
             .build();
 
         Member savedMember = memberRepository.save(member);
@@ -47,7 +45,36 @@ class GuideServiceTest {
         // then
         Guide foundGuide = guideRepository.findById(joinedGuideId).get();
         assertThat(foundGuide.getMember()).isSameAs(savedMember);
-        assertThat(foundGuide.getDesc()).isEqualTo(desc);
+        assertThat(foundGuide.getDesc()).isSameAs(desc);
+    }
+
+    @Test
+    @DisplayName("가이드 중복 등록")
+    @Transactional
+    void join_guide_duplicate() {
+        // given
+        Member member = Member.builder()
+            .email("test@test.com")
+            .name("testName")
+            .pass("testPass")
+            .phone("testPhone")
+            .inDate(LocalDateTime.now())
+            .build();
+
+        Member savedMember = memberRepository.save(member);
+
+        String desc = "testDesc";
+        Long joinedGuideId = guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
+
+        // when
+        Throwable exception = catchThrowable(() -> {
+            guideService.joinGuide(savedMember.getMemberId(), desc).getGuideId();
+        });
+
+
+        // then
+        assertThat(exception).hasMessage("이미 가이드로 등록되어 있습니다.");
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -60,10 +87,7 @@ class GuideServiceTest {
             .name("testName")
             .pass("testPass")
             .phone("testPhone")
-            .photo("testPhoto")
             .inDate(LocalDateTime.now())
-            .outDate(null)
-            .guide(null)
             .build();
 
         Member savedMember = memberRepository.save(member);
