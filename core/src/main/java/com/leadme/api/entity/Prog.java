@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Prog {
     @Id
@@ -21,6 +21,7 @@ public class Prog {
     private String meetLocation;
     private LocalDateTime inDate;
 
+    @Setter
     private LocalDateTime outDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

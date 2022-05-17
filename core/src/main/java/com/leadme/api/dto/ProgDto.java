@@ -22,10 +22,10 @@ public class ProgDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
-    private Long guideId;
-    private String guideDesc;
-    private Long memberId;
-    private String memberName;
+    //private Long guideId;
+    //private String guideDesc;
+    //private Long memberId;
+    //private String memberName;
 
     @QueryProjection
     public ProgDto(Long progId, String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, Long guideId, String guideDesc, Long memberId, String memberName) {
@@ -37,10 +37,10 @@ public class ProgDto {
         this.price = price;
         this.meetLocation = meetLocation;
         this.inDate = inDate;
-        this.guideId = guideId;
-        this.guideDesc = guideDesc;
-        this.memberId = memberId;
-        this.memberName = memberName;
+        //this.guideId = guideId;
+        //this.guideDesc = guideDesc;
+        //this.memberId = memberId;
+        //this.memberName = memberName;
     }
 
     @Builder

@@ -15,7 +15,7 @@ public class GuideDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Member member;
-    private Long memberId;
+    //private Long memberId;
   
     @Builder
     public GuideDto(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
@@ -34,7 +34,6 @@ public class GuideDto {
           .build();
     }
 
-    @QueryProjection
     public GuideDto(Guide guide) {
         this.guideId = guide.getGuideId();
         this.desc = guide.getDesc();

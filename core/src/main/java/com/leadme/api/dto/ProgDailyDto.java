@@ -11,8 +11,8 @@ public class ProgDailyDto {
     private Long progDailyId;
     private String progDate;
     private Prog prog;
-    private Long progId;
-  
+    //private Long progId;
+
     @Builder
     public ProgDailyDto(String progDate, Prog prog) {
         this.progDate = progDate;
@@ -35,6 +35,6 @@ public class ProgDailyDto {
     public ProgDailyDto(Long progDailyId, String progDate, Long progId) {
         this.progDailyId = progDailyId;
         this.progDate = progDate;
-        this.progId = progId;
+        //this.progId = progId;
     }
 }

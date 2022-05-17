@@ -20,8 +20,8 @@ public class MemberDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
-    private Long guideId;
-    private String desc;
+    //private Long guideId;
+    //private String desc;
 
     @QueryProjection
     public MemberDto(Long memberId, String email, String name, String pass, String phone, LocalDateTime inDate, LocalDateTime outDate, Long guideId, String desc) {
@@ -32,8 +32,8 @@ public class MemberDto {
         this.phone = phone;
         this.inDate = inDate;
         this.outDate = outDate;
-        this.guideId = guideId;
-        this.desc = desc;
+        //this.guideId = guideId;
+        //this.desc = desc;
     }
 
     @Builder
