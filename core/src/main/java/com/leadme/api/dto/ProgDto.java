@@ -2,7 +2,6 @@ package com.leadme.api.dto;
 
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Prog;
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,26 +21,6 @@ public class ProgDto {
     private LocalDateTime inDate;
     private LocalDateTime outDate;
     private Guide guide;
-    //private Long guideId;
-    //private String guideDesc;
-    //private Long memberId;
-    //private String memberName;
-
-    @QueryProjection
-    public ProgDto(Long progId, String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, Long guideId, String guideDesc, Long memberId, String memberName) {
-        this.progId = progId;
-        this.name = name;
-        this.desc = desc;
-        this.maxMember = maxMember;
-        this.duration = duration;
-        this.price = price;
-        this.meetLocation = meetLocation;
-        this.inDate = inDate;
-        //this.guideId = guideId;
-        //this.guideDesc = guideDesc;
-        //this.memberId = memberId;
-        //this.memberName = memberName;
-    }
 
     @Builder
     public ProgDto(String name, String desc, Integer maxMember, String duration, Long price, String meetLocation, LocalDateTime inDate, LocalDateTime outDate, Guide guide) {

@@ -1,7 +1,8 @@
 package com.leadme.api.repository.progDaily;
 
 import com.leadme.api.dto.ProgDailyDto;
-import com.leadme.api.dto.ProgDailySearchCondition;
+import com.leadme.api.dto.condition.ProgDailySearchCondition;
+import com.leadme.api.dto.sdto.ProgDailyProgDto;
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;
 import com.leadme.api.repository.prog.ProgRepository;
@@ -61,7 +62,7 @@ class ProgDailyQueryRepositoryTest {
         condition.setProgDate("20220515");
 
         //when
-        List<ProgDailyDto> schedules = progDailyQueryRepository.findSchedules(condition);
+        List<ProgDailyProgDto> schedules = progDailyQueryRepository.findSchedules(condition);
 
         //then
         assertThat(schedules).extracting("progDate").containsExactly("202205151500", "202205151630");

@@ -1,8 +1,11 @@
 package com.leadme.api.repository.member;
 
 import com.leadme.api.dto.MemberDto;
-import com.leadme.api.dto.MemberSearchCondition;
+import com.leadme.api.dto.condition.MemberSearchCondition;
+import com.leadme.api.dto.sdto.MemberGuideDto;
+import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
+import com.leadme.api.service.GuideService;
 import com.leadme.api.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +28,8 @@ class MemberQueryRepositoryTest {
     @Autowired MemberQueryRepository memberQueryRepository;
     @Autowired
     MemberService memberService;
+    @Autowired
+    GuideService guideService;
 
     @BeforeEach
     void init_data() {
@@ -32,8 +37,9 @@ class MemberQueryRepositoryTest {
                 .name("name11")
                 .email("email11")
                 .build();
+        Long joinedMemberId = memberService.joinMember(member);
 
-        memberService.joinMember(member);
+        guideService.joinGuide(joinedMemberId, "desc11");
 
         Member member2 = Member.builder()
                 .name("name22")
@@ -53,10 +59,10 @@ class MemberQueryRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
+        Page<MemberGuideDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
-        List<MemberDto> foundMembers = members.getContent();
+        List<MemberGuideDto> foundMembers = members.getContent();
         assertThat(foundMembers.size()).isEqualTo(2);
     }
 
@@ -71,10 +77,10 @@ class MemberQueryRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
+        Page<MemberGuideDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
-        List<MemberDto> foundMembers = members.getContent();
+        List<MemberGuideDto> foundMembers = members.getContent();
         assertThat(foundMembers.get(0).getName()).isEqualTo("name22");
         assertThat(foundMembers.size()).isEqualTo(1);
     }
@@ -90,10 +96,10 @@ class MemberQueryRepositoryTest {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 
         //when
-        Page<MemberDto> members = memberQueryRepository.searchMembers(condition, pageable);
+        Page<MemberGuideDto> members = memberQueryRepository.searchMembers(condition, pageable);
 
         //then
-        List<MemberDto> foundMembers = members.getContent();
+        List<MemberGuideDto> foundMembers = members.getContent();
         assertThat(foundMembers.get(0).getEmail()).isEqualTo("email22");
         assertThat(foundMembers.size()).isEqualTo(1);
     }

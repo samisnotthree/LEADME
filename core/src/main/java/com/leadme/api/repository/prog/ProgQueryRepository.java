@@ -1,8 +1,9 @@
 package com.leadme.api.repository.prog;
 
 import com.leadme.api.dto.ProgDto;
-import com.leadme.api.dto.ProgSearchCondition;
-import com.leadme.api.dto.QProgDto;
+import com.leadme.api.dto.condition.ProgSearchCondition;
+import com.leadme.api.dto.sdto.ProgGuideMemberDto;
+import com.leadme.api.dto.sdto.QProgGuideMemberDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,7 +28,7 @@ public class ProgQueryRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    public Page<ProgDto> searchProgs(ProgSearchCondition condition, Pageable pageable) {
+    public Page<ProgGuideMemberDto> searchProgs(ProgSearchCondition condition, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(condition.getName())) {
             builder.or(prog.name.contains(condition.getName()));
@@ -36,8 +37,8 @@ public class ProgQueryRepository {
             builder.or(prog.desc.contains(condition.getDesc()));
         }
 
-        List<ProgDto> progs = queryFactory
-                .select(new QProgDto(
+        List<ProgGuideMemberDto> progs = queryFactory
+                .select(new QProgGuideMemberDto(
                         prog.progId,
                         prog.name,
                         prog.desc,
@@ -45,14 +46,13 @@ public class ProgQueryRepository {
                         prog.duration,
                         prog.price,
                         prog.meetLocation,
-                        prog.inDate,
                         guide.guideId,
                         guide.desc,
                         member.memberId,
                         member.name))
                 .from(prog)
-                .leftJoin(prog.guide, guide)
-                .leftJoin(guide.member, member)
+                .join(prog.guide, guide)
+                .join(guide.member, member)
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

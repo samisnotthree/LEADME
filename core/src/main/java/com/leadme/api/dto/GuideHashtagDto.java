@@ -3,7 +3,6 @@ package com.leadme.api.dto;
 import com.leadme.api.entity.Hashtag;
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.GuideHashtag;
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,6 @@ public class GuideHashtagDto {
     private Long guideHashtagId;
     private Guide guide;
     private Hashtag hashtag;
-    //private Long guideId;
-    //private Long hashtagId;
     private Long count;
 
     @Builder
@@ -37,11 +34,5 @@ public class GuideHashtagDto {
         this.guideHashtagId = guideHashtag.getGuideHashtagId();
         this.guide = guideHashtag.getGuide();
         this.hashtag = guideHashtag.getHashtag();
-    }
-
-    @QueryProjection
-    public GuideHashtagDto(Long hashtagId, Long count) {
-        //this.hashtagId = hashtagId;
-        this.count = count;
     }
 }

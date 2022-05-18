@@ -1,8 +1,9 @@
 package com.leadme.api.repository.member;
 
 import com.leadme.api.dto.MemberDto;
-import com.leadme.api.dto.MemberSearchCondition;
-import com.leadme.api.dto.QMemberDto;
+import com.leadme.api.dto.condition.MemberSearchCondition;
+import com.leadme.api.dto.sdto.MemberGuideDto;
+import com.leadme.api.dto.sdto.QMemberGuideDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -28,7 +29,7 @@ public class MemberQueryRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    public Page<MemberDto> searchMembers(MemberSearchCondition condition, Pageable pageable) {
+    public Page<MemberGuideDto> searchMembers(MemberSearchCondition condition, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(condition.getName())) {
             builder.or(member.name.startsWith(condition.getName()));
@@ -38,15 +39,12 @@ public class MemberQueryRepository {
             builder.or(member.email.startsWith(condition.getEmail()));
         }
 
-        List<MemberDto> members = queryFactory
-                .select(new QMemberDto(
+        List<MemberGuideDto> members = queryFactory
+                .select(new QMemberGuideDto(
                         member.memberId,
                         member.email,
                         member.name,
-                        member.pass,
                         member.phone,
-                        member.inDate,
-                        member.outDate,
                         guide.guideId,
                         guide.desc))
                 .from(member)

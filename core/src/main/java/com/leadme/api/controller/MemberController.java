@@ -1,7 +1,8 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.MemberDto;
-import com.leadme.api.dto.MemberSearchCondition;
+import com.leadme.api.dto.condition.MemberSearchCondition;
+import com.leadme.api.dto.sdto.MemberGuideDto;
 import com.leadme.api.repository.member.MemberQueryRepository;
 import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.service.MemberService;
@@ -45,7 +46,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/{content}")
-    public Page<MemberDto> searchMembers(@PathVariable("content") String content, Pageable pageable) {
+    public Page<MemberGuideDto> searchMembers(@PathVariable("content") String content, Pageable pageable) {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setName(content);
         condition.setEmail(content);

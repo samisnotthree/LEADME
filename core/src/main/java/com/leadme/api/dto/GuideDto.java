@@ -2,7 +2,6 @@ package com.leadme.api.dto;
 
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.leadme.api.dto;
+package com.leadme.api.dto.condition;
 
 import lombok.Data;
 
