@@ -11,7 +11,7 @@ public class Hashtag {
 
     @Id
     @GeneratedValue
-    private Long HashtagId;
+    private Long hashtagId;
 
     private String name;
     

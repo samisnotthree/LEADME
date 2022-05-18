@@ -14,7 +14,6 @@ public class GuideHashtagDto {
     private Long guideHashtagId;
     private Guide guide;
     private Hashtag hashtag;
-    private Long count;
 
     @Builder
     public GuideHashtagDto(Guide guide, Hashtag hashtag) {
