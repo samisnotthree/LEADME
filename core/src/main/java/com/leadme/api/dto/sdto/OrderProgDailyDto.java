@@ -18,6 +18,9 @@ public class OrderProgDailyDto {
     private LocalDateTime orderDate;
     private LocalDateTime payDate;
     private String status;
+    
+    private Long price; //주문 당사자 or 관리자만 조회
+    private String payment; //주문 당사자 or 관리자만 조회
 
     private Long memberId;
     private String email;
@@ -51,11 +54,13 @@ public class OrderProgDailyDto {
     }
     
     @QueryProjection
-    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, Long progId, String progName, Long guideId, String guideName) {
+    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long price, String payment, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, Long progId, String progName, Long guideId, String guideName) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.payDate = payDate;
         this.status = status;
+        this.price = price;
+        this.payment = payment;
         this.memberId = memberId;
         this.email = email;
         this.name = name;
