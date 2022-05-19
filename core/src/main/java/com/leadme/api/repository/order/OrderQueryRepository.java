@@ -42,11 +42,14 @@ public class OrderQueryRepository {
                         member.name,
                         member.phone,
                         progDaily.progDailyId,
-                        progDaily.progDate
+                        progDaily.progDate,
+                        prog.progId,
+                        prog.name
                 ))
                 .from(orders)
                 .leftJoin(orders.progDaily, progDaily)
                 .leftJoin(orders.member, member)
+                .leftJoin(progDaily.prog, prog)
                 .where(progDaily.progDailyId.eq(condition.getProgDailyId()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
