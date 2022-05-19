@@ -2,19 +2,16 @@ package com.leadme.api.service;
 
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;
-import com.leadme.api.repository.progDaily.ProgDailyRepository;
 import com.leadme.api.repository.prog.ProgRepository;
-import org.junit.jupiter.api.Assertions;
+import com.leadme.api.repository.progDaily.ProgDailyRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -111,7 +108,7 @@ class ProgDailyServiceTest {
         Long addedProgDailyId = progDailyService.addProgDaily(progDaily);
 
         //when
-        List<ProgDaily> schedules = progDailyRepository.findSchedules(addedProgDailyId, now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        //List<ProgDaily> schedules = progDailyRepository.findSchedules(addedProgDailyId, now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
 
         //then
         //sql 문제 -> 곧 사라질 sql

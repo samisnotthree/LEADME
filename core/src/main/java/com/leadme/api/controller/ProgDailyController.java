@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-
 @RestController
 @RequiredArgsConstructor
 public class ProgDailyController {
@@ -23,14 +21,14 @@ public class ProgDailyController {
         return progDailyService.addProgDaily(progDailyDto.toEntity());
     }
 
-    @GetMapping("/prog-dailies")
-    public Result findProgDailies(@PathVariable("progId") Long progId, @PathVariable("progDate") String progDate) {
-        return new Result(progDailyRepository.findSchedules(progId, progDate)
-                .stream()
-                .map(ProgDailyDto::new)
-                .collect(Collectors.toList())
-        );
-    }
+//    @GetMapping("/prog-dailies")
+//    public Result findProgDailies(@PathVariable("progId") Long progId, @PathVariable("progDate") String progDate) {
+//        return new Result(progDailyRepository.findSchedules(progId, progDate)
+//                .stream()
+//                .map(ProgDailyDto::new)
+//                .collect(Collectors.toList())
+//        );
+//    }
     
 //     @GetMapping("/prog-dailies")
 //     public Result findProgDaily(@PathVariable("id") Long progDailyId) {

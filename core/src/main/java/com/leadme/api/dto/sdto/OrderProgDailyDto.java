@@ -1,15 +1,8 @@
 package com.leadme.api.dto.sdto;
 
-import com.leadme.api.entity.Member;
-import com.leadme.api.entity.Orders;
-import com.leadme.api.entity.ProgDaily;
-import com.leadme.api.entity.enums.OrderStatus;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Getter
@@ -38,7 +31,7 @@ public class OrderProgDailyDto {
     
 
     @QueryProjection
-    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, String progId, String progName) {
+    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, Long progId, String progName) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.payDate = payDate;
