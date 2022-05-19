@@ -26,6 +26,13 @@ public class OrderProgDailyDto {
 
     private Long progDailyId;
     private String progDate;
+    
+    private Long progId;
+    private String progName;
+    
+    private Long guideId;
+    private String guideName;
+    
 
     @QueryProjection
     public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate) {
