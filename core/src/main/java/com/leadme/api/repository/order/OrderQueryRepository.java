@@ -108,7 +108,7 @@ public class OrderQueryRepository {
     }
 
     //사용자명, 사용자이메일, 프로그램명 contains 조회
-    public Page<OrderProgDailyDto> searchOrdersByBuilder(OrderSearchCondition condition, Pageable pageable) {
+    public Page<OrderProgDailyDto> searchOrdersByCondition(OrderSearchCondition condition, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(condition.getName())) {
             builder.or(member.name.contains(condition.getName()));
