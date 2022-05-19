@@ -50,7 +50,7 @@ public class OrderQueryRepository {
                 .leftJoin(orders.progDaily, progDaily)
                 .leftJoin(orders.member, member)
                 .leftJoin(progDaily.prog, prog)
-                .where(progDaily.progDailyId.eq(condition.getProgDailyId()))
+                .where(orders.progDailyId.eq(condition.getProgDailyId()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -59,9 +59,93 @@ public class OrderQueryRepository {
                 .select(orders.count())
                 .from(orders)
                 .leftJoin(orders.progDaily, progDaily)
-                .leftJoin(orders.member, member)
-                .where(progDaily.progDailyId.eq(condition.getProgDailyId()));
+                //.leftJoin(orders.member, member)
+                .where(orders.progDailyId.eq(condition.getProgDailyId()));
 
         return PageableExecutionUtils.getPage(orderList, pageable, count::fetchOne);
     }
+    
+    public Page<OrderProgDailyDto> searchOrdersByMemberId(OrderSearchCondition condition, Pageable pageable) {
+        List<OrderProgDailyDto> orderList = queryFactory
+                .select(new QOrderProgDailyDto(
+                        orders.orderId,
+                        orders.orderDate,
+                        orders.payDate,
+                        orders.status.stringValue(),
+                        orders.price,
+                        orders.payment,
+                        member.memberId,
+                        member.email,
+                        member.name,
+                        member.phone,
+                        progDaily.progDailyId,
+                        progDaily.progDate,
+                        prog.progId,
+                        prog.name,
+                        guide.guideId,
+                        guideMember.name
+                ))
+                .from(orders)
+                .leftJoin(orders.progDaily, progDaily)
+                .leftJoin(orders.member, member)
+                .leftJoin(progDaily.prog, prog)
+                .leftJoin(prog.guide, guide)
+                .leftJoin(guide.member, guideMember)
+                .where(orders.memberId.eq(condition.getMemberId()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> count = queryFactory
+                .select(orders.count())
+                .from(orders)
+                //.leftJoin(orders.progDaily, progDaily)
+                .leftJoin(orders.member, member)
+                .where(orders.memberId.eq(condition.getMemberId()));
+
+        return PageableExecutionUtils.getPage(orderList, pageable, count::fetchOne);
+    }
+
+    //사용자명, 사용자이메일, 프로그램명 contains 조회
+    public Page<OrderProgDailyDto> searchOrdersByBuilder(OrderSearchCondition condition, Pageable pageable) {
+        List<OrderProgDailyDto> orderList = queryFactory
+                .select(new QOrderProgDailyDto(
+                        orders.orderId,
+                        orders.orderDate,
+                        orders.payDate,
+                        orders.status.stringValue(),
+                        orders.price,
+                        orders.payment,
+                        member.memberId,
+                        member.email,
+                        member.name,
+                        member.phone,
+                        progDaily.progDailyId,
+                        progDaily.progDate,
+                        prog.progId,
+                        prog.name,
+                        guide.guideId,
+                        guideMember.name
+                ))
+                .from(orders)
+                .leftJoin(orders.progDaily, progDaily)
+                .leftJoin(orders.member, member)
+                .leftJoin(progDaily.prog, prog)
+                .leftJoin(prog.guide, guide)
+                .leftJoin(guide.member, guideMember)
+                //.where(orders.memberId.eq(condition.getMemberId()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> count = queryFactory
+                .select(orders.count())
+                .from(orders)
+                //.leftJoin(orders.progDaily, progDaily)
+                .leftJoin(orders.member, member)
+                //.where(orders.memberId.eq(condition.getMemberId()));
+
+        return PageableExecutionUtils.getPage(orderList, pageable, count::fetchOne);
+    }
+
 }
