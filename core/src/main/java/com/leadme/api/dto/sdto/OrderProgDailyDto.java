@@ -35,7 +35,7 @@ public class OrderProgDailyDto {
     
 
     @QueryProjection
-    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate) {
+    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, String progId, String progName) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.payDate = payDate;
@@ -46,5 +46,25 @@ public class OrderProgDailyDto {
         this.phone = phone;
         this.progDailyId = progDailyId;
         this.progDate = progDate;
+        this.progId = progId;
+        this.progName = progName;
+    }
+    
+    @QueryProjection
+    public OrderProgDailyDto(Long orderId, LocalDateTime orderDate, LocalDateTime payDate, String status, Long memberId, String email, String name, String phone, Long progDailyId, String progDate, Long progId, String progName, Long guideId, String guideName) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.payDate = payDate;
+        this.status = status;
+        this.memberId = memberId;
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+        this.progDailyId = progDailyId;
+        this.progDate = progDate;
+        this.progId = progId;
+        this.progName = progName;
+        this.guideId = guideId;
+        this.guideName = guideName;
     }
 }
