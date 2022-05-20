@@ -19,8 +19,4 @@ public class Hashtag {
     public Hashtag(String name) {
         this.name = name;
     }
-
-    public void changeHashtag(String name) {
-        this.name = name;
-    }
 }
