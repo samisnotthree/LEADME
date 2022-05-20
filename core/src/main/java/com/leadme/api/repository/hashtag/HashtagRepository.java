@@ -2,9 +2,11 @@ package com.leadme.api.repository.hashtag;
 
 import com.leadme.api.entity.Hashtag;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface HashtagRepository  extends JpaRepository<Hashtag, Long> {
     List<Hashtag> findByName(String name);
     List<Hashtag> findByNameContains(String name);

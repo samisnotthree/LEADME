@@ -1,66 +1,92 @@
 package com.leadme.api.repository.order;
 
+import com.leadme.api.dto.condition.OrderSearchCondition;
+import com.leadme.api.dto.sdto.OrderProgDailyDto;
+import com.leadme.api.entity.*;
+import com.leadme.api.repository.guide.GuideRepository;
+import com.leadme.api.repository.member.MemberRepository;
+import com.leadme.api.repository.prog.ProgRepository;
+import com.leadme.api.repository.progDaily.ProgDailyRepository;
+import com.leadme.api.service.*;
+import com.leadme.dummy.*;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class OrderQueryRepositoryTest {
+
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    GuideRepository guideRepository;
+    @Autowired
+    ProgRepository progRepository;
+    @Autowired
+    ProgDailyRepository progDailyRepository;
+    @Autowired
+    OrderRepository orderRepository;
+    @Autowired
+    OrderQueryRepository orderQueryRepository;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    GuideService guideService;
+    @Autowired
+    ProgService progService;
+    @Autowired
+    ProgDailyService progDailyService;
+    @Autowired
+    OrderService orderService;
+
+    @BeforeEach
+    void init_data() {
+
+    }
 
     @Test
     @DisplayName("프로그램 일시별 주문내역 조회(가이드용)")
+    @Transactional
     void searchOrdersByProgDailyId() {
-        Member member = Member.builder()
-                .name("김멤버")
-                .email("member-kim@gmail.com")
-                .pass("temp-pass")
-                .phone("01012345678")
-                .build();
-        Long joinedMemberId = memberService.joinMember(member);
+        //given
+        Member member = MemberDummy.createMember(1);
+        memberRepository.save(member);
 
-        Guide guide = guideService.joinGuide(joinedMemberId, "안녕하세요. 서울 전문 가이드 김멤버입니다.");
+        Guide guide = GuideDummy.createGuide(member);
+        guideRepository.save(guide);
 
-        Prog prog = Prog.builder()
-                .name("경복궁과 광화문광장")
-                .desc("경복궁과 광화문광장을 주제로 투어합니다.")
-                .maxMember(10)
-                .duration("대략 한시간 반")
-                .price(20000)
-                .meetLocation("광화문 앞")
-                .guide(guide)
-                .build();
-        progService.addProg(prog);
+        Prog prog = ProgDummy.createProg(1, guide);
+        progRepository.save(prog);
 
-        Prog prog2 = Prog.builder()
-                .name("name22")
-                .desc("desc22")
-                .guide(guide)
-                .build();
-        progService.addProg(prog2);
-        
-        ProgDaily progDaily = ProgDaily.builder()
-                .progDate("202205221530")
-                .prog(prog)
-                .build();
-        progDailyService.addProgDaily(progDaily);
-        
-        Member member2 = Member.builder()
-                .name("김고객")
-                .email("client-kim@gmail.com")
-                .pass("temp-pass")
-                .phone("01012345678")
-                .build();
-        Long joinedMemberId = memberService.joinMember(member2);
+        Prog prog2 = ProgDummy.createProg(2, guide);
+        progRepository.save(prog2);
 
-        Orders order = Orders.builder()
-                .price(18000)
-                .status(OrderStatus.PAYED)
-                .payment("네이버페이")
-                .orderDate(LocalDateTime.now())
-                .payDate(LocalDateTime.now())
-                .member(member2)
-                .progDaily(progDaily)
-                .build();
-        orderService.addOrder(order);
+        ProgDaily progDaily = ProgDailyDummy.createProgDaily("202205221530", prog);
+        progDailyRepository.save(progDaily);
+
+        Member member2 = MemberDummy.createMember(2);
+        memberRepository.save(member2);
+
+        Orders order = OrderDummy.createOrder(member2, progDaily);
+        orderRepository.save(order);
+
+        OrderSearchCondition condition = new OrderSearchCondition();
+        condition.setProgDailyId(progDaily.getProgDailyId());
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("orderId").descending());
+
+        //when
+        Page<OrderProgDailyDto> orders = orderQueryRepository.searchOrdersByProgDailyId(condition, pageable);
+
+        //then
+        System.out.println(orders.getContent().toString());
+        Assertions.assertThat(orders.getContent().size()).isEqualTo(1);
     }
 }
