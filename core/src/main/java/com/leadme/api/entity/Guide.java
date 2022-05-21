@@ -37,6 +37,10 @@ public class Guide {
         this.outDate = dateTime;
     }
 
+    public void changeDesc(String desc) {
+        this.desc = desc;
+    }
+
 //    public void changeGuide(String desc, LocalDateTime inDate, LocalDateTime outDate, Member member) {
 //        this.desc = desc;
 //        this.inDate = inDate;

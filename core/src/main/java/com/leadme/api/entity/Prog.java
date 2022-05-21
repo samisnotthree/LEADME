@@ -40,4 +40,13 @@ public class Prog {
         this.outDate = outDate;
         this.guide = guide;
     }
+
+    public void changeProgInfo(Prog prog) {
+        this.name = prog.getName();
+        this.desc = prog.getDesc();
+        this.maxMember = prog.getMaxMember();
+        this.duration = prog.getDuration();
+        this.price = prog.getPrice();
+        this.meetLocation = prog.getMeetLocation();
+    }
 }

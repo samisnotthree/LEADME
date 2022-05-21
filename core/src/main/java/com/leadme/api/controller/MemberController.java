@@ -3,6 +3,7 @@ package com.leadme.api.controller;
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.condition.MemberSearchCondition;
 import com.leadme.api.dto.sdto.MemberGuideDto;
+import com.leadme.api.entity.Member;
 import com.leadme.api.repository.member.MemberQueryRepository;
 import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.service.MemberService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -58,7 +60,14 @@ public class MemberController {
     static class Result<T> {
         private T members;
     }
-    
+
+    @Transactional
+    @PatchMapping("/members")
+    public void changeMember(@RequestBody MemberDto memberDto) {
+        Optional<Member> member = memberRepository.findById(memberDto.getMemberId());
+        member.ifPresent(m -> m.changeMemberInfo(memberDto.toEntity()));
+    }
+
     @Transactional
     @DeleteMapping("/members/{id}")
     public void deleteMember(@PathVariable("id") Long memberId) {

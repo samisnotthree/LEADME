@@ -1,8 +1,8 @@
 package com.leadme.api.controller;
 
 import com.leadme.api.dto.HashtagDto;
-import com.leadme.api.dto.ProgHashtagDto;
 import com.leadme.api.dto.sdto.ProgHashtagsDto;
+import com.leadme.api.entity.Hashtag;
 import com.leadme.api.repository.hashtag.HashtagQueryRepository;
 import com.leadme.api.repository.hashtag.HashtagRepository;
 import com.leadme.api.service.HashtagService;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,7 +63,14 @@ public class HashtagController {
     static class Result<T> {
         private T hashtags;
     }
-  
+
+    @Transactional
+    @PatchMapping("/hashtags/{name}")
+    public void changeName(Long hashtagId, @PathVariable("name") String name) {
+        Optional<Hashtag> hashtag = hashtagRepository.findById(hashtagId);
+        hashtag.ifPresent(h -> h.changeName(name));
+    }
+
     @Transactional
     @DeleteMapping("/hashtags/{id}")
     public void deleteHashtag(@PathVariable("id") Long hashtagId) {

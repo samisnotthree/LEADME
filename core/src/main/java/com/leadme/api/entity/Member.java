@@ -42,4 +42,10 @@ public class Member {
     public void changeOutDate(LocalDateTime dateTime) {
         this.outDate = dateTime;
     }
+
+    public void changeMemberInfo(Member member) {
+        this.name = member.getName();
+        this.phone = member.getPhone();
+        this.pass = member.getPass();
+    }
 }

@@ -3,6 +3,7 @@ package com.leadme.api.controller;
 import com.leadme.api.dto.OrderDto;
 import com.leadme.api.dto.condition.OrderSearchCondition;
 import com.leadme.api.dto.sdto.OrderProgDailyDto;
+import com.leadme.api.entity.Orders;
 import com.leadme.api.repository.order.OrderQueryRepository;
 import com.leadme.api.repository.order.OrderRepository;
 import com.leadme.api.service.OrderService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -67,6 +69,14 @@ public class OrderController {
     static class Result<T> {
         private T orders;
     }
+
+    @Transactional
+    @PatchMapping("/orders")
+    public void changeOrder(@RequestBody OrderDto orderDto) {
+        Optional<Orders> order = orderRepository.findById(orderDto.getOrderId());
+        order.ifPresent(o -> o.changeOrderInfo(orderDto.toEntity()));
+    }
+
     @Transactional
     @DeleteMapping("/orders")
     public void cancelOrder(@RequestBody OrderDto orderDto) {

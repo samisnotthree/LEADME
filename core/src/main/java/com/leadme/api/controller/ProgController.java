@@ -3,6 +3,7 @@ package com.leadme.api.controller;
 import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.ProgHashtagDto;
 import com.leadme.api.dto.condition.ProgSearchCondition;
+import com.leadme.api.entity.Prog;
 import com.leadme.api.repository.prog.ProgQueryRepository;
 import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.service.ProgHashtagService;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,6 +62,13 @@ public class ProgController {
     @AllArgsConstructor
     static class Result<T> {
         private T data;
+    }
+
+    @Transactional
+    @PatchMapping("/progs")
+    public void changeProg(@RequestBody ProgDto progDto) {
+        Optional<Prog> prog = progRepository.findById(progDto.getProgId());
+        prog.ifPresent(p -> p.changeProgInfo(progDto.toEntity()));
     }
 
     /**

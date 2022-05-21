@@ -28,4 +28,8 @@ public class ProgDaily {
         this.progDate = progDate;
         this.prog = prog;
     }
+
+    public void changeProgDate(String progDate) {
+        this.progDate = progDate;
+    }
 }

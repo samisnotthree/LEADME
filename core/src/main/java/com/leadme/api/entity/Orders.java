@@ -49,4 +49,14 @@ public class Orders {
     public void changeStatus(OrderStatus status) {
         this.status = status;
     }
+
+    public void changeOrderInfo(Orders order) {
+        this.price = order.getPrice();
+        this.status = order.getStatus();
+        this.payment = order.getPayment();
+    }
+
+    public void changePayDate(LocalDateTime payDate) {
+        this.payDate = payDate;
+    }
 }

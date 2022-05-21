@@ -2,7 +2,7 @@ package com.leadme.api.controller;
 
 import com.leadme.api.dto.GuideDto;
 import com.leadme.api.dto.GuideHashtagDto;
-import com.leadme.api.dto.ProgHashtagDto;
+import com.leadme.api.entity.Guide;
 import com.leadme.api.repository.guide.GuideRepository;
 import com.leadme.api.service.GuideHashtagService;
 import com.leadme.api.service.GuideService;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,6 +41,13 @@ public class GuideController {
     @AllArgsConstructor
     static class Result<T> {
         private T members;
+    }
+
+    @Transactional
+    @PatchMapping("/guides/{desc}")
+    public void changeDesc(Long guideId, @PathVariable("desc") String desc) {
+        Optional<Guide> guide = guideRepository.findById(guideId);
+        guide.ifPresent(g -> g.changeDesc(desc));
     }
 
     @Transactional
