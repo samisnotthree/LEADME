@@ -84,7 +84,7 @@ public class OrderQueryRepository {
                         prog.progId,
                         prog.name,
                         guide.guideId,
-                        guideMember.name
+                        guideMember.name.as("guideName")
                 ))
                 .from(orders)
                 .leftJoin(orders.progDaily, progDaily)
