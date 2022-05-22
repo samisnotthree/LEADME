@@ -5,11 +5,13 @@ import com.leadme.api.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class MemberDto {
     private Long memberId;
     private String email;

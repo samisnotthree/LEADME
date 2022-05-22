@@ -10,16 +10,24 @@ import com.leadme.api.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
@@ -72,5 +80,27 @@ public class MemberController {
     @DeleteMapping("/members/{id}")
     public void deleteMember(@PathVariable("id") Long memberId) {
         memberService.deleteMember(memberId);
+    }
+
+    @GetMapping("/members/new")
+    public ModelAndView createForm(Model model) {
+        model.addAttribute("memberForm", new MemberDto());
+        ModelAndView mav = new ModelAndView("members/createMemberForm");
+        mav.addObject("memberForm", new MemberDto());
+        return mav;
+    }
+
+    @PostMapping("members/new")
+    public void create(@Valid @RequestBody MemberDto memberDto, BindingResult result, HttpServletResponse response) throws IOException {
+        if (result.hasErrors()) {
+            response.sendRedirect("members/createMemberForm");
+        }
+
+        log.warn("@@@@@@@");
+        log.warn(memberDto.toString());
+
+        memberService.joinMember(memberDto.toEntity());
+
+        response.sendRedirect("/");
     }
 }
