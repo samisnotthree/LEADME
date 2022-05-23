@@ -9,4 +9,4 @@
 - JUnit5
 - Thymeleaf
 
-![image](https://user-images.githubusercontent.com/85722378/158574618-2f265df1-6a42-4482-86ca-5166c95990f7.png)
+![image](https://user-images.githubusercontent.com/85722378/169803885-45021b3c-d5b4-4459-8f8f-f94887b178ef.png)
