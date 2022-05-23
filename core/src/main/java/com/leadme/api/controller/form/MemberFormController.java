@@ -1,6 +1,5 @@
 package com.leadme.api.controller.form;
 
-import com.leadme.api.controller.MemberController;
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.condition.MemberSearchCondition;
 import com.leadme.api.dto.sdto.MemberGuideDto;
@@ -8,11 +7,8 @@ import com.leadme.api.entity.Member;
 import com.leadme.api.repository.member.MemberQueryRepository;
 import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.service.MemberService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -20,11 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,25 +65,23 @@ public class MemberFormController {
     }
 
     @GetMapping("/member/v2/{id}")
-    public Result findMember(@PathVariable("id") Long memberId) {
-        return new Result(memberRepository.findById(memberId)
+    public String findMember(@PathVariable("id") Long memberId, Model model) {
+        List<MemberDto> members = memberRepository.findById(memberId)
                 .stream()
                 .map(MemberDto::new)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
     @GetMapping("/members/v2/{content}")
-    public Page<MemberGuideDto> searchMembers(@PathVariable("content") String content, Pageable pageable) {
+    public String searchMembers(@PathVariable("content") String content, Pageable pageable, Model model) {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setName(content);
         condition.setEmail(content);
-        return memberQueryRepository.searchMembers(condition, pageable);
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T members;
+        Page<MemberGuideDto> members = memberQueryRepository.searchMembers(condition, pageable);
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
     @Transactional
