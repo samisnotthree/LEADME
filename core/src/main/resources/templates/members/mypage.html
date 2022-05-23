@@ -10,13 +10,19 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <form role="form" action="/members/v2" th:object="${memberForm}" method="post">
+<!--
+    <form role="form" action="/members/v2" th:object="${memberForm}" method="patch">
+-->
+        <a href="/" th:text="${member.email}"></a>
+<!--
         <div class="form-group">
             <label th:for="email">이메일</label>
             <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요"
                    th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
         </div>
+-->
+<!--
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
@@ -31,9 +37,10 @@
         </div>
         <br/>
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </form>-->
     <br/>
     <div th:replace="fragments/footer :: footer"/>
+
 </div> <!-- /container -->
 </body>
 </html>

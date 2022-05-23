@@ -1,5 +1,6 @@
-package com.leadme.api.controller;
+package com.leadme.api.controller.form;
 
+import com.leadme.api.controller.MemberController;
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.condition.MemberSearchCondition;
 import com.leadme.api.dto.sdto.MemberGuideDto;
@@ -11,8 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,32 +25,53 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RestController
-@RequiredArgsConstructor
 @Slf4j
-public class MemberController {
+@Controller
+@RequiredArgsConstructor
+public class MemberFormController {
+
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final MemberQueryRepository memberQueryRepository;
 
-    @Transactional
-    @PostMapping("/members")
-    public Long joinMember(@RequestBody MemberDto memberDto) {
-        return memberService.joinMember(memberDto.toEntity());
+    @GetMapping("/member/v2")
+    public String createForm(Model model) {
+        model.addAttribute("memberForm", new MemberDto());
+        return "members/createMemberForm";
     }
 
-    @GetMapping("/members")
-    public Result findAll() {
-        return new Result(memberRepository.findAll()
+    @GetMapping("/member/v2/mypage")
+    public String mypageForm(Model model) {
+        Optional<Member> member = memberRepository.findById(1L);
+        member.ifPresent(m -> model.addAttribute("member", m));
+        return "members/mypage";
+    }
+
+    @PostMapping("/members/v2")
+    public String create(@Valid MemberDto memberDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return "members/createMemberForm";
+        }
+        memberService.joinMember(memberDto.toEntity());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/members/v2")
+    public String findAll(Model model) {
+        List<MemberDto> members = memberRepository.findAll()
                 .stream()
                 .map(MemberDto::new)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
-    @GetMapping("/member/{id}")
+    @GetMapping("/member/v2/{id}")
     public Result findMember(@PathVariable("id") Long memberId) {
         return new Result(memberRepository.findById(memberId)
                 .stream()
@@ -55,7 +79,7 @@ public class MemberController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/members/{content}")
+    @GetMapping("/members/v2/{content}")
     public Page<MemberGuideDto> searchMembers(@PathVariable("content") String content, Pageable pageable) {
         MemberSearchCondition condition = new MemberSearchCondition();
         condition.setName(content);
@@ -70,15 +94,20 @@ public class MemberController {
     }
 
     @Transactional
-    @PatchMapping("/members")
-    public void changeMember(@RequestBody MemberDto memberDto) {
+    @PatchMapping("/members/v2")
+    public String changeMember(MemberDto memberDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return "members/mypage";
+        }
         Optional<Member> member = memberRepository.findById(memberDto.getMemberId());
         member.ifPresent(m -> m.changeMemberInfo(memberDto.toEntity()));
+        return "redirect:/";
     }
 
     @Transactional
-    @DeleteMapping("/members/{id}")
+    @DeleteMapping("/members/v2/{id}")
     public void deleteMember(@PathVariable("id") Long memberId) {
         memberService.deleteMember(memberId);
     }
+
 }

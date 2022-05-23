@@ -2,19 +2,20 @@ package com.leadme.api.dto;
 
 import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @ToString
 public class MemberDto {
     private Long memberId;
+
+    @NotEmpty(message = "이메일은 필수입니다.")
     private String email;
+
     private String name;
     private String pass;
     private String phone;
