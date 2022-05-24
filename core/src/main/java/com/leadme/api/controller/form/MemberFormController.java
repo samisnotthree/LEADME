@@ -41,6 +41,7 @@ public class MemberFormController {
     public String mypageForm(Model model) {
         Optional<Member> member = memberRepository.findById(1L);
         member.ifPresent(m -> model.addAttribute("member", m));
+        model.addAttribute("memberForm", new MemberDto());
         return "members/mypage";
     }
 
