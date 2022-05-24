@@ -10,37 +10,32 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-<!--
     <form role="form" action="/members/v2" th:object="${memberForm}" method="patch">
--->
-        <a href="/" th:text="${member.email}"></a>
-<!--
         <div class="form-group">
             <label th:for="email">이메일</label>
-            <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요"
-                   th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
+            <input type="text" th:field="*{email}" th:text="${member.email}" class="form-control" placeholder="이메일을 입력하세요" readonly>
         </div>
--->
-<!--
         <div class="form-group">
             <label th:for="name">이름</label>
-            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
+            <input type="text" th:field="*{name}" th:text="${member.name}" class="form-control" placeholder="이름을 입력하세요">
         </div>
         <div class="form-group">
             <label th:for="pass">비밀번호</label>
-            <input type="text" th:field="*{pass}" class="form-control" placeholder="비밀번호를 입력하세요">
+            <input type="text" th:field="*{pass}" th:text="${member.pass}" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
         <div class="form-group">
             <label th:for="phone">전화번호</label>
-            <input type="text" th:field="*{phone}" class="form-control" placeholder="전화번호를 입력하세요">
+            <input type="text" th:field="*{phone}" th:text="${member.phone}" class="form-control" placeholder="전화번호를 입력하세요">
+        </div>
+        <div class="form-group" style="display:none;">
+            <label th:for="memberId">#</label>
+            <input type="text" th:field="*{memberId}" th:text="${member.memberId}" class="form-control">
         </div>
         <br/>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>-->
+        <button type="submit" class="btn btn-primary">저장</button>
+    </form>
     <br/>
     <div th:replace="fragments/footer :: footer"/>
-
 </div> <!-- /container -->
 </body>
 </html>
