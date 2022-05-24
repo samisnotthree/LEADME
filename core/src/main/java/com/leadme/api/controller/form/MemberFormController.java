@@ -44,6 +44,7 @@ public class MemberFormController {
         return "members/mypage";
     }
 
+    @Transactional
     @PostMapping("/members/v2")
     public String create(@Valid MemberDto memberDto, BindingResult result) {
         if (result.hasErrors()) {
