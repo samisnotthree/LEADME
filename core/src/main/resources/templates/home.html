@@ -14,16 +14,52 @@
             <a class="btn btn-lg btn-secondary" href="/member/v2">회원 가입</a>
             <a class="btn btn-lg btn-secondary" href="/members/v2">회원 목록</a>
         </p>
-        <p class="lead">상품 기능</p>
-        <p>
-            <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
-            <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
-        </p>
-        <p class="lead">주문 기능</p>
-        <p>
-            <a class="btn btn-lg btn-info" href="/order">상품 주문</a>
-            <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
-        </p>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>해시태그</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hashtag : ${hashtags}">
+                <td th:text="${hashtag.hashtagId}"></td>
+                <td th:text="${hashtag.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>프로그램명</th>
+                <th>최대인원</th>
+                <th>소요시간</th>
+                <th>가격</th>
+                <th>만나는장소</th>
+                <th>가이드#</th>
+                <th>사용자#</th>
+                <th>가이드</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prog : ${progs}">
+                <td th:text="${prog.progId}"></td>
+                <td th:text="${prog.name}"></td>
+                <td th:text="${prog.maxMember}"></td>
+                <td th:text="${prog.duration}"></td>
+                <td th:text="${prog.price}"></td>
+                <td th:text="${prog.meetLocation}"></td>
+                <td th:text="${prog.guideId}"></td>
+                <td th:text="${prog.memberId}"></td>
+                <td th:text="${prog.memberName}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
