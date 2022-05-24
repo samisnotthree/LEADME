@@ -1,4 +1,4 @@
-package com.leadme.api.repository.guideHashtag.controller;
+package com.leadme.api.controller;
 
 import com.leadme.api.dto.ProgDailyDto;
 import com.leadme.api.dto.condition.ProgDailySearchCondition;
