@@ -4,10 +4,13 @@ import com.leadme.api.entity.Guide;
 import com.leadme.api.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class GuideDto {
     private Long guideId;
     private String desc;

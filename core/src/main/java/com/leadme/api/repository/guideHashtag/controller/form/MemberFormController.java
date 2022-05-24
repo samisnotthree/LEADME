@@ -1,16 +1,22 @@
-package com.leadme.api.controller.form;
+package com.leadme.api.repository.guideHashtag.controller.form;
 
+import com.leadme.api.dto.GuideDto;
 import com.leadme.api.dto.MemberDto;
 import com.leadme.api.dto.condition.MemberSearchCondition;
+import com.leadme.api.dto.condition.OrderSearchCondition;
 import com.leadme.api.dto.sdto.MemberGuideDto;
+import com.leadme.api.dto.sdto.OrderProgDailyDto;
 import com.leadme.api.entity.Member;
 import com.leadme.api.repository.member.MemberQueryRepository;
 import com.leadme.api.repository.member.MemberRepository;
+import com.leadme.api.repository.order.OrderQueryRepository;
 import com.leadme.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,6 +36,7 @@ public class MemberFormController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final MemberQueryRepository memberQueryRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/member/v2")
     public String createForm(Model model) {
@@ -39,9 +46,19 @@ public class MemberFormController {
 
     @GetMapping("/member/v2/mypage")
     public String mypageForm(Model model) {
-        Optional<Member> member = memberRepository.findById(1L);
+        Long memberId = 1L;
+        Optional<Member> member = memberRepository.findById(memberId);
         member.ifPresent(m -> model.addAttribute("member", m));
         model.addAttribute("memberForm", new MemberDto());
+        model.addAttribute("guideForm", new GuideDto());
+
+        OrderSearchCondition condition = new OrderSearchCondition();
+        condition.setMemberId(memberId);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("orderId").descending());
+
+        List<OrderProgDailyDto> orders = orderQueryRepository.searchOrdersByMemberId(condition, pageable).getContent();
+        model.addAttribute("orders", orders);
+
         return "members/mypage";
     }
 
@@ -87,8 +104,9 @@ public class MemberFormController {
     }
 
     @Transactional
-    @PatchMapping("/members/v2")
+    @PostMapping("/members/v2/update")
     public String changeMember(MemberDto memberDto, BindingResult result) {
+        memberDto.setMemberId(1L);
         if (result.hasErrors()) {
             return "members/mypage";
         }
@@ -98,9 +116,10 @@ public class MemberFormController {
     }
 
     @Transactional
-    @DeleteMapping("/members/v2/{id}")
-    public void deleteMember(@PathVariable("id") Long memberId) {
-        memberService.deleteMember(memberId);
+    @GetMapping("/members/v2/delete/{id}")
+    public String deleteMember(@PathVariable("id") Long memberId) {
+        memberRepository.deleteById(memberId);
+        return "redirect:/";
     }
 
 }

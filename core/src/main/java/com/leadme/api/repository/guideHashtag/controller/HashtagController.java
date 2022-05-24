@@ -1,4 +1,4 @@
-package com.leadme.api.controller;
+package com.leadme.api.repository.guideHashtag.controller;
 
 import com.leadme.api.dto.HashtagDto;
 import com.leadme.api.dto.sdto.ProgHashtagsDto;
