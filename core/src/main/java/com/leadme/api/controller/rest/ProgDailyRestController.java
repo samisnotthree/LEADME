@@ -1,4 +1,4 @@
-package com.leadme.api.controller;
+package com.leadme.api.controller.rest;
 
 import com.leadme.api.dto.ProgDailyDto;
 import com.leadme.api.dto.condition.ProgDailySearchCondition;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class ProgDailyController {
+public class ProgDailyRestController {
     private final ProgDailyService progDailyService;
     private final ProgDailyRepository progDailyRepository;
     private final ProgDailyQueryRepository progDailyQueryRepository;

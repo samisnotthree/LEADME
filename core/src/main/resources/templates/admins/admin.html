@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>전화번호</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberId}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.phone}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>프로그램</th>
+                <th>프로그램일시</th>
+                <th>가이드</th>
+                <th>주문일시</th>
+                <th>결제일시</th>
+                <th>주문상태</th>
+                <th>가격</th>
+                <th>결제방법</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.progName}"></td>
+                <td th:text="${order.progDate}"></td>
+                <td th:text="${order.guideName}"></td>
+                <td th:text="${order.orderDate}"></td>
+                <td th:text="${order.payDate}"></td>
+                <td th:text="${order.status}"></td>
+                <td th:text="${order.price}"></td>
+                <td th:text="${order.payment}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+
+    <div class="jumbotron">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>프로그램명</th>
+                <th>최대인원</th>
+                <th>소요시간</th>
+                <th>가격</th>
+                <th>만나는장소</th>
+                <th>가이드#</th>
+                <th>사용자#</th>
+                <th>가이드</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prog : ${progs}">
+                <td th:text="${prog.progId}"></td>
+                <td th:text="${prog.name}"></td>
+                <td th:text="${prog.maxMember}"></td>
+                <td th:text="${prog.duration}"></td>
+                <td th:text="${prog.price}"></td>
+                <td th:text="${prog.meetLocation}"></td>
+                <td th:text="${prog.guideId}"></td>
+                <td th:text="${prog.memberId}"></td>
+                <td th:text="${prog.memberName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <div class="jumbotron">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>해시태그</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hashtag : ${hashtags}">
+                <td th:text="${hashtag.hashtagId}"></td>
+                <td th:text="${hashtag.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

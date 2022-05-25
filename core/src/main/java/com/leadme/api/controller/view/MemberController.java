@@ -1,4 +1,4 @@
-package com.leadme.api.controller.form;
+package com.leadme.api.controller.view;
 
 import com.leadme.api.dto.GuideDto;
 import com.leadme.api.dto.MemberDto;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class MemberFormController {
+public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;

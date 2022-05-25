@@ -5,10 +5,11 @@ import com.leadme.api.entity.Prog;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class ProgDto {
     private Long progId;

@@ -1,4 +1,4 @@
-package com.leadme.api.controller;
+package com.leadme.api.controller.rest;
 
 import com.leadme.api.dto.HashtagDto;
 import com.leadme.api.dto.sdto.ProgHashtagsDto;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class HashtagController {
+public class HashtagRestController {
     private final HashtagService hashtagService;
     private final HashtagRepository hashtagRepository;
     private final HashtagQueryRepository hashtagQueryRepository;

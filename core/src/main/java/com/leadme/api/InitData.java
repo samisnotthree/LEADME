@@ -3,10 +3,13 @@ package com.leadme.api;
 import com.leadme.api.dummy.*;
 import com.leadme.api.entity.*;
 import com.leadme.api.repository.guide.GuideRepository;
+import com.leadme.api.repository.guideHashtag.GuideHashtagRepository;
+import com.leadme.api.repository.hashtag.HashtagRepository;
 import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.repository.order.OrderRepository;
 import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.repository.progDaily.ProgDailyRepository;
+import com.leadme.api.repository.progHashtag.ProgHashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +39,12 @@ public class InitData {
         ProgDailyRepository progDailyRepository;
         @Autowired
         OrderRepository orderRepository;
+        @Autowired
+        HashtagRepository hashtagRepository;
+        @Autowired
+        ProgHashtagRepository progHashtagRepository;
+        @Autowired
+        GuideHashtagRepository guideHashtagRepository;
 
         @Transactional
         public void init() {
@@ -65,6 +74,24 @@ public class InitData {
 
             Orders order2 = OrderDummy.createOrder(member, progDaily);
             orderRepository.save(order2);
+
+            Hashtag hashtag = HashtagDummy.createHashtag("서울");
+            hashtagRepository.save(hashtag);
+
+            Hashtag hashtag2 = HashtagDummy.createHashtag("자전거");
+            hashtagRepository.save(hashtag2);
+
+            ProgHashtag progHashtag = HashtagDummy.createProgHashtag(prog, hashtag);
+            progHashtagRepository.save(progHashtag);
+
+            ProgHashtag progHashtag2 = HashtagDummy.createProgHashtag(prog, hashtag2);
+            progHashtagRepository.save(progHashtag2);
+
+            ProgHashtag progHashtag3 = HashtagDummy.createProgHashtag(prog2, hashtag);
+            progHashtagRepository.save(progHashtag3);
+
+            GuideHashtag guideHashtag = HashtagDummy.createGuideHashtag(guide, hashtag);
+            guideHashtagRepository.save(guideHashtag);
         }
     }
 }

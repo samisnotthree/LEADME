@@ -1,4 +1,4 @@
-package com.leadme.api.controller;
+package com.leadme.api.controller.rest;
 
 import com.leadme.api.dto.OrderDto;
 import com.leadme.api.dto.condition.OrderSearchCondition;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderRestController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;

@@ -1,4 +1,4 @@
-package com.leadme.api.controller;
+package com.leadme.api.controller.rest;
 
 import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.ProgHashtagDto;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class ProgController {
+public class ProgRestController {
     private final ProgService progService;
     private final ProgRepository progRepository;
     private final ProgHashtagService progHashtagService;
