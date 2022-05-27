@@ -59,8 +59,31 @@ class MemberServiceTest {
         });
 
         //then
-        assertThat(exception).hasMessage("이미 존재하는 회원입니다.");
         assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("이미 존재하는 회원입니다.");
+    }
+
+    @Test
+    @DisplayName("사용자 등록 null 이메일")
+    @Transactional
+    void join_member_null_email() {
+        // given
+        Member member = Member.builder()
+                .email(null)
+                .name("testName")
+                .pass("testPass")
+                .phone("testPhone")
+                .inDate(LocalDateTime.now())
+                .build();
+
+        // when
+        Throwable exception = catchThrowable(() -> {
+            memberService.joinMember(member);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("이메일은 필수 입력 값입니다.");
     }
 
     @Test
@@ -83,5 +106,33 @@ class MemberServiceTest {
 
         //then
         assertThat(memberRepository.findById(joinedMemberId).get().getOutDate()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("사용자 삭제 null 사용자")
+    @Transactional
+    void delete_member_null() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            memberService.deleteMember(null);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("사용자 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("사용자 삭제 없는 사용자")
+    @Transactional
+    void delete_member_not_exists() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            memberService.deleteMember(Long.MAX_VALUE);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 사용자입니다.");
     }
 }

@@ -19,7 +19,6 @@ class HashtagServiceTest {
     HashtagRepository hashtagRepository;
     @Autowired HashtagService hashtagService;
 
-
     @Test
     @Transactional
     @DisplayName("해시태그 추가")
@@ -51,12 +50,31 @@ class HashtagServiceTest {
 
         // when
         Throwable exception = catchThrowable(() -> {
-            hashtagService.addHashtag(hashtag);
+            hashtagService.addHashtag(hashtag2);
         });
 
         // then
         assertThat(exception).isInstanceOf(IllegalStateException.class);
         assertThat(exception).hasMessage("이미 존재하는 해시태그입니다.");
+    }
+    
+    @Test
+    @Transactional
+    @DisplayName("해시태그 추가 null 해시태그명")
+    void add_hashtag_null() {
+        // given
+        Hashtag hashtag = Hashtag.builder()
+            .name(null)
+            .build();
+
+        // when
+        Throwable exception = catchThrowable(() -> {
+            hashtagService.addHashtag(hashtag);
+        });
+
+        // then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("해시태그명은 필수 입력 값입니다.");
     }
 
     @Test
@@ -77,7 +95,34 @@ class HashtagServiceTest {
         assertThat(foundHashtagAfterDelete).isInstanceOf(Optional.class).isNotPresent();
     }
 
-    //TODO findPopularHashtags 로 바꾸기
+    @Test
+    @Transactional
+    @DisplayName("해시태그 삭제(delete) null 해시태그")
+    void delete_hashtag_null() {
+        // when
+        Throwable exception = catchThrowable(() -> {
+            hashtagService.deleteHashtag(null);
+        });
+
+        // then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("해시태그 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("해시태그 삭제(delete) 없는 해시태그")
+    void delete_hashtag_not_exists() {
+        // when
+        Throwable exception = catchThrowable(() -> {
+            hashtagService.deleteHashtag(Long.MAX_VALUE);
+        });
+
+        // then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 해시태그입니다.");
+    }
+
     @Test
     @Transactional
     @DisplayName("해시태그 조회")

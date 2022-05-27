@@ -92,6 +92,100 @@ class GuideHashtagServiceTest {
     }
 
     @Test
+    @DisplayName("가이드_해시태그 등록 null 가이드")
+    @Transactional
+    void add_guideHashtag_null_guide() {
+        //given
+        Hashtag hashtag = Hashtag.builder()
+                .name("서울")
+                .build();
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.addGuideHashtag(null, addedHashtagId);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("가이드 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 등록 없는 가이드")
+    @Transactional
+    void add_guideHashtag_not_exists_guide() {
+        //given
+        Hashtag hashtag = Hashtag.builder()
+                .name("서울")
+                .build();
+        Long addedHashtagId = hashtagService.addHashtag(hashtag);
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.addGuideHashtag(Long.MAX_VALUE, addedHashtagId);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 가이드입니다.");
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 등록 null 해시태그")
+    @Transactional
+    void add_guideHashtag_null_hashtag() {
+        //given
+        Member member = Member.builder()
+                .email("test@test.com")
+                .name("testName")
+                .pass("testPass")
+                .phone("testPhone")
+                .inDate(LocalDateTime.now())
+                .build();
+
+        Member savedMember = memberRepository.save(member);
+        String desc = "testDesc";
+        Guide joinedGuide = guideService.joinGuide(savedMember.getMemberId(), desc);
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), null);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("해시태그 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 등록 없는 해시태그")
+    @Transactional
+    void add_guideHashtag_not_exists_hashtag() {
+        //given
+        Member member = Member.builder()
+                .email("test@test.com")
+                .name("testName")
+                .pass("testPass")
+                .phone("testPhone")
+                .inDate(LocalDateTime.now())
+                .build();
+
+        Member savedMember = memberRepository.save(member);
+        String desc = "testDesc";
+        Guide joinedGuide = guideService.joinGuide(savedMember.getMemberId(), desc);
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.addGuideHashtag(joinedGuide.getGuideId(), Long.MAX_VALUE);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 해시태그입니다.");
+    }
+
+    @Test
     @DisplayName("가이드_해시태그 삭제")
     @Transactional
     void delete_guideHashtag() {

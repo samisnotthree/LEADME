@@ -22,6 +22,8 @@ public class MemberService {
      */
     @Transactional
     public Long joinMember(Member member) {
+        Optional.ofNullable(member.getEmail()).orElseThrow(() -> new IllegalStateException("이메일은 필수 입력 값입니다."));
+
         if (!validateDuplicateMember(member)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
@@ -42,7 +44,12 @@ public class MemberService {
      */
     @Transactional
     public void deleteMember(Long memberId) {
+        Optional.ofNullable(memberId).orElseThrow(() -> new IllegalStateException("사용자 정보가 올바르지 않습니다."));
+
         Optional<Member> foundMember = memberRepository.findById(memberId);
-        foundMember.ifPresent(member -> member.changeOutDate(LocalDateTime.now()));
+        foundMember.ifPresentOrElse(
+                m -> m.changeOutDate(LocalDateTime.now()),
+                () -> foundMember.orElseThrow(() -> new IllegalStateException("존재하지 않는 사용자입니다."))
+        );
     }
 }

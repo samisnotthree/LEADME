@@ -55,6 +55,8 @@ class MemberQueryRepositoryTest {
     void search_members() {
         //given
         MemberSearchCondition condition = new MemberSearchCondition();
+        condition.setEmail(null);
+        condition.setName(null);
 
         Pageable pageable = PageRequest.of(0, 10, Sort.by("inDate").descending());
 

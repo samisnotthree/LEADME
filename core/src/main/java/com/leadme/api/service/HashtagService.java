@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +25,8 @@ public class HashtagService {
      */
     @Transactional
     public Long addHashtag(Hashtag hashtag) {
+        Optional.ofNullable(hashtag.getName()).orElseThrow(() -> new IllegalStateException("해시태그명은 필수 입력 값입니다."));
+
         if (!validateDuplicateHashtag(hashtag)) {
             throw new IllegalStateException("이미 존재하는 해시태그입니다.");
         }
@@ -74,6 +73,11 @@ public class HashtagService {
      */
     @Transactional
     public void deleteHashtag(Long hashtagId) {
-        hashtagRepository.deleteById(hashtagId);
+        Optional.ofNullable(hashtagId).orElseThrow(() -> new IllegalStateException("해시태그 정보가 올바르지 않습니다."));
+        Optional<Hashtag> hashtag = hashtagRepository.findById(hashtagId);
+        hashtag.ifPresentOrElse(
+                h -> hashtagRepository.deleteById(h.getHashtagId()),
+                () -> hashtag.orElseThrow(() -> new IllegalStateException("존재하지 않는 해시태그입니다."))
+        );
     }
 }

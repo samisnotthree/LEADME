@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -20,8 +22,11 @@ public class GuideHashtagService {
 
     @Transactional
     public GuideHashtag addGuideHashtag(Long guideId, Long hashtagId) {
-        Guide foundGuide = guideRepository.findById(guideId).get();
-        Hashtag foundHashtag = hashtagRepository.findById(hashtagId).get();
+        Optional.ofNullable(guideId).orElseThrow(() -> new IllegalStateException("가이드 정보가 올바르지 않습니다."));
+        Optional.ofNullable(hashtagId).orElseThrow(() -> new IllegalStateException("해시태그 정보가 올바르지 않습니다."));
+        
+        Guide foundGuide = guideRepository.findById(guideId).orElseThrow(() -> new IllegalStateException("존재하지 않는 가이드입니다."));
+        Hashtag foundHashtag = hashtagRepository.findById(hashtagId).orElseThrow(() -> new IllegalStateException("존재하지 않는 해시태그입니다."));
 
         if (isExistGuideHashtag(foundGuide, foundHashtag)) {
             throw new IllegalStateException("이미 등록되어 있는 해시태그입니다.");
