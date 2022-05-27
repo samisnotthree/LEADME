@@ -11,12 +11,14 @@ import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.repository.progDaily.ProgDailyRepository;
 import com.leadme.api.repository.progHashtag.ProgHashtagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class InitData {
