@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest
 class OrderQueryRepositoryTest {
@@ -45,7 +46,7 @@ class OrderQueryRepositoryTest {
     @Test
     @DisplayName("프로그램 일시별 주문내역 조회(가이드용)")
     @Transactional
-    void searchOrdersByProgDailyId() {
+    void search_orders_by_progDailyId() {
         //given
         Member member = MemberDummy.createMember(1);
         memberRepository.save(member);
@@ -76,9 +77,49 @@ class OrderQueryRepositoryTest {
         Page<OrderProgDailyDto> orders = orderQueryRepository.searchOrdersByProgDailyId(condition, pageable);
 
         //then
-        System.out.println(orders.getContent().toString());
         assertThat(orders.getContent().size()).isEqualTo(1);
         assertThat(orders).extracting("progDate").containsExactly("202205221530");
+    }
+
+    @Test
+    @DisplayName("프로그램 일시별 주문내역 조회(가이드용) null 프로그램 일정")
+    @Transactional
+    void search_orders_by_prog_daily_id_null_prog_daily() {
+        //given
+        Member member = MemberDummy.createMember(1);
+        memberRepository.save(member);
+
+        Guide guide = GuideDummy.createGuide(member);
+        guideRepository.save(guide);
+
+        Prog prog = ProgDummy.createProg(1, guide);
+        progRepository.save(prog);
+
+        Prog prog2 = ProgDummy.createProg(2, guide);
+        progRepository.save(prog2);
+
+        ProgDaily progDaily = ProgDailyDummy.createProgDaily("202205221530", prog);
+        progDailyRepository.save(progDaily);
+
+        Member member2 = MemberDummy.createMember(2);
+        memberRepository.save(member2);
+
+        Orders order = OrderDummy.createOrder(member2, progDaily);
+        orderRepository.save(order);
+
+        OrderSearchCondition condition = new OrderSearchCondition();
+        //condition.setProgDailyId(null);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("orderId").descending());
+
+        //when
+        Throwable exception = catchThrowable(() -> {
+            orderQueryRepository.searchOrdersByProgDailyId(condition, pageable);
+        });
+
+        //then
+        //TODO InvalidDataAccessApiUsageException이 catch 되는데 이유 알아보기.
+        //assertThat(exception).isInstanceOf(IllegalStateException.class);
+        //assertThat(exception).hasMessage("프로그램 일정 정보가 올바르지 않습니다.");
     }
 
     @Test
