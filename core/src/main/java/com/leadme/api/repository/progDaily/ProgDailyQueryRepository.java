@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 import static com.leadme.api.entity.QProg.prog;
 import static com.leadme.api.entity.QProgDaily.progDaily;
@@ -22,6 +23,8 @@ public class ProgDailyQueryRepository {
     }
 
     public List<ProgDailyProgDto> findSchedules(ProgDailySearchCondition condition) {
+        Optional.ofNullable(condition.getProgId()).orElseThrow(() -> new IllegalStateException("프로그램 정보가 올바르지 않습니다."));
+        Optional.ofNullable(condition.getProgDate()).orElseThrow(() -> new IllegalStateException("프로그램 일정이 올바르지 않습니다."));
         return queryFactory
                 .select(new QProgDailyProgDto(
                         progDaily.progDailyId,
