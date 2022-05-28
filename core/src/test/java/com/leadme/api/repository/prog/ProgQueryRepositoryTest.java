@@ -1,6 +1,5 @@
 package com.leadme.api.repository.prog;
 
-import com.leadme.api.dto.ProgDto;
 import com.leadme.api.dto.condition.ProgSearchCondition;
 import com.leadme.api.dto.sdto.ProgGuideMemberDto;
 import com.leadme.api.entity.Guide;
@@ -106,4 +105,23 @@ class ProgQueryRepositoryTest {
         //then
         assertThat(progs.getContent().get(0).getDesc()).isEqualTo("desc11");
     }
+
+    @Test
+    @DisplayName("프로그램 없는 값으로 조회")
+    @Transactional
+    void search_progs_not_exists() {
+        //given
+        ProgSearchCondition condition = new ProgSearchCondition();
+        condition.setName("not exists value");
+        condition.setDesc("not exists value");
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "name");
+
+        //when
+        Page<ProgGuideMemberDto> progs = progQueryRepository.searchProgs(condition, pageable);
+
+        //then
+        assertThat(progs.getTotalElements()).isEqualTo(0);
+    }
+
 }

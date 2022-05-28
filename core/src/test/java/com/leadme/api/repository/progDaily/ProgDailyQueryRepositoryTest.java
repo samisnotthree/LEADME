@@ -2,11 +2,17 @@ package com.leadme.api.repository.progDaily;
 
 import com.leadme.api.dto.condition.ProgDailySearchCondition;
 import com.leadme.api.dto.sdto.ProgDailyProgDto;
+import com.leadme.api.entity.Guide;
+import com.leadme.api.entity.Member;
 import com.leadme.api.entity.Prog;
 import com.leadme.api.entity.ProgDaily;
+import com.leadme.api.repository.guide.GuideRepository;
+import com.leadme.api.repository.member.MemberRepository;
 import com.leadme.api.repository.prog.ProgRepository;
 import com.leadme.api.service.ProgDailyService;
 import com.leadme.api.service.ProgService;
+import com.leadme.dummy.GuideDummy;
+import com.leadme.dummy.MemberDummy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,12 +34,23 @@ class ProgDailyQueryRepositoryTest {
     ProgService progService;
     @Autowired
     ProgRepository progRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    GuideRepository guideRepository;
 
     @BeforeEach
     void init_data() {
+        Member member = MemberDummy.createMember(1);
+        memberRepository.save(member);
+
+        Guide guide = GuideDummy.createGuide(member);
+        guideRepository.save(guide);
+
         Prog prog = Prog.builder()
                 .name("name11")
                 .desc("desc11")
+                .guide(guide)
                 .build();
         progService.addProg(prog);
 

@@ -251,19 +251,15 @@ class ProgDailyServiceTest {
     @Transactional
     void find_schedules() {
         //given
-        Prog prog = Prog.builder()
-                .name("testName")
-                .desc("testDesc")
-                .maxMember(5)
-                .duration("두세시간")
-                .price(50000L)
-                .meetLocation("정문앞")
-                .inDate(LocalDateTime.now())
-                .outDate(LocalDateTime.now())
-                .guide(null)
-                .build();
+        Member member = MemberDummy.createMember(1);
+        memberRepository.save(member);
 
+        Guide guide = GuideDummy.createGuide(member);
+        guideRepository.save(guide);
+
+        Prog prog = ProgDummy.createProg(1, guide); //max:3
         Long addedProgId = progService.addProg(prog);
+
         Prog foundProg = progRepository.findById(addedProgId).get();
         LocalDateTime now = LocalDateTime.now();
 

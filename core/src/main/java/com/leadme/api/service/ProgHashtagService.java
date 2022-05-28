@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -20,8 +22,11 @@ public class ProgHashtagService {
 
     @Transactional
     public ProgHashtag addProgHashtag(Long progId, Long hashtagId) {
-        Prog foundProg = progRepository.findById(progId).get();
-        Hashtag foundHashtag = hashtagRepository.findById(hashtagId).get();
+        Optional.ofNullable(progId).orElseThrow(() -> new IllegalStateException("프로그램 정보가 올바르지 않습니다."));
+        Optional.ofNullable(hashtagId).orElseThrow(() -> new IllegalStateException("해시태그 정보가 올바르지 않습니다."));
+
+        Prog foundProg = progRepository.findById(progId).orElseThrow(() -> new IllegalStateException("존재하지 않는 프로그램입니다."));
+        Hashtag foundHashtag = hashtagRepository.findById(hashtagId).orElseThrow(() -> new IllegalStateException("존재하지 않는 해시태그입니다."));
 
         if (isExistProgHashtag(foundProg, foundHashtag)) {
             throw new IllegalStateException("이미 등록되어 있는 해시태그입니다.");
@@ -39,6 +44,7 @@ public class ProgHashtagService {
 
     @Transactional
     public void deleteProgHashtag(Long progHashtagId) {
+        Optional.ofNullable(progHashtagId).orElseThrow(() -> new IllegalStateException("프로그램 해시태그 정보가 올바르지 않습니다."));
         progHashtagRepository.deleteById(progHashtagId);
     }
 }
