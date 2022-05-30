@@ -37,7 +37,7 @@ public class ProgService {
         Optional.ofNullable(progId).orElseThrow(() -> new IllegalStateException("프로그램 정보가 올바르지 않습니다."));
         Optional<Prog> prog = progRepository.findById(progId);
         prog.ifPresentOrElse(
-            p -> setOutDate(LocalDateTime.now()),
+            p -> p.setOutDate(LocalDateTime.now()),
             () -> prog.orElseThrow(() -> new IllegalStateException("존재하지 않는 프로그램입니다."))
         );
     }
