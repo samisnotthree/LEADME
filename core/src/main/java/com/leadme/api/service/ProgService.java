@@ -34,7 +34,11 @@ public class ProgService {
 
     @Transactional
     public void deleteProg(Long progId) {
-        Optional<Prog> progOptional = progRepository.findById(progId);
-        progOptional.ifPresent(prog -> prog.setOutDate(LocalDateTime.now()));
+        Optional.ofNullable(progId).orElseThrow(() -> new IllegalStateException("프로그램 정보가 올바르지 않습니다."));
+        Optional<Prog> prog = progRepository.findById(progId);
+        prog.ifPresentOrElse(
+            p -> setOutDate(LocalDateTime.now()),
+            () -> prog.orElseThrow(() -> new IllegalStateException("존재하지 않는 프로그램입니다."))
+        );
     }
 }
