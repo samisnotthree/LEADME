@@ -57,7 +57,7 @@ public class GuideService {
         Optional<Guide> foundGuide = guideRepository.findById(guideId);
         foundGuide.ifPresentOrElse(
                 g -> g.changeOutDate(LocalDateTime.now()),
-                () -> foundGuide.orElseThrow(() -> new IllegalStateException("존재하지 않는 가이드입니다.")));
-        foundGuide.ifPresent(guide -> guide.changeOutDate(LocalDateTime.now()));
+                () -> foundGuide.orElseThrow(() -> new IllegalStateException("존재하지 않는 가이드입니다."))
+        );
     }
 }
