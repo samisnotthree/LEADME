@@ -46,6 +46,11 @@ public class GuideHashtagService {
 
     @Transactional
     public void deleteGuideHashtag(Long guideHashtagId) {
-        guideHashtagRepository.deleteById(guideHashtagId);
+        Optional.ofNullable(guideHashtagId).orElseThrow(() -> new IllegalStateException("가이드 해시태그 정보가 올바르지 않습니다."));
+        Optional<GuideHashtag> guideHashtag = guideHashtagRepository.findById(guideHashtagId);
+        guideHashtag.ifPresentOfElse(
+            gh -> guideHashtagRepository.delete(gh),
+            () -> guideHashtag.orElseThrow(() -> new IllegalStateException("존재하지 않는 가이드 해시태그입니다."))
+        );
     }
 }
