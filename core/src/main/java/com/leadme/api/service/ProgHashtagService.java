@@ -45,6 +45,10 @@ public class ProgHashtagService {
     @Transactional
     public void deleteProgHashtag(Long progHashtagId) {
         Optional.ofNullable(progHashtagId).orElseThrow(() -> new IllegalStateException("프로그램 해시태그 정보가 올바르지 않습니다."));
-        progHashtagRepository.deleteById(progHashtagId);
+        Optional<ProgHashtag> progHashtag = progHashtagRepository.findById(progHashtagId);
+        progHashtag.ifPresentOrElse(
+            ph -> progHashtagRepository.delete(ph),
+            () -> progHashtag.orElseThrow(() -> new IllegalStateException("존재하지 않는 프로그램 해시태그입니다."))
+        );
     }
 }
