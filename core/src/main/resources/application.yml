@@ -4,8 +4,8 @@ spring:
 #    username: sa
 #    password:
     url: jdbc:mysql://springboot-db.c5wjpykozkbv.ap-northeast-2.rds.amazonaws.com:3306/leadme
-    username: admin
-    password: flzhxk1313
+    username:
+    password:
     driver-class-name: org.h2.Driver
   profiles:
     active: local
