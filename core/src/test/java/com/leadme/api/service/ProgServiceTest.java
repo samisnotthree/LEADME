@@ -147,7 +147,6 @@ class ProgServiceTest {
         assertThat(exception).hasMessage("이미 존재하는 프로그램명입니다.");
     }
 
-
     @Test
     @DisplayName("프로그램 삭제")
     @Transactional
@@ -168,5 +167,33 @@ class ProgServiceTest {
         //then
         Prog foundProg = progRepository.findById(prog.getProgId()).get();
         assertThat(foundProg.getOutDate()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("프로그램 삭제 null 프로그램")
+    @Transactional
+    void delete_prog_null() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            progService.deleteProg(null);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("프로그램 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("프로그램 삭제 없는 프로그램")
+    @Transactional
+    void delete_prog_not_exists() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            progService.deleteProg(Long.MAX_VALUE);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 프로그램입니다.");
     }
 }
