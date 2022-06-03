@@ -6,7 +6,6 @@ import com.leadme.api.entity.Hashtag;
 import com.leadme.api.entity.Member;
 import com.leadme.api.repository.guideHashtag.GuideHashtagRepository;
 import com.leadme.api.repository.member.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest
 class GuideHashtagServiceTest {
@@ -214,5 +213,33 @@ class GuideHashtagServiceTest {
         //then
         Optional<GuideHashtag> foundGuideHashtag = guideHashtagRepository.findById(guideHashtag.getGuideHashtagId());
         assertThat(foundGuideHashtag).isInstanceOf(Optional.class).isNotPresent();
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 삭제 null 가이드_해시태그")
+    @Transactional
+    void delete_guideHashtag_null() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.deleteGuideHashtag(null);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("가이드 해시태그 정보가 올바르지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("가이드_해시태그 삭제 없는 가이드_해시태그")
+    @Transactional
+    void delete_guideHashtag_not_exists() {
+        //when
+        Throwable exception = catchThrowable(() -> {
+            guideHashtagService.deleteGuideHashtag(Long.MAX_VALUE);
+        });
+
+        //then
+        assertThat(exception).isInstanceOf(IllegalStateException.class);
+        assertThat(exception).hasMessage("존재하지 않는 가이드 해시태그입니다.");
     }
 }
