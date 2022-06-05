@@ -36,7 +36,6 @@ public class OrderQueryRepository {
         if (condition.getProgDailyId() == null) {
             throw new IllegalStateException("프로그램 일정 정보가 올바르지 않습니다.");
         }
-        //Optional.ofNullable(condition.getProgDailyId()).orElseThrow(() -> new IllegalStateException("프로그램 일정 정보가 올바르지 않습니다."));
 
         List<OrderProgDailyDto> orderList = queryFactory
                 .select(new QOrderProgDailyDto(
