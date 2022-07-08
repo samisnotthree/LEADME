@@ -1,5 +1,9 @@
-# LEADME
-일반인 여행가이드가 직접 가이드 프로그램 일정을 올리고 일반인 사용자가 결제하여 사용하는 여행 매칭 서비스입니다.
+# LEADME - 리드미
+천편일률적인 여행은 지겹다. 유명 관광지부터 숨은 로컬 맛집까지.
+가이드와 여행자 매칭 서비스 리드미입니다.
+<br/>
+<br/>
+<br/>
 
 ## Technologies
 [![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white)](https://github.com/samisnotthree/LEADME)
@@ -12,14 +16,18 @@
 [![AmazonEC2](https://img.shields.io/badge/AmazonEC2-FF9900?style=flat-square&logo=AmazonEC2&logoColor=white)](https://github.com/samisnotthree/LEADME)
 [![AmazonRDS](https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonAWS&logoColor=white)](https://github.com/samisnotthree/LEADME)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=Thymeleaf&logoColor=white)](https://github.com/samisnotthree/LEADME)
-
+<br/>
+<br/>
+<br/>
 ## ERD
 ![image](https://user-images.githubusercontent.com/85722378/169803885-45021b3c-d5b4-4459-8f8f-f94887b178ef.png)
-
+<br/>
+<br/>
+<br/>
 ## Test
 
 
-## 리팩토링 & 기술 
+## 리팩토링 & 기술 사용 이유
 
 ### Querydsl
 
