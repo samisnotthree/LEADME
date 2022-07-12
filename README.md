@@ -27,9 +27,10 @@
 ## Test
 <img width="942" alt="image" src="https://user-images.githubusercontent.com/85722378/178270814-ab8500e1-bce6-413e-93fc-1d9b692488ff.png">
 
+- 총 83개의 테스트 코드
 - 회귀 방지, 리팩토링 내성, 유지보수성과 테스트 커버리지를 고려한 테스트 코드 작성
 - FIRST 규칙을 지킨 테스트 코드 작성
-- 총 83개의 테스트 코드 작성
+
 <br/>
 <br/>
 
