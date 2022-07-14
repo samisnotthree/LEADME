@@ -66,10 +66,19 @@
   - 조건, 중복 내용 등을 메서드 추출하고 재사용하여 객체지향적으로 코드를 작성할 수 있습니다.
 
 ### fetchResults(), fetchCount() deprecated
-- 예전부터 정확한 결과를 보장하지 못하던 
 
-### Cross Join 대비 -> join을 명시적으로 함.
+<img width="257" alt="image" src="https://user-images.githubusercontent.com/85722378/179007472-eab1f77e-6f9c-4c4c-82f4-98c76a077359.png">
+<img width="608" alt="image" src="https://user-images.githubusercontent.com/85722378/179008797-53ce1308-b264-498f-904b-71c3635ab823.png">
 
+- 예전부터 정확한 결과를 보장하지 못하던 fetchResults 메서드와 fetchCount 메서드가 공식적으로 deprecated 되었습니다.
+  - count 쿼리를 따로 작성하여 해결하였습니다.
+
+<!-- ### Cross Join 대비 -> join을 명시적으로 함. -->
+
+
+## 조회 전용 DTO 생성
+- 엔티티에 수정이 필요한 경우가 아니면 엔티티를 직접 사용하지 않는 게 좋습니다.
+- 여러 테이블의 데이터를 동시에 조회해올 경우 FK에 들어갈 ID만 조회하는 등 필요한 데이터만 조회하는 전용 DTO를 따로 생성합니다.
 
 ## 연관관계 설정(CQRS) 정리하기 + N+1 얘기하기
 - Entity와 연관관계를 설정하면서 이런저런 고민함 수시로 수정함 JPA 공부를 하며 도움을 많이 받았던 두 유명 개발자
@@ -78,14 +87,34 @@
 CQRS를 매우 낮은 수준으로 적용해보려함
 
 
-## 조회 전용 DTO 생성
-- 엔티티에 수정이 필요한 경우가 아니면 엔티티를 직접 사용하지 않는 게 좋습니다.
-- 여러 테이블의 데이터를 동시에 조회해올 경우 FK에 들어갈 ID만 조회하는 등 필요한 데이터만 조회하는 전용 DTO를 따로 생성합니다.
 
 
-## 공통 로직 추상화 및 도메인 특화 언어(DSL) ??
+<!-- ## 공통 로직 추상화 및 도메인 특화 언어(DSL) -->
 
 ## 경계 조건 캡슐화
-
+if문의 조건으로 사용되는 코드가 복잡한 경우 함수로 만들어 가독성 좋게 수정하였습니다.
+```java
+    public Long addOrder(Orders order) {
+        ...
+        
+        // 기존 코드
+        if (foundOrders.size() < foundOrders.get(0).getProgDaily().getProg().getMaxMember()) {
+            ...
+        }
+        
+        // 수정한 코드
+        if (!validateOrder(order)) {
+            ...
+        }
+        
+        ...
+    }
+```
 
 ## Git commit convention
+<img width="281" alt="image" src="https://user-images.githubusercontent.com/85722378/179015713-04f43f34-e604-45bd-9960-054e35a178e7.png">
+
+프로젝트 진행 중반까지만 해도 git commit 메시지를 정해진 약속 없이 수정된 내용을 적어왔습니다.  
+하지만 협업 상황에서 git commit 메시지 컨벤션을 지키는 것은 매우 중요하다고 생각이 되어 이를 지키며 메시지를 남겼습니다.
+
+        dddd
