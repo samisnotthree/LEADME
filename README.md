@@ -87,7 +87,8 @@
 <br/>
 <br/>
 
-## 조회 전용 DTO 생성
+## 조회 전용 DTO
+- 수정을 위한 DTO와 조회를 위한 DTO를 따로 생성하였습니다.
 - 엔티티에 수정이 필요한 경우가 아니면 엔티티를 직접 사용하지 않는 게 좋습니다.
 - 여러 테이블의 데이터를 동시에 조회해올 경우 FK에 들어갈 ID만 조회하는 등 필요한 데이터만 조회하는 전용 DTO를 따로 생성합니다.
 
@@ -131,21 +132,21 @@ JPA에서의 객체 연관관계는 테이블 연관관계보다 객체지향적
 ## 경계 조건 캡슐화
 if문의 조건으로 사용되는 코드가 복잡한 경우 함수로 만들어 가독성 좋게 수정하였습니다.
 ```java
-    public Long addOrder(Orders order) {
-        ...
-        
-        // 기존 코드
-        if (foundOrders.size() < foundOrders.get(0).getProgDaily().getProg().getMaxMember()) {
-            ...
-        }
-        
-        // 수정한 코드
-        if (!validateOrder(order)) {
-            ...
-        }
-        
+public Long addOrder(Orders order) {
+    ...
+
+    // 기존 코드
+    if (foundOrders.size() < foundOrders.get(0).getProgDaily().getProg().getMaxMember()) {
         ...
     }
+
+    // 수정한 코드
+    if (!validateOrder(order)) {
+        ...
+    }
+
+    ...
+}
 ```
 
 <br/>
