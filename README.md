@@ -18,6 +18,30 @@
 [![AmazonRDS](https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonAWS&logoColor=white)](https://github.com/samisnotthree/LEADME)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=Thymeleaf&logoColor=white)](https://github.com/samisnotthree/LEADME)
 
+### Backend
+
+- Java
+- Spring Boot, Spring MVC
+- Hibernate, Spring Data JPA, Querydsl
+- JUnit5
+- Gradle
+
+### DevOps
+
+- AWS EC2, AWS RDS
+- MySQL
+
+### Frontend
+
+- HTML5, CSS3, Javascript
+- Thymeleaf
+
+### Tools
+
+- IntelliJ
+- Git
+
+
 <br/>
 <br/>
 <br/>
