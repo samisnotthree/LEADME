@@ -17,7 +17,8 @@
 [![AmazonEC2](https://img.shields.io/badge/AmazonEC2-FF9900?style=flat-square&logo=AmazonEC2&logoColor=white)](https://github.com/samisnotthree/LEADME)
 [![AmazonRDS](https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonAWS&logoColor=white)](https://github.com/samisnotthree/LEADME)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=Thymeleaf&logoColor=white)](https://github.com/samisnotthree/LEADME)
-
+<br/>
+<br/>
 ### Backend
 
 - Java
